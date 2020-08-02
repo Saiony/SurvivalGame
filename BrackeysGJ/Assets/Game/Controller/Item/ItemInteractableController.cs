@@ -7,23 +7,25 @@ namespace Game.Controller.Item
     {
         public void Further()
         {
-            var newGO = FowardTime();
-            if (newGO == this.gameObject)
-                throw new ArgumentOutOfRangeException("Object is not fowardable");
-            Shrink();
-            Instantiate(newGO, this.transform);
-            var component = newGO.GetComponent<ItemInteractableController>();
-            component.InteractableItem.Passado = gameObject;
-            component.Expand();
-            Destroy(gameObject);
+            if (Fowardable)
+            {
+                var newGO = FowardTime();
+                Shrink();
+                Instantiate(newGO, this.transform);
+                var component = newGO.GetComponent<ItemInteractableController>();
+                component.Shrink(false);
+                component.Expand();
+                Destroy(gameObject);
+            }
         }
 
-        private void Shrink()
+        private void Shrink(bool animate=true)
         {
+            // bool animate diz se o Shrink vai ter um tempo pra diminuir
             // Todo: @Mike
         }
 
-        private void Expand()
+        private void Expand(bool animate=true)
         {
             // Todo: @Mike
         }
