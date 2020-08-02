@@ -2,10 +2,10 @@
 using Game.Controller.Item;
 using UnityEngine;
 
-namespace Game.ScriptableObject
+namespace Game.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "Quest", menuName = "ScriptableObjects/Quest", order = 2)]
-    public class Quest : UnityEngine.ScriptableObject
+    public class QuestSO : ScriptableObject
     {
         public List<Item> itensToCompleteQuest;
     }

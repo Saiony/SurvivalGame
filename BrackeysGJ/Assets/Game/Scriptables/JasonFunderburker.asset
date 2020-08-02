@@ -18,3 +18,4 @@ MonoBehaviour:
   StartQuestDialog: []
   WaitingEndQuestDialog: []
   EndQuestDialog: []
+  AfterQuestDialog: []

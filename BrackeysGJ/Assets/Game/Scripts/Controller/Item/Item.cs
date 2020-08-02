@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.Controller.Interface.Item;
-using Game.ScriptableObject;
+using Game.ScriptableObjects;
 using UnityEngine;
 
 namespace Game.Controller.Item
