@@ -9,14 +9,17 @@ public class NpcSO : ScriptableObject
     public Sprite Portrait;
 
     [TextArea(3, 10)]
-    public string [] StandardDialog;
+    public string[] StandardDialog;
 
     [TextArea(3, 10)]
-    public string [] StartQuestDialog;
+    public string[] StartQuestDialog;
 
     [TextArea(3, 10)]
-    public string [] WaitingEndQuestDialog;
+    public string[] WaitingEndQuestDialog;
 
     [TextArea(3, 10)]
-    public string [] EndQuestDialog;
+    public string[] EndQuestDialog;
+
+    [TextArea(3, 10)]
+    public string[] AfterQuestDialog;
 }
