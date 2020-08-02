@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using Game.Controller.Interface.Item;
-using Game.Controller.Item;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Game.ScriptableObject
+namespace Game.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "InteractableItem", menuName = "ScriptableObjects/InteractableItem", order = 1)]
-    public class InteractableItem : UnityEngine.ScriptableObject
+    public class InteractableItem : ScriptableObject
     {
         [Header("Passado")]
         public GameObject RewindObject;

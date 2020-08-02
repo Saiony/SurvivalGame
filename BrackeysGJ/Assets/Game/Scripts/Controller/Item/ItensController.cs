@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Game.ScriptableObject;
+using Game.ScriptableObjects;
 using UnityEngine;
 
 namespace Game.Controller.Item

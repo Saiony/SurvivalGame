@@ -1,8 +1,9 @@
-﻿using TMPro;
+﻿using Game.Controller.Interact;
+using TMPro;
 using UnityEngine;
 namespace Game.Controller.NPC
 {
-    public class NpcController : Interactable.Interactable
+    public class NpcController : Interactable
     {
         public TextMeshProUGUI missionStatusMark;
 
