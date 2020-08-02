@@ -15,10 +15,14 @@ public class DialogBoxController : MonoBehaviour
 
     private Queue<string> Sentences;
 
+    private bool DialogActive = false;
+
     public void StartDialog(Dialog dialog)
     {
         Setup(dialog);
         //TODO: Animação @mike
+        DialogActive = true;
+        gameObject.SetActive(true);
         DisplayNextSentence();
     }
 
@@ -31,6 +35,14 @@ public class DialogBoxController : MonoBehaviour
 
         Name.text = dialog.Name;
         Avatar.sprite = dialog.Portrait;
+    }
+
+    private void Update()
+    {
+        if(DialogActive && Input.GetKey(KeyCode.Space))
+        {
+            DisplayNextSentence();
+        }
     }
 
     private void DisplayNextSentence()
@@ -48,5 +60,7 @@ public class DialogBoxController : MonoBehaviour
     private void EndDialog()
     {
         //TODO: Animação @mike    
+        gameObject.SetActive(false);
+        DialogActive = false;
     }
 }
