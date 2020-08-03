@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8046897535676781051}
   - component: {fileID: 8046897535676781048}
   - component: {fileID: 8046897535676781049}
+  - component: {fileID: 7311976867116709413}
   m_Layer: 0
   m_Name: Npc
   m_TagString: Untagged
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableRange: 1
   MissionStatusMark: {fileID: 8046897536406369236}
+  npcConfig: {fileID: 0}
 --- !u!135 &8046897535676781049
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -108,6 +110,19 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &7311976867116709413
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046897535676781054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8046897536406369242
 GameObject:
@@ -173,7 +188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '!'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -242,13 +257,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 8046897536406369236}
-    characterCount: 1
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0

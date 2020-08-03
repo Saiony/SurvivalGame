@@ -11,7 +11,10 @@ namespace Game.Controller.Interact
 
 
         [SerializeField]
-        private bool IsPlayerInside { get; set;}
+        private bool IsPlayerInside { get; set; }
+
+        [SerializeField]
+        private bool IsPlayerTouching { get; set; }
 
         protected virtual void Start()
         {
@@ -27,9 +30,9 @@ namespace Game.Controller.Interact
 #if UNITY_EDITOR
             Col.radius = interactableRange;
 #endif
-            if (IsPlayerInside && !PlayerController.Instance.InputBlocked)
+            if (IsPlayerTouching && !PlayerController.Instance.InputBlocked)
             {
-                if(Input.GetKeyUp(KeyCode.Space))
+                if (Input.GetKeyUp(KeyCode.Space))
                     OnPlayerInteract();
             }
         }
@@ -49,6 +52,22 @@ namespace Game.Controller.Interact
             {
                 IsPlayerInside = false;
                 OnPlayerExit();
+            }
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                IsPlayerTouching = true;
+            }
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                IsPlayerTouching = false;
             }
         }
 
