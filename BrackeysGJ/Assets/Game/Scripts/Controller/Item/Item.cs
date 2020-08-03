@@ -8,22 +8,22 @@ namespace Game.Controller.Item
 {
     public abstract class Item : MonoBehaviour, ITimeChangeable
     {
-        public bool Fowardable => InteractableItem.FowardObject != null;
-        public bool Rewindable => InteractableItem.RewindObject != null;
-
-        public InteractableItem InteractableItem;
+        public bool Fowardable => InteractableItemSO.FowardObject != null;
+        public bool Rewindable => InteractableItemSO.RewindObject != null;
+        public InteractableItemSO InteractableItemSO;
+        
         public GameObject FowardTime()
         {
             if (Fowardable)
-                return InteractableItem.FowardObject;
-            throw new ArgumentOutOfRangeException(nameof(InteractableItem.FowardObject));
+                return InteractableItemSO.FowardObject;
+            throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.FowardObject));
         }
 
-        public GameObject BackTime()
+        public GameObject RewindTime()
         {
             if (Rewindable)
-                return InteractableItem.RewindObject;
-            throw new ArgumentOutOfRangeException(nameof(InteractableItem.RewindObject));
+                return InteractableItemSO.RewindObject;
+            throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.RewindObject));
         }
     }
 }

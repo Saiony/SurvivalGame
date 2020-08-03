@@ -10,7 +10,7 @@ namespace Game.Controller.NPC
         public List<NpcController> npcQuestsOrder;
 
         private static QuestsController singleton;
-        private static int currentQuestion = 0;
+        private static int currentQuest = 0;
 
         void Awake()
         {
@@ -21,12 +21,12 @@ namespace Game.Controller.NPC
 
         void Start()
         {
-            npcQuestsOrder[currentQuestion].StartQuest();
+            npcQuestsOrder[currentQuest].StartQuest();
         }
 
-        static void NextQuestion()
+        static void NextQuest()
         {
-            if (currentQuestion + 1 > singleton.npcQuestsOrder.Count)
+            if (currentQuest + 1 > singleton.npcQuestsOrder.Count)
                 ZerouOJogo();
         }
 

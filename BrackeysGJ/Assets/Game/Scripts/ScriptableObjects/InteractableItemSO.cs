@@ -8,13 +8,16 @@ namespace Game.ScriptableObjects
     {
         [Header("Passado")]
         public GameObject RewindObject;
-        public String DialogueOnRewind;
+        public String DialoguePast;
 
-        [Header("Futuro")]
-        public GameObject FowardObject;
-        public String DialogueOnFoward;
 
         [Header("Presente")]
         public GameObject Present;
+        public String DialogPresent;
+
+
+        [Header("Futuro")]
+        public GameObject FowardObject;
+        public String DialogueFuture;
     }
 }
