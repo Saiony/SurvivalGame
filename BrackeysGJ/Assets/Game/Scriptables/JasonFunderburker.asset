@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Jason Funderburker
   Portrait: {fileID: 21300000, guid: 3aeb9c66011df834ca79d429dd5a92fb, type: 3}
-  StandardDialog: []
+  StandardDialog:
+  - "Ol\xE1, tudo bom?"
+  - "O dia est\xE1 agrad\xE1vel, n\xE3o \xE9 mesmo?"
+  - Foda-se
   StartQuestDialog: []
   WaitingEndQuestDialog: []
   EndQuestDialog: []
