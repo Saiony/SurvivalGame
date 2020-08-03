@@ -16,11 +16,4 @@ public class ItemsManager : MonoBehaviour
             throw new Exception("Singleton already populated");
         Instance = this;
     }
-
-    public InteractableItemSO GetFutureOf()
-    {
-        
-    }
-
-    public InteractableItemSO 
 }
