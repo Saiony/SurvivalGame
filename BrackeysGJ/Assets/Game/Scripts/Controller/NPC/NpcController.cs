@@ -1,16 +1,21 @@
 ﻿using Game.Controller.Interact;
 using TMPro;
 using UnityEngine;
+using Game.ScriptableObjects;
 namespace Game.Controller.NPC
 {
     public class NpcController : Interactable
     {
-        public TextMeshProUGUI missionStatusMark;
+        [SerializeField]
+        private TextMeshProUGUI MissionStatusMark;
 
-        private bool hasActiveMission;
-        private bool isWaitingPlayerReturnFromQuest;
+        [SerializeField]
+        private NpcSO npcConfig;
 
-        void Start()
+        private bool MissionActive;
+        private bool QuestStarted;
+
+        protected override void Start()
         {
             base.Start();
             UpdateMissionStatusMark();
@@ -18,34 +23,43 @@ namespace Game.Controller.NPC
 
         public void UpdateMissionStatusMark()
         {
-            if (hasActiveMission)
+            if (MissionActive)
             {
-                missionStatusMark.text = "!";
+                if(QuestStarted)    
+                    MissionStatusMark.text = "?";
+                else
+                    MissionStatusMark.text = "!";
             }
+            else
+                MissionStatusMark.text = "";
         }
 
-        public void LetPlayerStartQuestion()
+        public void StartQuest()
         {
-            this.hasActiveMission = true;
+            MissionActive = true;
         }
 
-        void Update()
+        protected override void LateUpdate()
         {
-            base.Update();
+            base.LateUpdate();
         }
 
         protected override void OnPlayerEnter()
         {
+            Debug.Log("Player nearby");
         }
 
         protected override void OnPlayerExit()
         {
+            Debug.Log("Player left");
         }
 
         protected override void OnPlayerInteract()
         {
-            if (!hasActiveMission)
-                return;
+            Debug.Log("Player interacted");
+
+            Dialog dialog = new Dialog(npcConfig.name, npcConfig.Portrait, npcConfig.StandardDialog);
+            DialogBoxController.Instance.StartDialog(dialog);
         }
     }
 }

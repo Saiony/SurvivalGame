@@ -7,4 +7,11 @@ public class Dialog
 
     [TextArea(3, 10)]
     public string [] Sentences;
+
+    public Dialog(string name, Sprite portrait, string[] sentences)
+    {
+        Name = name;
+        Portrait = portrait;
+        Sentences = sentences;
+    }
 }

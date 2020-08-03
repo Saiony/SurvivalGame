@@ -5,11 +5,11 @@ using UnityEngine.Timeline;
 
 namespace Game.Controller.NPC
 {
-    public class QuestionsController : MonoBehaviour
+    public class QuestsController : MonoBehaviour
     {
-        public List<NpcController> npcQuestionOrder;
+        public List<NpcController> npcQuestsOrder;
 
-        private static QuestionsController singleton;
+        private static QuestsController singleton;
         private static int currentQuestion = 0;
 
         void Awake()
@@ -21,12 +21,12 @@ namespace Game.Controller.NPC
 
         void Start()
         {
-            npcQuestionOrder[currentQuestion].LetPlayerStartQuestion();
+            npcQuestsOrder[currentQuestion].StartQuest();
         }
 
         static void NextQuestion()
         {
-            if (currentQuestion + 1 > singleton.npcQuestionOrder.Count)
+            if (currentQuestion + 1 > singleton.npcQuestsOrder.Count)
                 ZerouOJogo();
         }
 

@@ -17,8 +17,20 @@ public class DialogBoxController : MonoBehaviour
 
     private bool DialogActive = false;
 
-    public void StartDialog(Dialog dialog)
+    public static DialogBoxController Instance = null;
+
+    void Awake()
     {
+        if(!Instance)
+            Instance = this;
+        else
+            Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    public void StartDialog(Dialog dialog)
+    {            
+        PlayerController.Instance.DisableInput();
         Setup(dialog);
         //TODO: Animação @mike
         DialogActive = true;
@@ -28,6 +40,7 @@ public class DialogBoxController : MonoBehaviour
 
     private void Setup(Dialog dialog)
     {
+        Sentences = new Queue<string>();
         foreach (var sentence in dialog.Sentences)
         {
             Sentences.Enqueue(sentence);
@@ -37,9 +50,9 @@ public class DialogBoxController : MonoBehaviour
         Avatar.sprite = dialog.Portrait;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if(DialogActive && Input.GetKey(KeyCode.Space))
+        if(DialogActive && Input.GetKeyUp(KeyCode.Space))
         {
             DisplayNextSentence();
         }
@@ -59,8 +72,9 @@ public class DialogBoxController : MonoBehaviour
 
     private void EndDialog()
     {
-        //TODO: Animação @mike    
-        gameObject.SetActive(false);
+        //TODO: Animação @mike
+        PlayerController.Instance.EnableInput();    
         DialogActive = false;
+        gameObject.SetActive(false);
     }
 }

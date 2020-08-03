@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableRange: 1
-  missionStatusMark: {fileID: 0}
+  MissionStatusMark: {fileID: 8046897536406369236}
 --- !u!135 &8046897535676781049
 SphereCollider:
   m_ObjectHideFlags: 0

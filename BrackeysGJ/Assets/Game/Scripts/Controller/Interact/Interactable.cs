@@ -7,26 +7,29 @@ namespace Game.Controller.Interact
     {
         [Range(1, 5f)]
         public float interactableRange = 1f;
-        private SphereCollider collider;
-        private bool isPlayerInside;
+        private SphereCollider Col;
+
+
+        [SerializeField]
+        private bool IsPlayerInside { get; set;}
 
         protected virtual void Start()
         {
             if (gameObject.GetComponent<SphereCollider>() == null)
                 gameObject.AddComponent<SphereCollider>();
-            collider = GetComponent<SphereCollider>();
-            collider.isTrigger = true;
-            collider.radius = interactableRange;
+            Col = GetComponent<SphereCollider>();
+            Col.isTrigger = true;
+            Col.radius = interactableRange;
         }
 
-        protected virtual void Update()
+        protected virtual void LateUpdate()
         {
 #if UNITY_EDITOR
-            collider.radius = interactableRange;
+            Col.radius = interactableRange;
 #endif
-            if (isPlayerInside)
+            if (IsPlayerInside && !PlayerController.Instance.InputBlocked)
             {
-                if(Input.GetKeyDown(KeyCode.Space))
+                if(Input.GetKeyUp(KeyCode.Space))
                     OnPlayerInteract();
             }
         }
@@ -35,7 +38,7 @@ namespace Game.Controller.Interact
         {
             if (other.gameObject.tag == "Player")
             {
-                isPlayerInside = true;
+                IsPlayerInside = true;
                 OnPlayerEnter();
             }
         }
@@ -44,7 +47,7 @@ namespace Game.Controller.Interact
         {
             if (other.gameObject.tag == "Player")
             {
-                isPlayerInside = false;
+                IsPlayerInside = false;
                 OnPlayerExit();
             }
         }
