@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using System;
 
 public class DialogBoxController : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class DialogBoxController : MonoBehaviour
 
     void Awake()
     {
-        if(!Instance)
+        if (!Instance)
             Instance = this;
         else
             Destroy(gameObject);
@@ -29,7 +31,7 @@ public class DialogBoxController : MonoBehaviour
     }
 
     public void StartDialog(Dialog dialog)
-    {            
+    {
         PlayerController.Instance.DisableInput();
         Setup(dialog);
         //TODO: Animação @mike
@@ -52,7 +54,7 @@ public class DialogBoxController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(DialogActive && Input.GetKeyUp(KeyCode.Space))
+        if (DialogActive && Input.GetKeyUp(KeyCode.Space))
         {
             DisplayNextSentence();
         }
@@ -67,13 +69,14 @@ public class DialogBoxController : MonoBehaviour
         }
 
         string newSentence = Sentences.Dequeue();
-        DisplayedText.text = newSentence;
+        DisplayedText.text = String.Empty;
+        DisplayedText.DOText(newSentence, 0.5f);
     }
 
     private void EndDialog()
     {
         //TODO: Animação @mike
-        PlayerController.Instance.EnableInput();    
+        PlayerController.Instance.EnableInput();
         DialogActive = false;
         gameObject.SetActive(false);
     }
