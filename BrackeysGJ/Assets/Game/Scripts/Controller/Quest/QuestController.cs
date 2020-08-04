@@ -28,10 +28,16 @@ namespace Game.Scripts.Controller.Quest
 
         public bool ItemRequired(Item.Item item)
         {
-            return ItensRequired.Select(x => x.)
+            new NotImplementedException("Item sem id para comparar");
+            return false;
+        }
+        
+        public void ReceiveItem(Item.Item item)
+        {
+            
         }
 
-        public void FinishQuest()
+        private void FinishQuest()
         {
             Completed = true;
         }

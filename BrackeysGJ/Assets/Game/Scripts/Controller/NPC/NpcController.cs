@@ -66,9 +66,7 @@ namespace Game.Scripts.Controller.NPC
         {
             Debug.Log("Player interacted");
             
-            if(QuestController.HasQuest)
-
-            DialogBoxController.Instance.StartDialog(dialog);
+            DialogBoxController.Instance.StartDialog(GetDialog());
         }
 
         private Dialog GetDialog()
@@ -94,11 +92,19 @@ namespace Game.Scripts.Controller.NPC
             {   
                 chosenDialog = NpcConfig.WaitingEndQuestDialog;
             }
-            else if(QuestController. PlayerController.Instance.ItemHeld )
+            else if(!QuestController.ItemRequired(PlayerController.Instance.ItemHeld))
             {
-                
+                //Feedback negativo de UI
             }
+            else
+            {
+                QuestController.ReceiveItem(PlayerController.Instance.ItemHeld);
+                //Feedback positivo de UI
 
+                if(QuestController.Completed)
+                    chosenDialog = NpcConfig.EndQuestDialog;
+            }
+            chosenDialog = NpcConfig.StandardDialog;
             return new Dialog(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
         }
     }

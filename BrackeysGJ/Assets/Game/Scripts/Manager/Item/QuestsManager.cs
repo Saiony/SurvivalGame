@@ -14,7 +14,7 @@ namespace Game.Scripts.Manager.Quest
         public static QuestsManager Instance = null;
         public int QuestCounter = 0;
         public QuestController CurrentQuest => Quests[QuestCounter];
-        
+
         void Awake()
         {
             if (Instance != null)
@@ -29,7 +29,7 @@ namespace Game.Scripts.Manager.Quest
 
         public void FinishQuest(QuestController quest)
         {
-            Quests.Select(x => x.questSO.id == quest.questSO.id);
+            Quests.Select(x => x.questSO.Id == quest.questSO.Id);
         }
     }
 }
