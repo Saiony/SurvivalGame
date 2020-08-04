@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using DG.Tweening;
+using Game.Scripts.Controller.Dialog;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -24,6 +27,11 @@ public class PlayerController : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+    }
+
+    public static Dialog Dialog(params string[] sentences)
+    {
+        throw new NotImplementedException();
     }
 
     void Start()
@@ -50,22 +58,22 @@ public class PlayerController : MonoBehaviour
 
         if (horizontal > 0) //Right
         {
-            direction = Vector3.right;
+            direction = Vector3.right * horizontal;
             gameObject.transform.DOLocalRotate(new Vector3(0, 90, 0), RotationSpeed);
         }
         else if (horizontal < 0) //Left
         {
-            direction = Vector3.left;
+            direction = Vector3.left * -horizontal;
             gameObject.transform.DOLocalRotate(new Vector3(0, -90, 0), RotationSpeed);
         }
         else if (vertical > 0) //Up
         {
-            direction = Vector3.forward;
+            direction = Vector3.forward * vertical;
             gameObject.transform.DOLocalRotate(new Vector3(0, 0, 0), RotationSpeed);
         }
         else if (vertical < 0) //Down
         {
-            direction = Vector3.back;
+            direction = Vector3.back * -vertical;
             gameObject.transform.DOLocalRotate(new Vector3(0, 180, 0), RotationSpeed);
         }
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Game.ScriptableObjects;
 using Game.Scripts.Controller.Item;
 using UnityEngine;
 
@@ -10,7 +8,7 @@ namespace Game.Scripts.Manager.Item
     public class ItensManager : MonoBehaviour
     {
         [SerializeField]
-        private List<InteractableItemSO>  interactableItemsSO;
+        private List<Controller.Item.Item> itens;
 
         public static ItensManager Instance = null;
 
@@ -28,27 +26,23 @@ namespace Game.Scripts.Manager.Item
 
         private void ValidarExistenciaDosItens()
         {
-            if (interactableItemsSO == null)
-                throw new ArgumentOutOfRangeException(nameof(interactableItemsSO));
-            foreach (var item in interactableItemsSO)
+            if (itens == null)
+                throw new ArgumentOutOfRangeException(nameof(itens));
+            foreach (var item in itens)
             {
-                var itemFuturo = item.FutureObject != null ? item.FutureObject.GetComponent<ItemInteractableController>() : null;
-                var itemPassado = item.PastObject != null ? item.PastObject.GetComponent<ItemInteractableController>() : null;
-                var itemPresente = item.PresentObject != null ? item.PresentObject.GetComponent<ItemInteractableController>() : null;
+
+                var itemFuturo = item.InteractableItemSO.FutureObject != null ? item.InteractableItemSO.FutureObject.GetComponent<ItemInteractableController>() : null;
+                var itemPassado = item.InteractableItemSO.PastObject != null ? item.InteractableItemSO.PastObject.GetComponent<ItemInteractableController>() : null;
+
                 if (itemFuturo != null)
                 {
-                    if (itemFuturo.InteractableItemSO.PastObject.name != this.gameObject.name)
-                        throw new ArgumentOutOfRangeException(nameof(itemFuturo));
+                    if (itemFuturo.InteractableItemSO.PastObject.name != item.name)
+                        throw new ArgumentOutOfRangeException($"{item.InteractableItemSO.name} não possuí {nameof(itemFuturo)}");
                 }
                 if (itemPassado != null)
                 {
-                    if (itemPassado.InteractableItemSO.FutureObject.name != this.gameObject.name)
-                        throw new ArgumentOutOfRangeException(nameof(itemPassado));
-                }
-
-                if (itemPresente == null)
-                {
-                    throw new ArgumentOutOfRangeException($"{item.name} deveria estar populado.");
+                    if (itemPassado.InteractableItemSO.FutureObject.name != item.name)
+                        throw new ArgumentOutOfRangeException($"{item.InteractableItemSO.name} não possuí {nameof(itemPassado)}");
                 }
             }
         }
