@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Scripts.Controller.Dialog
+namespace Game.Scripts.Controller.Dialogue
 {
     public class DialogBoxController : MonoBehaviour
     {

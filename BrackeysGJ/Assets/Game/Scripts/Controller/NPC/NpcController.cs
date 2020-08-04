@@ -1,6 +1,8 @@
 ﻿using Game.ScriptableObjects;
-using Game.Scripts.Controller.Dialog;
+using Game.Scripts.Controller.Dialogue;
 using Game.Scripts.Controller.Interact;
+using Game.Scripts.Controller.Quest;
+using Game.Scripts.Manager.Quest;
 using TMPro;
 using UnityEngine;
 
@@ -12,8 +14,12 @@ namespace Game.Scripts.Controller.NPC
         private TextMeshProUGUI MissionStatusMark;
 
         [SerializeField]
-        private NpcSO npcConfig;
+        private NpcSO NpcConfig;
 
+        [SerializeField]
+        private QuestController QuestController;
+
+        private bool HasQuest => QuestController != null;
         private bool MissionActive;
         private bool QuestStarted;
 
@@ -59,9 +65,41 @@ namespace Game.Scripts.Controller.NPC
         protected override void OnPlayerInteract()
         {
             Debug.Log("Player interacted");
+            
+            if(QuestController.HasQuest)
 
-            Dialog.Dialog dialog = new Dialog.Dialog(npcConfig.name, npcConfig.Portrait, npcConfig.StandardDialog);
             DialogBoxController.Instance.StartDialog(dialog);
+        }
+
+        private Dialog GetDialog()
+        {       
+            var chosenDialog = new string[0];     
+            if(!HasQuest)
+            {
+                chosenDialog = NpcConfig.StandardDialog;
+            }
+            else if(QuestController.Completed)
+            {
+                chosenDialog = NpcConfig.AfterQuestDialog;
+            }
+            else if(QuestsManager.Instance.CurrentQuest.Id != QuestController.Id)
+            {
+                chosenDialog = NpcConfig.StandardDialog;
+            }
+            else if(!QuestController.Started)
+            {
+                chosenDialog = NpcConfig.StartQuestDialog;
+            }
+            else if(PlayerController.Instance.ItemHeld == null)
+            {   
+                chosenDialog = NpcConfig.WaitingEndQuestDialog;
+            }
+            else if(QuestController. PlayerController.Instance.ItemHeld )
+            {
+                
+            }
+
+            return new Dialog(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Scripts.Controller.Dialog
+namespace Game.Scripts.Controller.Dialogue
 {
     public class Dialog
     {
@@ -10,7 +10,14 @@ namespace Game.Scripts.Controller.Dialog
         [TextArea(3, 10)]
         public string [] Sentences;
 
-        public Dialog(string name, Sprite portrait, string[] sentences)
+        public Dialog()
+        {
+            Name = string.Empty;
+            Portrait = null;
+            Sentences = new string[0];
+        }
+
+        public Dialog(string name, Sprite portrait, string[] sentences) : this()
         {
             Name = name;
             Portrait = portrait;

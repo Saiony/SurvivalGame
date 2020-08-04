@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Game.Scripts.Controller.Item;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -14,10 +15,11 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rgdBody = null;
 
-    public static PlayerController Instance = null;
-
     public bool InputBlocked { get; private set; }
 
+    public Item ItemHeld{ get; private set; }
+
+    public static PlayerController Instance = null;
     void Awake()
     {
         if (!Instance)
