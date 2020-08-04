@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Controller.Interface.Item
+namespace Game.Scripts.Controller.Interface.Item
 {
     public interface ITimeChangeable
     {

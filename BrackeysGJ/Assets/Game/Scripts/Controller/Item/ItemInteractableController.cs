@@ -1,9 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace Game.Controller.Item
+﻿namespace Game.Scripts.Controller.Item
 {
-    public class ItemInteractableController : Item
+    public class ItemInteractableController : Scripts.Controller.Item.Item
     {
         public void Further()
         {

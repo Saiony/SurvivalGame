@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Game.Controller.Item;
+using Game.Scripts.Controller.Item;
 using UnityEngine;
 
-namespace Game.ScriptableObjects
+namespace Game.Scripts.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "Quest", menuName = "ScriptableObjects/Quest", order = 2)]
     public class QuestSO : ScriptableObject

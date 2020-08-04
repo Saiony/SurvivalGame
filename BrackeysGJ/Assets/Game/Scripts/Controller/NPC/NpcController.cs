@@ -1,8 +1,10 @@
-﻿using Game.Controller.Interact;
+﻿using Game.ScriptableObjects;
+using Game.Scripts.Controller.Dialog;
+using Game.Scripts.Controller.Interact;
 using TMPro;
 using UnityEngine;
-using Game.ScriptableObjects;
-namespace Game.Controller.NPC
+
+namespace Game.Scripts.Controller.NPC
 {
     public class NpcController : Interactable
     {
@@ -58,7 +60,7 @@ namespace Game.Controller.NPC
         {
             Debug.Log("Player interacted");
 
-            Dialog dialog = new Dialog(npcConfig.name, npcConfig.Portrait, npcConfig.StandardDialog);
+            Dialog.Dialog dialog = new Dialog.Dialog(npcConfig.name, npcConfig.Portrait, npcConfig.StandardDialog);
             DialogBoxController.Instance.StartDialog(dialog);
         }
     }

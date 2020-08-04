@@ -7,17 +7,17 @@ namespace Game.ScriptableObjects
     public class InteractableItemSO : ScriptableObject
     {
         [Header("Passado")]
-        public GameObject RewindObject;
-        public String DialoguePast;
+        public GameObject PastObject;
+        public String PastDialogue;
 
 
         [Header("Presente")]
-        public GameObject Present;
-        public String DialogPresent;
+        public GameObject PresentObject;
+        public String PresentDialog;
 
 
         [Header("Futuro")]
-        public GameObject FowardObject;
-        public String DialogueFuture;
+        public GameObject FutureObject;
+        public String FutureDialogue;
     }
 }

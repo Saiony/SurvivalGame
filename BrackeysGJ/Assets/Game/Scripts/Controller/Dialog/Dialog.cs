@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 
-public class Dialog
+namespace Game.Scripts.Controller.Dialog
 {
-    public string Name;
-    public Sprite Portrait;
-
-    [TextArea(3, 10)]
-    public string [] Sentences;
-
-    public Dialog(string name, Sprite portrait, string[] sentences)
+    public class Dialog
     {
-        Name = name;
-        Portrait = portrait;
-        Sentences = sentences;
+        public string Name;
+        public Sprite Portrait;
+
+        [TextArea(3, 10)]
+        public string [] Sentences;
+
+        public Dialog(string name, Sprite portrait, string[] sentences)
+        {
+            Name = name;
+            Portrait = portrait;
+            Sentences = sentences;
+        }
     }
 }

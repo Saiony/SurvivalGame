@@ -1,83 +1,85 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using DG.Tweening;
-using System;
 
-public class DialogBoxController : MonoBehaviour
+namespace Game.Scripts.Controller.Dialog
 {
-    [SerializeField]
-    private Image Avatar;
-    [SerializeField]
-    private TextMeshProUGUI Name;
-    [SerializeField]
-    private TextMeshProUGUI DisplayedText;
-
-    private Queue<string> Sentences;
-
-    private bool DialogActive = false;
-
-    public static DialogBoxController Instance = null;
-
-    void Awake()
+    public class DialogBoxController : MonoBehaviour
     {
-        if (!Instance)
-            Instance = this;
-        else
-            Destroy(gameObject);
-        gameObject.SetActive(false);
-    }
+        [SerializeField]
+        private Image Avatar;
+        [SerializeField]
+        private TextMeshProUGUI Name;
+        [SerializeField]
+        private TextMeshProUGUI DisplayedText;
 
-    public void StartDialog(Dialog dialog)
-    {
-        PlayerController.Instance.DisableInput();
-        Setup(dialog);
-        //TODO: Animação @mike
-        DialogActive = true;
-        gameObject.SetActive(true);
-        DisplayNextSentence();
-    }
+        private Queue<string> Sentences;
 
-    private void Setup(Dialog dialog)
-    {
-        Sentences = new Queue<string>();
-        foreach (var sentence in dialog.Sentences)
+        private bool DialogActive = false;
+
+        public static DialogBoxController Instance = null;
+
+        void Awake()
         {
-            Sentences.Enqueue(sentence);
+            if (!Instance)
+                Instance = this;
+            else
+                Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
-        Name.text = dialog.Name;
-        Avatar.sprite = dialog.Portrait;
-    }
-
-    private void LateUpdate()
-    {
-        if (DialogActive && Input.GetKeyUp(KeyCode.Space))
+        public void StartDialog(Dialog dialog)
         {
+            PlayerController.Instance.DisableInput();
+            Setup(dialog);
+            //TODO: Animação @mike
+            DialogActive = true;
+            gameObject.SetActive(true);
             DisplayNextSentence();
         }
-    }
 
-    private void DisplayNextSentence()
-    {
-        if (Sentences.Count == 0)
+        private void Setup(Dialog dialog)
         {
-            EndDialog();
-            return;
+            Sentences = new Queue<string>();
+            foreach (var sentence in dialog.Sentences)
+            {
+                Sentences.Enqueue(sentence);
+            }
+
+            Name.text = dialog.Name;
+            Avatar.sprite = dialog.Portrait;
         }
 
-        string newSentence = Sentences.Dequeue();
-        DisplayedText.text = String.Empty;
-        DisplayedText.DOText(newSentence, 0.5f);
-    }
+        private void LateUpdate()
+        {
+            if (DialogActive && Input.GetKeyUp(KeyCode.Space))
+            {
+                DisplayNextSentence();
+            }
+        }
 
-    private void EndDialog()
-    {
-        //TODO: Animação @mike
-        PlayerController.Instance.EnableInput();
-        DialogActive = false;
-        gameObject.SetActive(false);
+        private void DisplayNextSentence()
+        {
+            if (Sentences.Count == 0)
+            {
+                EndDialog();
+                return;
+            }
+
+            string newSentence = Sentences.Dequeue();
+            DisplayedText.text = String.Empty;
+            DisplayedText.DOText(newSentence, 0.5f);
+        }
+
+        private void EndDialog()
+        {
+            //TODO: Animação @mike
+            PlayerController.Instance.EnableInput();
+            DialogActive = false;
+            gameObject.SetActive(false);
+        }
     }
 }

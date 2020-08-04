@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Controller.Interact
+namespace Game.Scripts.Controller.Interact
 {
     [ExecuteInEditMode]
     public abstract class Interactable : MonoBehaviour

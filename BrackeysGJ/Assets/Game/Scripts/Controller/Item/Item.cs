@@ -1,29 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using Game.Controller.Interface.Item;
 using Game.ScriptableObjects;
+using Game.Scripts.Controller.Interface.Item;
 using UnityEngine;
 
-namespace Game.Controller.Item
+namespace Game.Scripts.Controller.Item
 {
     public abstract class Item : MonoBehaviour, ITimeChangeable
     {
-        public bool Fowardable => InteractableItemSO.FowardObject != null;
-        public bool Rewindable => InteractableItemSO.RewindObject != null;
+        public bool Fowardable => InteractableItemSO.FutureObject != null;
+        public bool Rewindable => InteractableItemSO.PastObject != null;
         public InteractableItemSO InteractableItemSO;
         
         public GameObject FowardTime()
         {
             if (Fowardable)
-                return InteractableItemSO.FowardObject;
-            throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.FowardObject));
+                return InteractableItemSO.FutureObject;
+            throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.FutureObject));
         }
 
         public GameObject RewindTime()
         {
             if (Rewindable)
-                return InteractableItemSO.RewindObject;
-            throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.RewindObject));
+                return InteractableItemSO.PastObject;
+            throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.PastObject));
         }
     }
 }

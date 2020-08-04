@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Scripts.Controller.NPC;
 using UnityEngine;
-using UnityEngine.Timeline;
 
-namespace Game.Controller.NPC
+namespace Game.Scripts.Controller.Quest
 {
     public class QuestsController : MonoBehaviour
     {
