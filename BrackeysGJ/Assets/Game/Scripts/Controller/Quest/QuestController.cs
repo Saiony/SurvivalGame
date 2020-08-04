@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.Scripts.Controller.NPC;
 using UnityEngine;
 using Game.Scripts.ScriptableObjects;
+using System.Linq;
 
 namespace Game.Scripts.Controller.Quest
 {
@@ -11,7 +12,7 @@ namespace Game.Scripts.Controller.Quest
         public QuestSO questSO = null;
         public int Id;
         public List<Item.Item> ItensRequired;
-        
+
         public bool Started;
         public bool Completed;
 
@@ -23,6 +24,11 @@ namespace Game.Scripts.Controller.Quest
             Id = questSO.Id;
             ItensRequired = questSO.ItensRequired;
             Completed = false;
+        }
+
+        public bool ItemRequired(Item.Item item)
+        {
+            return ItensRequired.Select(x => x.)
         }
 
         public void FinishQuest()

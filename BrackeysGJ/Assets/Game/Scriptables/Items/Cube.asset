@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Item
+  m_Script: {fileID: 11500000, guid: b311cbad64a417f478165c766948f607, type: 3}
+  m_Name: Cubo
   m_EditorClassIdentifier: Assembly-CSharp:Game.ScriptableObjects:InteractableItem
-  RewindObject: {fileID: 0}
-  DialogueOnRewind: 
-  FowardObject: {fileID: 0}
-  DialogueOnFoward: 
-  Present: {fileID: 0}
+  PastObject: {fileID: 0}
+  PastDialogue: 
+  PresentObject: {fileID: 0}
+  PresentDialog: 
+  FutureObject: {fileID: 0}
+  FutureDialogue: 

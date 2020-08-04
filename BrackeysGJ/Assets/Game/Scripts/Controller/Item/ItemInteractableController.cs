@@ -1,30 +1,25 @@
-﻿namespace Game.Scripts.Controller.Item
+﻿using Game.Scripts.Controller.Dialog;
+
+namespace Game.Scripts.Controller.Item
 {
-    public class ItemInteractableController : Scripts.Controller.Item.Item
+    public class ItemInteractableController : Item
     {
-        public void Further()
+        protected override void OnRewind() { }
+        protected override void OnFoward() { }
+
+        protected override void OnPlayerEnter()
         {
-            if (Fowardable)
-            {
-                var newGO = FowardTime();
-                Shrink();
-                Instantiate(newGO, this.transform);
-                var component = newGO.GetComponent<ItemInteractableController>();
-                component.Shrink(false);
-                component.Expand();
-                Destroy(gameObject);
-            }
+            print("entrou");
         }
 
-        private void Shrink(bool animate=true)
+        protected override void OnPlayerExit()
         {
-            // bool animate diz se o Shrink vai ter um tempo pra diminuir
-            // Todo: @Mike
+            print("saiu");
         }
 
-        private void Expand(bool animate=true)
+        protected override void OnPlayerInteract()
         {
-            // Todo: @Mike
+            DialogBoxController.Instance.StartDialog(PlayerController.Dialog("asokasod", "aodkaso"));
         }
     }
 }
