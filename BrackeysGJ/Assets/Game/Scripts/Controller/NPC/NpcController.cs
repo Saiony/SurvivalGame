@@ -95,11 +95,13 @@ namespace Game.Scripts.Controller.NPC
             else if(!QuestController.ItemRequired(PlayerController.Instance.ItemHeld))
             {
                 //Feedback negativo de UI
+                Debug.Log("O NPC não gosta do que você fez pq você fede");
             }
             else
             {
                 QuestController.ReceiveItem(PlayerController.Instance.ItemHeld);
                 //Feedback positivo de UI
+                Debug.Log("O NPC gosta do que você fez pq vc tem cheiro de monange");
 
                 if(QuestController.Completed)
                     chosenDialog = NpcConfig.EndQuestDialog;

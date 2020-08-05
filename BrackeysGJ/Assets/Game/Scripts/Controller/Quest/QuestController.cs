@@ -19,7 +19,7 @@ namespace Game.Scripts.Controller.Quest
         private void Start() 
         {
             if(!questSO)    
-                throw new Exception("Quest controller withou a quest");
+                throw new Exception("Quest controller without a quest");
             
             Id = questSO.Id;
             ItensRequired = questSO.ItensRequired;
