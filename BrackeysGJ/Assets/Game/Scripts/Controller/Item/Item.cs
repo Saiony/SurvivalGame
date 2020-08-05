@@ -74,5 +74,10 @@ namespace Game.Scripts.Controller.Item
             yield return null;
             // Todo: @Mike
         }
+
+        public bool Equals(Item other)
+        {
+            return InteractableItemSO.name == other.InteractableItemSO.name;
+        }
     }
 }
