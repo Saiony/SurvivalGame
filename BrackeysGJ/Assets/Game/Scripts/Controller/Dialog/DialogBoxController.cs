@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game.Scripts.Controller.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Scripts.Controller.Dialogue
+namespace Game.Scripts.Controller.Dialog
 {
     public class DialogBoxController : MonoBehaviour
     {
@@ -31,7 +32,7 @@ namespace Game.Scripts.Controller.Dialogue
             gameObject.SetActive(false);
         }
 
-        public void StartDialog(Dialog dialog)
+        public void StartDialog(Dialogue.Dialog dialog)
         {
             if (dialog == null)
                 return;
@@ -43,7 +44,7 @@ namespace Game.Scripts.Controller.Dialogue
             DisplayNextSentence();
         }
 
-        private void Setup(Dialog dialog)
+        private void Setup(Dialogue.Dialog dialog)
         {
             Sentences = new Queue<string>();
             foreach (var sentence in dialog.Sentences)

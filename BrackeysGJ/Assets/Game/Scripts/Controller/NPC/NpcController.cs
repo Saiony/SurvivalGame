@@ -1,6 +1,7 @@
 ﻿using Game.ScriptableObjects;
-using Game.Scripts.Controller.Dialogue;
+using Game.Scripts.Controller.Dialog;
 using Game.Scripts.Controller.Interact;
+using Game.Scripts.Controller.Player;
 using Game.Scripts.Controller.Quest;
 using Game.Scripts.Manager.Quest;
 using TMPro;
@@ -69,7 +70,7 @@ namespace Game.Scripts.Controller.NPC
             DialogBoxController.Instance.StartDialog(GetDialog());
         }
 
-        private Dialog GetDialog()
+        private Dialogue.Dialog GetDialog()
         {
             var chosenDialog = new string[0];
             if (!HasQuest)
@@ -106,7 +107,7 @@ namespace Game.Scripts.Controller.NPC
                 Debug.Log("O NPC não gosta do que você fez pq você fede");
             }
             chosenDialog = NpcConfig.StandardDialog;
-            return new Dialog(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
+            return new Dialogue.Dialog(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
         }
     }
 }
