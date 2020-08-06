@@ -33,7 +33,7 @@ namespace Game.Scripts.Controller.Dialogue
 
         public void StartDialog(Dialog dialog)
         {
-            if(dialog == null)
+            if (dialog == null)
                 return;
             PlayerController.Instance.DisableInput();
             Setup(dialog);

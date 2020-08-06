@@ -33,7 +33,7 @@ namespace Game.Scripts.Controller.NPC
         {
             if (MissionActive)
             {
-                if(QuestStarted)    
+                if (QuestStarted)
                     MissionStatusMark.text = "?";
                 else
                     MissionStatusMark.text = "!";
@@ -65,46 +65,45 @@ namespace Game.Scripts.Controller.NPC
         protected override void OnPlayerInteract()
         {
             Debug.Log("Player interacted");
-            
+
             DialogBoxController.Instance.StartDialog(GetDialog());
         }
 
         private Dialog GetDialog()
-        {       
-            var chosenDialog = new string[0];     
-            if(!HasQuest)
+        {
+            var chosenDialog = new string[0];
+            if (!HasQuest)
             {
                 chosenDialog = NpcConfig.StandardDialog;
             }
-            else if(QuestController.Completed)
+            else if (QuestController.Completed)
             {
                 chosenDialog = NpcConfig.AfterQuestDialog;
             }
-            else if(QuestsManager.Instance.CurrentQuest.Id != QuestController.Id)
+            else if (QuestsManager.Instance.CurrentQuest.Id != QuestController.Id)
             {
                 chosenDialog = NpcConfig.StandardDialog;
             }
-            else if(!QuestController.Started)
+            else if (!QuestController.Started)
             {
                 chosenDialog = NpcConfig.StartQuestDialog;
             }
-            else if(PlayerController.Instance.ItemHeld == null)
-            {   
+            else if (PlayerController.Instance.ItemHeld == null)
+            {
                 chosenDialog = NpcConfig.WaitingEndQuestDialog;
             }
-            else if(!QuestController.ItemRequired(PlayerController.Instance.ItemHeld))
+            else if (QuestController.ReceiveItem(PlayerController.Instance.ItemHeld))
             {
-                //Feedback negativo de UI
-                Debug.Log("O NPC não gosta do que você fez pq você fede");
-            }
-            else
-            {
-                QuestController.ReceiveItem(PlayerController.Instance.ItemHeld);
                 //Feedback positivo de UI
                 Debug.Log("O NPC gosta do que você fez pq vc tem cheiro de monange");
 
-                if(QuestController.Completed)
+                if (QuestController.Completed)
                     chosenDialog = NpcConfig.EndQuestDialog;
+            }
+            else
+            {
+                //Feedback negativo de UI
+                Debug.Log("O NPC não gosta do que você fez pq você fede");
             }
             chosenDialog = NpcConfig.StandardDialog;
             return new Dialog(NpcConfig.name, NpcConfig.Portrait, chosenDialog);

@@ -8,7 +8,7 @@ using System.Linq;
 namespace Game.Scripts.Controller.Quest
 {
     public class QuestController : MonoBehaviour
-    {        
+    {
         public QuestSO questSO = null;
         public int Id;
         public List<Item.Item> ItensRequired;
@@ -16,25 +16,30 @@ namespace Game.Scripts.Controller.Quest
         public bool Started;
         public bool Completed;
 
-        private void Start() 
+        private void Start()
         {
-            if(!questSO)    
+            if (!questSO)
                 throw new Exception("Quest controller without a quest");
-            
+
             Id = questSO.Id;
             ItensRequired = questSO.ItensRequired;
             Completed = false;
         }
 
-        public bool ItemRequired(Item.Item item)
+        public bool ReceiveItem(Item.Item item)
         {
-            new NotImplementedException("Item sem id para comparar");
-            return false;
-        }
-        
-        public void ReceiveItem(Item.Item item)
-        {
-            
+            var itemRequired = ItensRequired.FirstOrDefault(x => x.Equals(item));
+            if (!itemRequired)
+            {
+                return false;
+            }
+            else
+            {
+                ItensRequired.Remove(itemRequired);
+                if (ItensRequired.Count == 0)
+                    FinishQuest();
+                return true;
+            }
         }
 
         private void FinishQuest()

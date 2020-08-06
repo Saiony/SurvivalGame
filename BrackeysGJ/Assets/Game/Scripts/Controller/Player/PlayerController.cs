@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
 
     public bool InputBlocked { get; private set; }
 
-    public Item ItemHeld{ get; private set; }
+    public Item ItemHeld { get; private set; }
+
+    public bool HasItem => ItemHeld != null;
 
     public static PlayerController Instance = null;
     void Awake()
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         rgdBody.velocity = Vector3.zero;
 
-        if(InputBlocked)
+        if (InputBlocked)
             return;
 
         var horizontal = Input.GetAxis("Horizontal");
