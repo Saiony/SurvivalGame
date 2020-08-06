@@ -481,6 +481,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c7da1157e4c46364a8d7031f2a776876,
         type: 2}
+    - target: {fileID: 8046897535676781048, guid: e945aeb4276073e459134378f66d32ce,
+        type: 3}
+      propertyPath: NpcConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: c7da1157e4c46364a8d7031f2a776876,
+        type: 2}
     - target: {fileID: 8046897535676781049, guid: e945aeb4276073e459134378f66d32ce,
         type: 3}
       propertyPath: m_Radius

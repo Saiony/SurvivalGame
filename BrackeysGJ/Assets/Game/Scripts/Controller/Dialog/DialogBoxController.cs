@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Scripts.Controller.Dialog
+namespace Game.Scripts.Controller.Dialogue
 {
     public class DialogBoxController : MonoBehaviour
     {
@@ -33,6 +33,8 @@ namespace Game.Scripts.Controller.Dialog
 
         public void StartDialog(Dialog dialog)
         {
+            if (dialog == null)
+                return;
             PlayerController.Instance.DisableInput();
             Setup(dialog);
             //TODO: Animação @mike

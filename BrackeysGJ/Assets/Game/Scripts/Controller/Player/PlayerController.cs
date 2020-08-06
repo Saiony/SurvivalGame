@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using DG.Tweening;
-using Game.Scripts.Controller.Dialog;
+using Game.Scripts.Controller.Item;
+using Game.Scripts.Controller.Dialogue;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -17,10 +18,13 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rgdBody = null;
 
-    public static PlayerController Instance = null;
-
     public bool InputBlocked { get; private set; }
 
+    public Item ItemHeld { get; private set; }
+
+    public bool HasItem => ItemHeld != null;
+
+    public static PlayerController Instance = null;
     void Awake()
     {
         if (!Instance)
@@ -49,7 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         rgdBody.velocity = Vector3.zero;
 
-        if(InputBlocked)
+        if (InputBlocked)
             return;
 
         var horizontal = Input.GetAxis("Horizontal");

@@ -1,6 +1,8 @@
 ﻿using Game.ScriptableObjects;
-using Game.Scripts.Controller.Dialog;
+using Game.Scripts.Controller.Dialogue;
 using Game.Scripts.Controller.Interact;
+using Game.Scripts.Controller.Quest;
+using Game.Scripts.Manager.Quest;
 using TMPro;
 using UnityEngine;
 
@@ -12,8 +14,12 @@ namespace Game.Scripts.Controller.NPC
         private TextMeshProUGUI MissionStatusMark;
 
         [SerializeField]
-        private NpcSO npcConfig;
+        private NpcSO NpcConfig;
 
+        [SerializeField]
+        private QuestController QuestController;
+
+        private bool HasQuest => QuestController != null;
         private bool MissionActive;
         private bool QuestStarted;
 
@@ -27,7 +33,7 @@ namespace Game.Scripts.Controller.NPC
         {
             if (MissionActive)
             {
-                if(QuestStarted)    
+                if (QuestStarted)
                     MissionStatusMark.text = "?";
                 else
                     MissionStatusMark.text = "!";
@@ -60,8 +66,47 @@ namespace Game.Scripts.Controller.NPC
         {
             Debug.Log("Player interacted");
 
-            Dialog.Dialog dialog = new Dialog.Dialog(npcConfig.name, npcConfig.Portrait, npcConfig.StandardDialog);
-            DialogBoxController.Instance.StartDialog(dialog);
+            DialogBoxController.Instance.StartDialog(GetDialog());
+        }
+
+        private Dialog GetDialog()
+        {
+            var chosenDialog = new string[0];
+            if (!HasQuest)
+            {
+                chosenDialog = NpcConfig.StandardDialog;
+            }
+            else if (QuestController.Completed)
+            {
+                chosenDialog = NpcConfig.AfterQuestDialog;
+            }
+            else if (QuestsManager.Instance.CurrentQuest.Id != QuestController.Id)
+            {
+                chosenDialog = NpcConfig.StandardDialog;
+            }
+            else if (!QuestController.Started)
+            {
+                chosenDialog = NpcConfig.StartQuestDialog;
+            }
+            else if (PlayerController.Instance.ItemHeld == null)
+            {
+                chosenDialog = NpcConfig.WaitingEndQuestDialog;
+            }
+            else if (QuestController.ReceiveItem(PlayerController.Instance.ItemHeld))
+            {
+                //Feedback positivo de UI
+                Debug.Log("O NPC gosta do que você fez pq vc tem cheiro de monange");
+
+                if (QuestController.Completed)
+                    chosenDialog = NpcConfig.EndQuestDialog;
+            }
+            else
+            {
+                //Feedback negativo de UI
+                Debug.Log("O NPC não gosta do que você fez pq você fede");
+            }
+            chosenDialog = NpcConfig.StandardDialog;
+            return new Dialog(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
         }
     }
 }
