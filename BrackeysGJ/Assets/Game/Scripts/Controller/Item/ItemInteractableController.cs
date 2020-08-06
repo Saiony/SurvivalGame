@@ -1,4 +1,5 @@
 ﻿using Game.Scripts.Controller.Dialogue;
+using UnityEngine;
 
 namespace Game.Scripts.Controller.Item
 {
@@ -15,11 +16,6 @@ namespace Game.Scripts.Controller.Item
         protected override void OnPlayerExit()
         {
             print("saiu");
-        }
-
-        protected override void OnPlayerInteract()
-        {
-            DialogBoxController.Instance.StartDialog(PlayerController.Dialog("asokasod", "aodkaso"));
         }
     }
 }

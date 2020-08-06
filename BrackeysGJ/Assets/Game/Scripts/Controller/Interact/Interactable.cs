@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.Controller.Player;
+using UnityEngine;
 
 namespace Game.Scripts.Controller.Interact
 {

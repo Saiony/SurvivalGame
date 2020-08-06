@@ -1,96 +1,124 @@
-﻿using System;
+﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using DG.Tweening;
-using Game.Scripts.Controller.Item;
-using Game.Scripts.Controller.Dialogue;
 
-[RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+namespace Game.Scripts.Controller.Player
 {
-    [SerializeField]
-    private float Speed;
-
-    [SerializeField]
-    private float RotationSpeed;
-
-    private Rigidbody rgdBody = null;
-
-    public bool InputBlocked { get; private set; }
-
-    public Item ItemHeld { get; private set; }
-
-    public bool HasItem => ItemHeld != null;
-
-    public static PlayerController Instance = null;
-    void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    public class PlayerController : MonoBehaviour
     {
-        if (!Instance)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
+        [SerializeField]
+        private float Speed;
 
-    public static Dialog Dialog(params string[] sentences)
-    {
-        throw new NotImplementedException();
-    }
+        [SerializeField]
+        private float RotationSpeed;
 
-    void Start()
-    {
-        rgdBody = GetComponent<Rigidbody>();
-        InputBlocked = false;
-    }
+        private Rigidbody rgdBody = null;
 
-    void FixedUpdate()
-    {
-        Movement();
-    }
+        public bool InputBlocked { get; private set; }
 
-    private void Movement()
-    {
-        rgdBody.velocity = Vector3.zero;
+        public Item.Item ItemHeld { get; private set; }
 
-        if (InputBlocked)
-            return;
+        public bool HasItem => ItemHeld != null;
 
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
-        var direction = Vector3.zero;
+        public GameObject hand;
 
-        if (horizontal > 0) //Right
+        public static PlayerController Instance = null;
+        void Awake()
         {
-            direction = Vector3.right * horizontal;
-            gameObject.transform.DOLocalRotate(new Vector3(0, 90, 0), RotationSpeed);
-        }
-        else if (horizontal < 0) //Left
-        {
-            direction = Vector3.left * -horizontal;
-            gameObject.transform.DOLocalRotate(new Vector3(0, -90, 0), RotationSpeed);
-        }
-        else if (vertical > 0) //Up
-        {
-            direction = Vector3.forward * vertical;
-            gameObject.transform.DOLocalRotate(new Vector3(0, 0, 0), RotationSpeed);
-        }
-        else if (vertical < 0) //Down
-        {
-            direction = Vector3.back * -vertical;
-            gameObject.transform.DOLocalRotate(new Vector3(0, 180, 0), RotationSpeed);
+            if (!Instance)
+                Instance = this;
+            else
+                Destroy(gameObject);
         }
 
-        rgdBody.velocity = direction * Speed;
-    }
+        public IEnumerator GetItem(Item.Item item)
+        {
+            yield return AnimateGetItem(item);
 
-    public void DisableInput()
-    {
-        InputBlocked = true;
-    }
+            item.gameObject.transform.position = Instance.hand.transform.position;
+            item.gameObject.transform.parent = Instance.hand.transform;
+            this.ItemHeld = item;
+        }
 
-    public void EnableInput()
-    {
-        InputBlocked = false;
+        private IEnumerator AnimateGetItem(Item.Item item)
+        {
+            yield return null;
+        }
+
+        public static Dialogue.Dialog Dialog(params string[] sentences)
+        {
+            return null;
+        }
+
+        void Start()
+        {
+            rgdBody = GetComponent<Rigidbody>();
+            InputBlocked = false;
+        }
+
+        void FixedUpdate()
+        {
+            Movement();
+        }
+
+        private void Movement()
+        {
+            rgdBody.velocity = Vector3.zero;
+
+            if (InputBlocked)
+                return;
+
+            var horizontal = Input.GetAxis("Horizontal");
+            var vertical = Input.GetAxis("Vertical");
+            var direction = Vector3.zero;
+
+            if (horizontal > 0) //Right
+            {
+                direction = Vector3.right * horizontal;
+                gameObject.transform.DOLocalRotate(new Vector3(0, 90, 0), RotationSpeed);
+            }
+            else if (horizontal < 0) //Left
+            {
+                direction = Vector3.left * -horizontal;
+                gameObject.transform.DOLocalRotate(new Vector3(0, -90, 0), RotationSpeed);
+            }
+            else if (vertical > 0) //Up
+            {
+                direction = Vector3.forward * vertical;
+                gameObject.transform.DOLocalRotate(new Vector3(0, 0, 0), RotationSpeed);
+            }
+            else if (vertical < 0) //Down
+            {
+                direction = Vector3.back * -vertical;
+                gameObject.transform.DOLocalRotate(new Vector3(0, 180, 0), RotationSpeed);
+            }
+
+            rgdBody.velocity = direction * Speed;
+        }
+
+        public void DisableInput()
+        {
+            InputBlocked = true;
+        }
+
+        public void EnableInput()
+        {
+            InputBlocked = false;
+        }
+
+        public void ExchangeItem(Item.Item item)
+        {
+            if (!item.Equals(ItemHeld))
+            {
+                ItemHeld.transform.position = item.transform.position;
+                ItemHeld.transform.parent = null;
+                StartCoroutine(GetItem(item));
+            }
+            else
+            {
+                ItemHeld.transform.parent = null;
+            }
+        }
     }
 }

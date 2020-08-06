@@ -3,6 +3,7 @@ using System.Collections;
 using Game.ScriptableObjects;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Interface.Item;
+using Game.Scripts.Controller.Player;
 using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
@@ -13,7 +14,14 @@ namespace Game.Scripts.Controller.Item
         public bool Fowardable => InteractableItemSO.FutureObject != null;
         public bool Rewindable => InteractableItemSO.PastObject != null;
         public InteractableItemSO InteractableItemSO;
-        
+        public Rigidbody rigidbody;
+
+        void Start()
+        {
+            base.Start();
+            rigidbody = this.GetComponent<Rigidbody>();
+        }
+
         public void FowardTime()
         {
             if (Fowardable)
@@ -34,6 +42,18 @@ namespace Game.Scripts.Controller.Item
                 return;
             }
             throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.PastObject));
+        }
+
+        protected override void OnPlayerInteract()
+        {
+            if (PlayerController.Instance.HasItem)
+            {
+                PlayerController.Instance.ExchangeItem(this);
+            }
+            else
+            {
+                StartCoroutine(PlayerController.Instance.GetItem(this));
+            }
         }
 
         protected abstract void OnFoward();
