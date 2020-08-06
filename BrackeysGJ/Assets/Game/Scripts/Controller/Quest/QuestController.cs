@@ -4,16 +4,21 @@ using Game.Scripts.Controller.NPC;
 using UnityEngine;
 using Game.Scripts.ScriptableObjects;
 using System.Linq;
+using Game.Scripts.Manager.Quest;
 
 namespace Game.Scripts.Controller.Quest
 {
     public class QuestController : MonoBehaviour
     {
-        public QuestSO questSO = null;
-        public int Id;
-        public List<Item.Item> ItensRequired;
-
+        [SerializeField]
+        private QuestSO questSO = null;
+        private List<InteractableItemSO> ItensRequired;
+        
+        [NonSerialized]
+        public string Name;
+        [NonSerialized]
         public bool Started;
+        [NonSerialized]
         public bool Completed;
 
         private void Start()
@@ -21,7 +26,7 @@ namespace Game.Scripts.Controller.Quest
             if (!questSO)
                 throw new Exception("Quest controller without a quest");
 
-            Id = questSO.Id;
+            Name = questSO.Name;
             ItensRequired = questSO.ItensRequired;
             Completed = false;
         }
@@ -42,8 +47,9 @@ namespace Game.Scripts.Controller.Quest
             }
         }
 
-        private void FinishQuest()
+        public void FinishQuest()
         {
+            QuestsManager.Instance.FinishQuest(this);
             Completed = true;
         }
     }

@@ -80,7 +80,7 @@ namespace Game.Scripts.Controller.NPC
             {
                 chosenDialog = NpcConfig.AfterQuestDialog;
             }
-            else if (QuestsManager.Instance.CurrentQuest.Id != QuestController.Id)
+            else if (QuestsManager.Instance.CurrentQuest.Name != QuestController.Name)
             {
                 chosenDialog = NpcConfig.StandardDialog;
             }
@@ -105,7 +105,6 @@ namespace Game.Scripts.Controller.NPC
                 //Feedback negativo de UI
                 Debug.Log("O NPC não gosta do que você fez pq você fede");
             }
-            chosenDialog = NpcConfig.StandardDialog;
             return new Dialog(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
         }
     }

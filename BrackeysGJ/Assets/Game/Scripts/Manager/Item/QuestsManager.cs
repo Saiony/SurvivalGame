@@ -4,16 +4,17 @@ using UnityEngine;
 using Game.Scripts.Controller.Quest;
 using System;
 using System.Linq;
+using Game.Scripts.ScriptableObjects;
 
 namespace Game.Scripts.Manager.Quest
 {
 
     public class QuestsManager : MonoBehaviour
     {
-        public List<QuestController> Quests = null;
+        public List<QuestSO> Quests = null;
         public static QuestsManager Instance = null;
         public int QuestCounter = 0;
-        public QuestController CurrentQuest => Quests[QuestCounter];
+        public QuestSO CurrentQuest => Quests[QuestCounter];
 
         void Awake()
         {
@@ -24,12 +25,15 @@ namespace Game.Scripts.Manager.Quest
 
         private void Start()
         {
-            
+            QuestCounter = 0;
+            if(Quests.Count == 0)
+                throw new Exception("QuestsManager without quests");
         }
 
         public void FinishQuest(QuestController quest)
         {
-            Quests.Select(x => x.questSO.Id == quest.questSO.Id);
+            Quests.FirstOrDefault(x => x.Name == quest.Name);
+            QuestCounter++;
         }
     }
 }

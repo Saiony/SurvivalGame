@@ -7,7 +7,7 @@ namespace Game.Scripts.ScriptableObjects
     [CreateAssetMenu(fileName = "Quest", menuName = "ScriptableObjects/Quest", order = 2)]
     public class QuestSO : ScriptableObject
     {
-        public int Id;
-        public List<Item> ItensRequired;
+        public string Name;
+        public List<InteractableItemSO> ItensRequired;
     }
 }

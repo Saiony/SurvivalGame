@@ -18,7 +18,11 @@ MonoBehaviour:
   - "Ol\xE1, tudo bom?"
   - "O dia est\xE1 agrad\xE1vel, n\xE3o \xE9 mesmo?"
   - Foda-se
-  StartQuestDialog: []
-  WaitingEndQuestDialog: []
-  EndQuestDialog: []
-  AfterQuestDialog: []
+  StartQuestDialog:
+  - Start Quest Dialog
+  WaitingEndQuestDialog:
+  - "Waiting End Quest Dialog\t"
+  EndQuestDialog:
+  - End Quest Dialog
+  AfterQuestDialog:
+  - After Quest Dialog

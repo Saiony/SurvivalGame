@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8046897535676781050}
   - component: {fileID: 8046897535676781051}
   - component: {fileID: 8046897535676781048}
+  - component: {fileID: 2313779153862028536}
   - component: {fileID: 8046897535676781049}
   - component: {fileID: 7311976867116709413}
   m_Layer: 0
@@ -97,7 +98,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableRange: 1
   MissionStatusMark: {fileID: 8046897536406369236}
-  npcConfig: {fileID: 0}
+  NpcConfig: {fileID: 0}
+  QuestController: {fileID: 2313779153862028536}
+--- !u!114 &2313779153862028536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046897535676781054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec53bf9a12e06c844b0b207dcc25c678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questSO: {fileID: 0}
+  Id: 0
+  ItensRequired: []
+  Started: 0
+  Completed: 0
 --- !u!135 &8046897535676781049
 SphereCollider:
   m_ObjectHideFlags: 0
