@@ -70,7 +70,7 @@ namespace Game.Scripts.Controller.NPC
             DialogBoxController.Instance.StartDialog(GetDialog());
         }
 
-        private Dialogue.Dialog GetDialog()
+        private Dialogue GetDialog()
         {
             var chosenDialog = new string[0];
             if (!HasQuest)
@@ -106,8 +106,8 @@ namespace Game.Scripts.Controller.NPC
                 //Feedback negativo de UI
                 Debug.Log("O NPC não gosta do que você fez pq você fede");
             }
-            
-            return new Dialog(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
+
+            return new Dialogue(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
         }
     }
 }

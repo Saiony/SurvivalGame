@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using Game.Scripts.Controller.Dialog;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -46,7 +47,7 @@ namespace Game.Scripts.Controller.Player
             yield return null;
         }
 
-        public static Dialogue.Dialog Dialog(params string[] sentences)
+        public static Dialogue Dialog(params string[] sentences)
         {
             return null;
         }

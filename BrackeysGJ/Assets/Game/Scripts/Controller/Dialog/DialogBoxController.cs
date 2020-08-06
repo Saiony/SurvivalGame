@@ -32,7 +32,7 @@ namespace Game.Scripts.Controller.Dialog
             gameObject.SetActive(false);
         }
 
-        public void StartDialog(Dialogue.Dialog dialog)
+        public void StartDialog(Dialogue dialog)
         {
             if (dialog == null)
                 return;
@@ -44,7 +44,7 @@ namespace Game.Scripts.Controller.Dialog
             DisplayNextSentence();
         }
 
-        private void Setup(Dialogue.Dialog dialog)
+        private void Setup(Dialogue dialog)
         {
             Sentences = new Queue<string>();
             foreach (var sentence in dialog.Sentences)

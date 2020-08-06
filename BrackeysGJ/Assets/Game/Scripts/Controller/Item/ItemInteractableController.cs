@@ -1,4 +1,4 @@
-﻿using Game.Scripts.Controller.Dialogue;
+﻿using Game.Scripts.Controller.Dialog;
 using UnityEngine;
 
 namespace Game.Scripts.Controller.Item
