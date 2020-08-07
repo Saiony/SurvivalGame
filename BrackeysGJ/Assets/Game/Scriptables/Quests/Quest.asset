@@ -15,5 +15,4 @@ MonoBehaviour:
   Name: Quest_01
   ItensRequired:
   - {fileID: 11400000, guid: c9350fb1469861e4284d921a8c13d3d9, type: 2}
-  - {fileID: 11400000, guid: 7be62d2e4fdd0f943a729b354965a9be, type: 2}
   - {fileID: 11400000, guid: eabb78daa72f5c24eb32d19128da7cb8, type: 2}

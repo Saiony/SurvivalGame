@@ -32,30 +32,15 @@ namespace Game.Scripts.Controller.Player
             else
                 Destroy(gameObject);
         }
-
-        public IEnumerator GetItem(Item.Item item)
+        void Start()
         {
-            yield return AnimateGetItem(item);
-
-            item.gameObject.transform.position = Instance.hand.transform.position;
-            item.gameObject.transform.parent = Instance.hand.transform;
-            this.ItemHeld = item;
-        }
-
-        private IEnumerator AnimateGetItem(Item.Item item)
-        {
-            yield return null;
+            rgdBody = GetComponent<Rigidbody>();
+            InputBlocked = false;
         }
 
         public static Dialogue Dialog(params string[] sentences)
         {
             return null;
-        }
-
-        void Start()
-        {
-            rgdBody = GetComponent<Rigidbody>();
-            InputBlocked = false;
         }
 
         void FixedUpdate()
@@ -108,18 +93,38 @@ namespace Game.Scripts.Controller.Player
             InputBlocked = false;
         }
 
+        public void GetItem(Item.Item item)
+        {
+            item.gameObject.transform.position = Instance.hand.transform.position + 
+                                                 new Vector3(0, item.gameObject.GetComponent<MeshRenderer>().bounds.size.y/2, 0);
+            item.gameObject.transform.parent = Instance.hand.transform;
+            ItemHeld = item;
+        }
+
         public void ExchangeItem(Item.Item item)
         {
             if (!item.Equals(ItemHeld))
             {
                 ItemHeld.transform.position = item.transform.position;
                 ItemHeld.transform.parent = null;
-                StartCoroutine(GetItem(item));
+                GetItem(item);
             }
             else
             {
-                ItemHeld.transform.parent = null;
+                ThrowItem(item);
             }
+        }
+
+        private void ThrowItem(Item.Item item)
+        {
+            ItemHeld.transform.parent = null;
+            //To-do: @mike animação
+        }
+
+        public void GiveItemHeld()
+        {
+            ItemHeld.DestroyItself();
+            ItemHeld = null;
         }
     }
 }

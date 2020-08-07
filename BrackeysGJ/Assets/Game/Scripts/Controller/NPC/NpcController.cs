@@ -1,4 +1,5 @@
-﻿using Game.ScriptableObjects;
+﻿using System;
+using Game.ScriptableObjects;
 using Game.Scripts.Controller.Dialog;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Player;
@@ -21,8 +22,6 @@ namespace Game.Scripts.Controller.NPC
         private QuestController QuestController;
 
         private bool HasQuest => QuestController != null;
-        private bool MissionActive;
-        private bool QuestStarted;
 
         protected override void Start()
         {
@@ -32,9 +31,9 @@ namespace Game.Scripts.Controller.NPC
 
         public void UpdateMissionStatusMark()
         {
-            if (MissionActive)
+            if (QuestController.Started)
             {
-                if (QuestStarted)
+                if (QuestController.Started)
                     MissionStatusMark.text = "?";
                 else
                     MissionStatusMark.text = "!";
@@ -44,8 +43,13 @@ namespace Game.Scripts.Controller.NPC
         }
 
         public void StartQuest()
+        {            
+            QuestController.StartQuest();
+        }
+
+        private void Finishquest()
         {
-            MissionActive = true;
+            QuestsManager.Instance.FinishQuest(QuestController);
         }
 
         protected override void LateUpdate()
@@ -67,7 +71,11 @@ namespace Game.Scripts.Controller.NPC
         {
             Debug.Log("Player interacted");
 
-            DialogBoxController.Instance.StartDialog(GetDialog());
+            var chosenDialog = GetDialog();
+            DialogBoxController.Instance.StartDialog(chosenDialog, () => 
+            {
+                Debug.Log("Dialog Ended");
+            });
         }
 
         private Dialogue GetDialog()
@@ -88,6 +96,7 @@ namespace Game.Scripts.Controller.NPC
             else if (!QuestController.Started)
             {
                 chosenDialog = NpcConfig.StartQuestDialog;
+                StartQuest();
             }
             else if (PlayerController.Instance.ItemHeld == null)
             {
@@ -97,13 +106,18 @@ namespace Game.Scripts.Controller.NPC
             {
                 //Feedback positivo de UI
                 Debug.Log("O NPC gosta do que você fez pq vc tem cheiro de monange");
+                PlayerController.Instance.GiveItemHeld();
 
                 if (QuestController.Completed)
+                {
                     chosenDialog = NpcConfig.EndQuestDialog;
+                    Finishquest();
+                }
             }
             else
             {
                 //Feedback negativo de UI
+                PlayerController.Instance.GiveItemHeld();
                 Debug.Log("O NPC não gosta do que você fez pq você fede");
             }
 

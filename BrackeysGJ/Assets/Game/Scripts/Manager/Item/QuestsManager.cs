@@ -13,8 +13,7 @@ namespace Game.Scripts.Manager.Quest
     {
         public List<QuestSO> Quests = null;
         public static QuestsManager Instance = null;
-        public int QuestCounter = 0;
-        public QuestSO CurrentQuest => Quests[QuestCounter];
+        public QuestSO CurrentQuest;
 
         void Awake()
         {
@@ -25,15 +24,14 @@ namespace Game.Scripts.Manager.Quest
 
         private void Start()
         {
-            QuestCounter = 0;
             if(Quests.Count == 0)
                 throw new Exception("QuestsManager without quests");
+            CurrentQuest = Quests.First();
         }
 
         public void FinishQuest(QuestController quest)
         {
             Quests.FirstOrDefault(x => x.Name == quest.Name);
-            QuestCounter++;
         }
     }
 }

@@ -12,7 +12,9 @@ namespace Game.Scripts.Controller.Quest
     {
         [SerializeField]
         private QuestSO questSO = null;
-        private List<InteractableItemSO> ItensRequired;
+
+        [SerializeField]
+        private List<string> ItensRequired;
         
         [NonSerialized]
         public string Name;
@@ -27,29 +29,36 @@ namespace Game.Scripts.Controller.Quest
                 throw new Exception("Quest controller without a quest");
 
             Name = questSO.Name;
-            ItensRequired = questSO.ItensRequired;
+            foreach(var itenRequiredSO in questSO.ItensRequired)
+                ItensRequired.Add(itenRequiredSO.name);
             Completed = false;
         }
 
         public bool ReceiveItem(Item.Item item)
         {
-            var itemRequired = ItensRequired.FirstOrDefault(x => x.Equals(item));
-            if (!itemRequired)
+            var itemReceived = ItensRequired.FirstOrDefault(x => x == item.name);
+            if (itemReceived == null)
             {
                 return false;
             }
             else
             {
-                ItensRequired.Remove(itemRequired);
+                ItensRequired.Remove(itemReceived);
                 if (ItensRequired.Count == 0)
                     FinishQuest();
                 return true;
             }
         }
 
+        public void StartQuest()
+        {
+            Started = true;
+        }        
+
         public void FinishQuest()
         {
             QuestsManager.Instance.FinishQuest(this);
+            Started = false;
             Completed = true;
         }
     }

@@ -23,6 +23,8 @@ namespace Game.Scripts.Controller.Dialog
 
         public static DialogBoxController Instance = null;
 
+        private Action EndDialogCallback = null;
+
         void Awake()
         {
             if (!Instance)
@@ -32,11 +34,12 @@ namespace Game.Scripts.Controller.Dialog
             gameObject.SetActive(false);
         }
 
-        public void StartDialog(Dialogue dialog)
+        public void StartDialog(Dialogue dialog, Action callback)
         {
             if (dialog == null)
                 return;
             PlayerController.Instance.DisableInput();
+            EndDialogCallback = callback;
             Setup(dialog);
             //TODO: Animação @mike
             DialogActive = true;
@@ -82,6 +85,7 @@ namespace Game.Scripts.Controller.Dialog
             //TODO: Animação @mike
             PlayerController.Instance.EnableInput();
             DialogActive = false;
+            EndDialogCallback?.Invoke();
             gameObject.SetActive(false);
         }
     }

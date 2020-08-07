@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using DG.Tweening;
 using Game.ScriptableObjects;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Interface.Item;
@@ -52,7 +53,7 @@ namespace Game.Scripts.Controller.Item
             }
             else
             {
-                StartCoroutine(PlayerController.Instance.GetItem(this));
+                PlayerController.Instance.GetItem(this);
             }
         }
 
@@ -75,18 +76,27 @@ namespace Game.Scripts.Controller.Item
 
         private IEnumerator RunAnimation(GameObject objToDestroy, GameObject objToInstantiate)
         {
-            yield return StartCoroutine(Shrink(objToDestroy));
+            yield return Shrink(objToDestroy);
             Destroy(objToDestroy);
 
-            yield return StartCoroutine(Shrink(objToInstantiate, false));
-            yield return StartCoroutine(Expand(objToInstantiate));
+            yield return Shrink(objToInstantiate, false);
+            yield return Expand(objToInstantiate);
         }
 
-        private IEnumerator Shrink(GameObject go, bool animate = true)
+        public void DestroyItself()
         {
-            yield return null;
+            Sequence seq = DOTween.Sequence();
+            seq.Append(Shrink(gameObject, true));
+            seq.AppendCallback(() => Destroy(gameObject));
+        }
+
+        private Sequence Shrink(GameObject go, bool animate = true)
+        {
+            Sequence seq = DOTween.Sequence();
             // bool animate diz se o Shrink vai ter um tempo pra diminuir
             // Todo: @Mike
+
+            return seq;
         }
 
         private IEnumerator Expand(GameObject go, bool animate = true)
