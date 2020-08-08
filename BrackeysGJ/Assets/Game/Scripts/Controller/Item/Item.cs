@@ -22,24 +22,24 @@ namespace Game.Scripts.Controller.Item
             rigidbody = this.GetComponent<Rigidbody>();
         }
 
-        public void FowardTime()
+        public Item FowardTime()
         {
             if (Fowardable)
             {
-                Foward();
+                var item = Foward();
                 OnFoward();
-                return;
+                return item;
             }
             throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.FutureObject));
         }
 
-        public void RewindTime()
+        public Item RewindTime()
         {
             if (Rewindable)
             {
-                Rewind();
+                var item = Rewind();
                 OnRewind();
-                return;
+                return item;
             }
             throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.PastObject));
         }
@@ -52,25 +52,30 @@ namespace Game.Scripts.Controller.Item
             }
             else
             {
-                PlayerController.Instance.GetItem(this);
+                PlayerController.Instance.SetItem(this);
             }
         }
 
         protected abstract void OnFoward();
         protected abstract void OnRewind();
 
-        private void Foward()
+        private Item Foward()
         {
             var currentObj = this.gameObject;
-            var newObj = InteractableItemSO.FutureObject;
+            var newObj = GameObject.Instantiate(
+                InteractableItemSO.FutureObject,
+                new Vector3(currentObj.transform.position.x, currentObj.transform.position.y, currentObj.transform.position.z),
+                new Quaternion(currentObj.transform.rotation.x, currentObj.transform.rotation.y, currentObj.transform.rotation.z, currentObj.transform.rotation.w));
             StartCoroutine(RunAnimation(currentObj, newObj));
+            return newObj.GetComponent<Item>();
         }
 
-        private void Rewind()
+        private Item Rewind()
         {
             var currentObj = this.gameObject;
             var newObj = InteractableItemSO.PastObject;
             StartCoroutine(RunAnimation(currentObj, newObj));
+            return newObj.GetComponent<Item>();
         }
 
         private IEnumerator RunAnimation(GameObject objToDestroy, GameObject objToInstantiate)
