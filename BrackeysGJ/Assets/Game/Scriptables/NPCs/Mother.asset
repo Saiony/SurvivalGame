@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef5f07579151fc44810d35eb3110eaa, type: 3}
+  m_Name: Mother
+  m_EditorClassIdentifier: 
+  StandardDialog:
+  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+    Sentence: That always happens this time of the year ... Always.
+  StartQuestDialog:
+  - Portrait: {fileID: 0}
+    Sentence: 
+  WaitingEndQuestDialog:
+  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+    Sentence: His fever is rising... Did you get the ingredients?
+  EndQuestDialog:
+  - Portrait: {fileID: 0}
+    Sentence: 
+  AfterQuestDialog:
+  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+    Sentence: Soon my little boy will stop sneezing. Thank you!

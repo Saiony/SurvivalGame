@@ -17,7 +17,7 @@ namespace Game.Scripts.Controller.Dialog
         [SerializeField]
         private TextMeshProUGUI DisplayedText;
 
-        private Queue<string> Sentences;
+        private Queue<Dialogue> Dialogues;
 
         private bool DialogActive = false;
 
@@ -34,50 +34,50 @@ namespace Game.Scripts.Controller.Dialog
             gameObject.SetActive(false);
         }
 
-        public void StartDialog(Dialogue dialog, Action callback)
+        public void StartDialog(Dialogue[] dialogues, Action callback)
         {
-            if (dialog == null)
+            if (dialogues == null)
                 return;
             PlayerController.Instance.DisableInput();
             EndDialogCallback = callback;
-            Setup(dialog);
+            Setup(dialogues);
             //TODO: Animação @mike
             DialogActive = true;
             gameObject.SetActive(true);
-            DisplayNextSentence();
+            DisplayNextDialogue();
         }
 
-        private void Setup(Dialogue dialog)
+        private void Setup(Dialogue[] dialogues)
         {
-            Sentences = new Queue<string>();
-            foreach (var sentence in dialog.Sentences)
+            Dialogues = new Queue<Dialogue>();
+            foreach (var dialog in dialogues)
             {
-                Sentences.Enqueue(sentence);
+                Dialogues.Enqueue(dialog);
             }
-
-            Name.text = dialog.Name;
-            Avatar.sprite = dialog.Portrait;
         }
 
         private void LateUpdate()
         {
             if (DialogActive && Input.GetKeyUp(KeyCode.Space))
             {
-                DisplayNextSentence();
+                DisplayNextDialogue();
             }
         }
 
-        private void DisplayNextSentence()
+        private void DisplayNextDialogue()
         {
-            if (Sentences.Count == 0)
+            if (Dialogues.Count == 0)
             {
                 EndDialog();
                 return;
             }
 
-            string newSentence = Sentences.Dequeue();
+            Dialogue newDialogue = Dialogues.Dequeue();
             DisplayedText.text = String.Empty;
-            DisplayedText.DOText(newSentence, 0.5f);
+            Avatar.sprite = newDialogue.Portrait.Avatar;
+            Name.text = newDialogue.Portrait.Name;
+
+            DisplayedText.DOText(newDialogue.Sentence, 1f);
         }
 
         private void EndDialog()

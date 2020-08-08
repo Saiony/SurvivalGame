@@ -1,26 +1,19 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.Controller.Dialog;
+using UnityEngine;
 
 namespace Game.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "NPC", menuName = "ScriptableObjects/NPC", order = 1)]
     public class NpcSO : ScriptableObject
     {
-        public string Name;
-        public Sprite Portrait;
+        public Dialogue[] StandardDialog;
 
-        [TextArea(3, 10)]
-        public string[] StandardDialog;
+        public Dialogue[] StartQuestDialog;
 
-        [TextArea(3, 10)]
-        public string[] StartQuestDialog;
+        public Dialogue[] WaitingEndQuestDialog;
 
-        [TextArea(3, 10)]
-        public string[] WaitingEndQuestDialog;
+        public Dialogue[] EndQuestDialog;
 
-        [TextArea(3, 10)]
-        public string[] EndQuestDialog;
-
-        [TextArea(3, 10)]
-        public string[] AfterQuestDialog;
+        public Dialogue[] AfterQuestDialog;
     }
 }
