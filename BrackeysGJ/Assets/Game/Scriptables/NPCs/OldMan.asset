@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef5f07579151fc44810d35eb3110eaa, type: 3}
+  m_Name: OldMan
+  m_EditorClassIdentifier: 
+  StandardDialog:
+  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: '* Sigh*'
+  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: Life is bitter and pointless.
+  StartQuestDialog:
+  - Portrait: {fileID: 0}
+    Sentence: 
+  WaitingEndQuestDialog:
+  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: You didn't get the milk, did you?
+  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: I knew it. No one will ever get it
+  EndQuestDialog:
+  - Portrait: {fileID: 0}
+    Sentence: 
+  AfterQuestDialog:
+  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: I can't wait to taste the cheese.
+  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: But I still wanted that wine ...

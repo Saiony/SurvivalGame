@@ -1,27 +1,25 @@
-﻿using UnityEngine;
+﻿using Game.ScriptableObjects;
+using UnityEngine;
 
 namespace Game.Scripts.Controller.Dialog
 {
+    [System.Serializable]
     public class Dialogue
     {
-        public string Name;
-        public Sprite Portrait;
-
+        public PortraitSO Portrait;
         [TextArea(3, 10)]
-        public string [] Sentences;
+        public string Sentence;
 
         public Dialogue()
         {
-            Name = string.Empty;
             Portrait = null;
-            Sentences = new string[0];
+            Sentence = string.Empty;
         }
 
-        public Dialogue(string name, Sprite portrait, string[] sentences) : this()
+        public Dialogue(string name, PortraitSO portrait, string sentence) : this()
         {
-            Name = name;
             Portrait = portrait;
-            Sentences = sentences;
+            Sentence = sentence;
         }
     }
 }

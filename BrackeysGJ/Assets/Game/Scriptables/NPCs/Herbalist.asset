@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef5f07579151fc44810d35eb3110eaa, type: 3}
+  m_Name: Herbalist
+  m_EditorClassIdentifier: 
+  StandardDialog:
+  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: Alas children.  Alas village.
+  StartQuestDialog:
+  - Portrait: {fileID: 0}
+    Sentence: 
+  WaitingEndQuestDialog:
+  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: Avoid drawing mine own visage on the signe this time.
+  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: "It may be more difficult to put on mustaches lat\u2019r.\r\n"
+  EndQuestDialog:
+  - Portrait: {fileID: 0}
+    Sentence: 
+  AfterQuestDialog:
+  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: I still und'rstand not these geometric shapes, but i did like the colors.

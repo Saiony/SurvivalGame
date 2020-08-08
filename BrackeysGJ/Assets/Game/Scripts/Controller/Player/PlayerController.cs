@@ -14,6 +14,9 @@ namespace Game.Scripts.Controller.Player
         [SerializeField]
         private float RotationSpeed;
 
+        [SerializeField]
+        private Animator Animator;
+
         private Rigidbody rgdBody = null;
 
         public bool InputBlocked { get; private set; }
@@ -81,6 +84,8 @@ namespace Game.Scripts.Controller.Player
             }
 
             rgdBody.velocity = direction * Speed;
+            Animator.SetFloat("Speed", rgdBody.velocity.magnitude);
+            Debug.Log("speed: " +rgdBody.velocity.magnitude);
         }
 
         public void DisableInput()

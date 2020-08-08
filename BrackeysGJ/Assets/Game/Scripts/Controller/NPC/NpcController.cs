@@ -78,9 +78,9 @@ namespace Game.Scripts.Controller.NPC
             });
         }
 
-        private Dialogue GetDialog()
+        private Dialogue[] GetDialog()
         {
-            var chosenDialog = new string[0];
+            var chosenDialog = new Dialogue[0];
             if (!HasQuest)
             {
                 chosenDialog = NpcConfig.StandardDialog;
@@ -121,7 +121,7 @@ namespace Game.Scripts.Controller.NPC
                 Debug.Log("O NPC não gosta do que você fez pq você fede");
             }
 
-            return new Dialogue(NpcConfig.name, NpcConfig.Portrait, chosenDialog);
+            return chosenDialog;
         }
     }
 }
