@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
-  RotationSpeed: 0.1
+  RotationSpeed: 2
   Animator: {fileID: 6486499832594193767}
   hand: {fileID: 755171271500432940}
 --- !u!95 &6486499832594193767
