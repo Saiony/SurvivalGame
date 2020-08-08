@@ -49,7 +49,7 @@ namespace Game.Scripts.Controller.NPC
 
         private void Finishquest()
         {
-            QuestsManager.Instance.FinishQuest(QuestController);
+            //QuestsManager.Instance.FinishQuest(QuestController);
         }
 
         protected override void LateUpdate()

@@ -31,7 +31,12 @@ namespace Game.Scripts.Manager.Quest
 
         public void FinishQuest(QuestController quest)
         {
-            Quests.FirstOrDefault(x => x.Name == quest.Name);
+            if(CurrentQuest.Name != quest.Name)
+                throw new Exception($"Tried to finish a quest that isn't the current one \nCurrentQuest: {CurrentQuest.Name} \nQuest: {quest.Name}");
+            if(Quests.IndexOf(CurrentQuest) >= Quests.Count-1) //Última quest do jogo
+                Debug.Log("Jogo acabou, parabéns por ser um otário");
+            else
+                CurrentQuest = Quests[Quests.IndexOf(CurrentQuest) + 1];    
         }
     }
 }
