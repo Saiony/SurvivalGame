@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
-using Game.ScriptableObjects;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Interface.Item;
 using Game.Scripts.Controller.Player;
