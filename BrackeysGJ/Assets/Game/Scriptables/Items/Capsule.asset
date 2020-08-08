@@ -15,5 +15,6 @@ MonoBehaviour:
   PastObject: {fileID: 0}
   PastDialogue: 
   PresentDialog: 
-  FutureObject: {fileID: 0}
+  FutureObject: {fileID: 667971487709438180, guid: d425bcd5db7a44a48954870a0072b1f4,
+    type: 3}
   FutureDialogue: 

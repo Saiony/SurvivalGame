@@ -98,7 +98,7 @@ namespace Game.Scripts.Controller.Player
             InputBlocked = false;
         }
 
-        public void GetItem(Item.Item item)
+        public void SetItem(Item.Item item)
         {
             item.gameObject.transform.position = Instance.hand.transform.position + 
                                                  new Vector3(0, item.gameObject.GetComponent<MeshRenderer>().bounds.size.y/2, 0);
@@ -112,7 +112,7 @@ namespace Game.Scripts.Controller.Player
             {
                 ItemHeld.transform.position = item.transform.position;
                 ItemHeld.transform.parent = null;
-                GetItem(item);
+                SetItem(item);
             }
             else
             {

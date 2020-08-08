@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311cbad64a417f478165c766948f607, type: 3}
   m_Name: Sphere
   m_EditorClassIdentifier: Assembly-CSharp:Game.ScriptableObjects:InteractableItem
-  PastObject: {fileID: 0}
+  PastObject: {fileID: 667971487709438180, guid: d425bcd5db7a44a48954870a0072b1f4,
+    type: 3}
   PastDialogue: 
   PresentDialog: 
   FutureObject: {fileID: 0}

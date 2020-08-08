@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Scripts.Controller.Item;
+using Game.Scripts.Controller.Player;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class TimeChangeController : MonoBehaviour
 
 
     private static TimeChangeController singleton;
-    private bool IsShowingScreen { get; set; }
+    private bool IsShowingScreen => Canvas.enabled;
     private Item Item { get; set; }
     private Canvas Canvas { get; set; }
 
@@ -33,10 +34,10 @@ public class TimeChangeController : MonoBehaviour
             print("item not usable.");
             return;
         }
-        singleton.IsShowingScreen = true;
         singleton.Item = item;
         singleton.Canvas.enabled = true;
         HideAllButtons();
+        ShowOnlyAvailableButtons(item);
     }
 
     private static void HideAllButtons()
@@ -55,11 +56,19 @@ public class TimeChangeController : MonoBehaviour
 
     public void Foward()
     {
-        Item.FowardTime();
+        var newItem = Item.FowardTime();
+        Item = null;
+        Canvas.enabled = false;
+        if (PlayerController.Instance.HasItem)
+            PlayerController.Instance.SetItem(newItem);
     }
 
     public void Rewind()
     {
-        Item.RewindTime();
+        var newItem = Item.RewindTime();
+        Item = null;
+        Canvas.enabled = false;
+        if (PlayerController.Instance.HasItem)
+            PlayerController.Instance.SetItem(newItem);
     }
 }
