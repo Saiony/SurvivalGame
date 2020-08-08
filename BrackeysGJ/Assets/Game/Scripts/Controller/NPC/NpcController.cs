@@ -78,6 +78,11 @@ namespace Game.Scripts.Controller.NPC
             });
         }
 
+        protected override void OnPlayerUse()
+        {
+            OnPlayerInteract();
+        }
+
         private Dialogue GetDialog()
         {
             var chosenDialog = new string[0];

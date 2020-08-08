@@ -35,6 +35,8 @@ namespace Game.Scripts.Controller.Interact
             {
                 if (Input.GetKeyUp(KeyCode.Space))
                     OnPlayerInteract();
+                if (Input.GetKeyDown(KeyCode.F))
+                    OnPlayerUse();
             }
         }
 
@@ -75,5 +77,6 @@ namespace Game.Scripts.Controller.Interact
         protected abstract void OnPlayerEnter();
         protected abstract void OnPlayerExit();
         protected abstract void OnPlayerInteract();
+        protected abstract void OnPlayerUse();
     }
 }

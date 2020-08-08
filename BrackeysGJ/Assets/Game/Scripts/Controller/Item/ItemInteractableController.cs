@@ -17,5 +17,10 @@ namespace Game.Scripts.Controller.Item
         {
             print("saiu");
         }
+
+        protected override void OnPlayerUse()
+        {
+            TimeChangeController.Instantiate(this);
+        }
     }
 }
