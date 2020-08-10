@@ -127,6 +127,7 @@ namespace Game.Scripts.Controller.NPC
             }
 
             return chosenDialog;
+            //mudança
         }
     }
 }
