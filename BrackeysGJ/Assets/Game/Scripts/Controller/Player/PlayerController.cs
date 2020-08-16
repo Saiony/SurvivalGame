@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using Game.Scripts.Controller.Dialog;
+using System;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -19,8 +20,6 @@ namespace Game.Scripts.Controller.Player
 
         private Rigidbody rgdBody = null;
 
-        public bool InputBlocked { get; private set; }
-
         public Item.Item ItemHeld { get; private set; }
 
         public bool HasItem => ItemHeld != null;
@@ -28,6 +27,7 @@ namespace Game.Scripts.Controller.Player
         public GameObject hand;
 
         public static PlayerController Instance = null;
+
         void Awake()
         {
             if (!Instance)
@@ -35,10 +35,22 @@ namespace Game.Scripts.Controller.Player
             else
                 Destroy(gameObject);
         }
+
         void Start()
         {
             rgdBody = GetComponent<Rigidbody>();
-            InputBlocked = false;
+        }
+
+        private void Update()
+        {
+            var command = InputHandler.Instance.HandleInput();
+
+            if (command != null)
+                command.Execute(this);
+            else
+                rgdBody.velocity = Vector3.zero;
+                
+            Animator.SetFloat("Speed", rgdBody.velocity.magnitude);
         }
 
         public static Dialogue Dialog(params string[] sentences)
@@ -46,62 +58,69 @@ namespace Game.Scripts.Controller.Player
             return null;
         }
 
-        void FixedUpdate()
+#region Movement
+        public void Move_Left()
         {
-            Movement();
+            Move(Direction.Left);
         }
 
-        private void Movement()
+        public void Move_Right()
+        {
+            Move(Direction.Right);
+        }
+
+        public void Move_Up()
+        {
+            Move(Direction.Up);
+        }
+
+        public void Move_Down()
+        {
+            Move(Direction.Down);
+        }
+
+        private void Move(Direction direction)
         {
             rgdBody.velocity = Vector3.zero;
+            Vector3 dir = new Vector3();
 
-            if (InputBlocked)
-                return;
-
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
-            var direction = Vector3.zero;
-
-            if (horizontal > 0) //Right
+            if (direction == Direction.Right) //Right
             {
-                direction = Vector3.right * horizontal;
+                dir = Vector3.right;
                 gameObject.transform.DOLocalRotate(new Vector3(0, 90, 0), RotationSpeed);
             }
-            else if (horizontal < 0) //Left
+            else if (direction == Direction.Left) //Left
             {
-                direction = Vector3.left * -horizontal;
+                dir = Vector3.left;
                 gameObject.transform.DOLocalRotate(new Vector3(0, -90, 0), RotationSpeed);
             }
-            else if (vertical > 0) //Up
+            else if (direction == Direction.Up) //Up
             {
-                direction = Vector3.forward * vertical;
+                dir = Vector3.forward;
                 gameObject.transform.DOLocalRotate(new Vector3(0, 0, 0), RotationSpeed);
             }
-            else if (vertical < 0) //Down
+            else if (direction == Direction.Down) //Down
             {
-                direction = Vector3.back * -vertical;
+                dir = Vector3.back;
                 gameObject.transform.DOLocalRotate(new Vector3(0, 180, 0), RotationSpeed);
             }
+            else
+                throw new Exception($"Movement direction {direction}");
 
-            rgdBody.velocity = direction * Speed;
-            Animator.SetFloat("Speed", rgdBody.velocity.magnitude);
-            Debug.Log("speed: " +rgdBody.velocity.magnitude);
+            rgdBody.velocity = dir * Speed;
+            Debug.Log("speed: " + rgdBody.velocity.magnitude);
         }
+#endregion Movement
 
-        public void DisableInput()
+        public void Interact()
         {
-            InputBlocked = true;
-        }
-
-        public void EnableInput()
-        {
-            InputBlocked = false;
+            
         }
 
         public void SetItem(Item.Item item)
         {
-            item.gameObject.transform.position = Instance.hand.transform.position + 
-                                                 new Vector3(0, item.gameObject.GetComponent<MeshRenderer>().bounds.size.y/2, 0);
+            item.gameObject.transform.position = Instance.hand.transform.position +
+                                                 new Vector3(0, item.gameObject.GetComponent<MeshRenderer>().bounds.size.y / 2, 0);
             item.gameObject.transform.parent = Instance.hand.transform;
             ItemHeld = item;
         }
@@ -131,5 +150,19 @@ namespace Game.Scripts.Controller.Player
             ItemHeld.DestroyItself();
             ItemHeld = null;
         }
+
+        public void TimeTravel()
+        {
+            Debug.Log("TIME TRAVEL");
+        }
+    }
+
+    public enum Direction
+    {
+        Unknown,
+        Left,
+        Right,
+        Up,
+        Down
     }
 }
