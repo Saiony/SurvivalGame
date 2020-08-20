@@ -1,27 +1,23 @@
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Game.Scripts.Controller.Player
 {
     public class InputHandler : MonoBehaviour
     {
         public bool InputBlocked { get; private set; }
-        
-        private KeyCode Button_W;
-        private KeyCode Button_A;
-        private KeyCode Button_S;
-        private KeyCode Button_D;
-        private KeyCode Button_F;
-        private KeyCode Button_Space;
 
-        private Command Command_W;
-        private Command Command_A;
-        private Command Command_S;
-        private Command Command_D;
-        private Command Command_F;
-        private Command Command_Space;
+        private List<PlayerInput> PlayerInputs { get; set; }
 
+        private PlayerInput Button_W;
+        private PlayerInput Button_A;
+        private PlayerInput Button_S;
+        private PlayerInput Button_D;
+        private PlayerInput Button_F;
+        private PlayerInput Button_Space;
         public static InputHandler Instance;
 
         private void Awake()
@@ -36,36 +32,37 @@ namespace Game.Scripts.Controller.Player
         {
             InputBlocked = false;
 
-            Button_W = KeyCode.W;
-            Button_A = KeyCode.A;
-            Button_S = KeyCode.S;
-            Button_D = KeyCode.D;
-            Button_F = KeyCode.F;
-            Button_Space = KeyCode.Space;
+            Button_W = new PlayerInput("button_w", KeyCode.W, new MoveUpCommand());
+            Button_A = new PlayerInput("button_a", KeyCode.A, new MoveLeftCommand());
+            Button_S = new PlayerInput("button_s", KeyCode.S, new MoveDownCommand());
+            Button_D = new PlayerInput("button_d", KeyCode.D, new MoveRightCommand());
+            Button_F = new PlayerInput("button_f", KeyCode.F, new TimeTravelCommand());
+            Button_Space = new PlayerInput("button_space", KeyCode.Space, new InteractCommand());
 
-            Command_W = new MoveUpCommand();
-            Command_A = new MoveLeftCommand();
-            Command_S = new MoveDownCommand();
-            Command_D = new MoveRightCommand();
-            Command_F = new TimeTravelCommand();
-            Command_Space = new InteractCommand();
+            PlayerInputs.Add(Button_W);
+            PlayerInputs.Add(Button_A);
+            PlayerInputs.Add(Button_S);
+            PlayerInputs.Add(Button_D);
+            PlayerInputs.Add(Button_F);
+            PlayerInputs.Add(Button_Space);
         }
 
         public Command HandleInput()
         {
             if (InputBlocked)
                 return null;
-            if (Input.GetKey(Button_F))
-                return Command_F;
-            if (Input.GetKey(Button_W))
-                return Command_W;
-            else if (Input.GetKey(Button_A))
-                return Command_A;
-            else if (Input.GetKey(Button_S))
-                return Command_S;
-            else if (Input.GetKey(Button_D))
-                return Command_D; 
-
+            if (Input.GetKey(Button_W.ButtonCode))
+                return Button_W.Command;
+            if (Input.GetKey(Button_A.ButtonCode))
+                return Button_A.Command;
+            else if (Input.GetKey(Button_S.ButtonCode))
+                return Button_S.Command;
+            else if (Input.GetKey(Button_D.ButtonCode))
+                return Button_D.Command;
+            else if (Input.GetKey(Button_F.ButtonCode))
+                return Button_F.Command;
+            else if (Input.GetKey(Button_Space.ButtonCode))
+                return Button_Space.Command;
             return null;
         }
 
@@ -79,9 +76,11 @@ namespace Game.Scripts.Controller.Player
             InputBlocked = false;
         }
 
-        public void UpdateInput(Command command, KeyCode keyCode)
+        public void UpdateInput(string newKeyCode)
         {
-            
+            // var oldPlayerInput = Button_F;
+            // var inputzin = PlayerInputs.FirstOrDefault(x => x.Id == oldPlayerInput.Id);
+            // inputzin = new PlayerInput(inputzin.Id, newKeyCode, inputzin.Command);
         }
     }
 }

@@ -4,9 +4,9 @@ namespace Game.Scripts.Controller.Player
 {
     public class PlayerInput
     {
-        string Id { get; set; }
-        KeyCode ButtonCode { get; set; }
-        Command Command { get; set; }
+        public string Id { get; private set; }
+        public KeyCode ButtonCode { get; private set; }
+        public Command Command { get; private set; }
 
 
         public PlayerInput()
