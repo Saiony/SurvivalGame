@@ -38,7 +38,7 @@ namespace Game.Scripts.Controller.Dialog
         {
             if (dialogues == null)
                 return;
-            PlayerController.Instance.DisableInput();
+            //PlayerController.Instance.DisableInput();
             EndDialogCallback = callback;
             Setup(dialogues);
             //TODO: Animação @mike
@@ -83,7 +83,7 @@ namespace Game.Scripts.Controller.Dialog
         private void EndDialog()
         {
             //TODO: Animação @mike
-            PlayerController.Instance.EnableInput();
+            //PlayerController.Instance.EnableInput();
             DialogActive = false;
             EndDialogCallback?.Invoke();
             gameObject.SetActive(false);

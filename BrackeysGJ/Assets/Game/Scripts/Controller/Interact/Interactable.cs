@@ -31,7 +31,7 @@ namespace Game.Scripts.Controller.Interact
 #if UNITY_EDITOR
             Col.radius = interactableRange;
 #endif
-            if (IsPlayerTouching && !PlayerController.Instance.InputBlocked)
+            if (IsPlayerTouching /*&& !PlayerController.Instance.InputBlocked*/)
             {
                 if (Input.GetKeyUp(KeyCode.Space))
                     OnPlayerInteract();
