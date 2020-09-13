@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d6c93d84d4fde44e8c5fa7522d1db50, type: 3}
-  m_Name: Painter
+  m_Name: Kuns
   m_EditorClassIdentifier: 
   Name: Kuns
   Avatar: {fileID: 21300000, guid: cd3638d0ebf4bdd429d7c953d1a84b23, type: 3}

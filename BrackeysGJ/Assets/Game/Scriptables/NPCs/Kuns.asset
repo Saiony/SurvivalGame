@@ -10,22 +10,76 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eef5f07579151fc44810d35eb3110eaa, type: 3}
-  m_Name: Painter
+  m_Name: Kuns
   m_EditorClassIdentifier: 
   StandardDialog:
   - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
     Sentence: The beginning is the end. The end is the beginning.
   StartQuestDialog:
+  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Hello? Good morning?\r"
+  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: "Hello. Good morning, good afternoon, good night ... None of this really
+      matters. Time is a social construction, and only the slaves of their own mind
+      believes in it.\r"
+  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Hahahaha\u2026 That\u2019s me! A slave of my own mind.\r"
+  - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
+    Sentence: "Ah. Humor. So gratifying to hear someone satisfied... Do you wish
+      for a portrait? Your aura would be very well represented with my brush strokes.
+      I\u2019m testing a new technique where I do the shading and lighting using
+      little dots. I thought of calling this technique\u2026 Vlag\xFCdorinuium.\r"
+  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Vlagudormimos?\r"
+  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Great name! I wish you luck with your little dots. But anyway, would
+      you have some ink to lend me? Or hypothetically donate, if I hypothetically
+      cannot return the ink to you in the near or distant  future.\r"
+  - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
+    Sentence: But of course! I would love to help an artistic soul like yours. And
+      you don't have to worry about returning the ink. Instead, you could help me
+      get new canvases for my paintings.
+  - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
+    Sentence: "Soon the ones I have will be over, and you know how dangerous it is
+      to go out during the full moon. I wouldn't risk having my psyche affected by
+      the negative energy these past few days, but you don't seem to care about that...\r"
   - Portrait: {fileID: 0}
-    Sentence: 
+    Sentence: "Yeah, yeah... I have, hm, an amulet against these \u201CFull Moon\u201D
+      things. I'm well protected! And I'll get you a canvas, leave it to me.\r"
   WaitingEndQuestDialog:
   - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
     Sentence: "Not now. I\u2019m purifying the environment."
   - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
     Sentence: Zzzzzzaummmmmmmm.
   EndQuestDialog:
-  - Portrait: {fileID: 0}
-    Sentence: 
+  - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
+    Sentence: "Fabulous! Magnificent! This texture reminds me of times of spiritual
+      hunger, regress and self-knowledge. It will be ideal for my new project. I
+      am immensely grateful for your help! I can even make your surrealist portrait.
+      You just need to mentalize an image that brings you ...\r"
+  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: 'Cool cool cool cool cool! But how about you help me by painting a
+      new sign for the herbalist? That would leave me, hm... With a very balanced
+      psyche!
+
+'
+  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: 'Okay, sure. I can help with that too. What color do you think would
+      add more value to his store concept? Should I try impressionist brushstrokes
+      or something drawn to lyrical abstraction?
+
+'
+  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: 'Why not both? I trust your ideas.
+
+'
+  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: 'Great! You are a beautiful, talented, brilliant and powerful tropical
+      carp. Here''s your sign. I hope the herbalist is satisfied.
+
+'
+  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "\u2026 Thanks. I guess? See you, good luck in your arts!\r"
   AfterQuestDialog:
   - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
     Sentence: Have you changed your mind? Do you want a cosmic portrait?
