@@ -108,7 +108,6 @@ namespace Game.Scripts.Controller.Player
                 throw new Exception($"Movement direction {direction}");
 
             rgdBody.velocity = dir * Speed;
-            Debug.Log("speed: " + rgdBody.velocity.magnitude);
         }
 #endregion Movement
 

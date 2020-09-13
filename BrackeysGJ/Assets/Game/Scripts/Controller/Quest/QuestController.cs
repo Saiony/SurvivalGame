@@ -13,7 +13,6 @@ namespace Game.Scripts.Controller.Quest
         [SerializeField]
         private QuestSO questSO = null;
 
-        [SerializeField]
         private List<string> ItensRequired;
         
         [NonSerialized]
@@ -29,6 +28,7 @@ namespace Game.Scripts.Controller.Quest
                 throw new Exception("Quest controller without a quest");
 
             Name = questSO.Name;
+            ItensRequired = new List<string>();
             foreach(var itenRequiredSO in questSO.ItensRequired)
                 ItensRequired.Add(itenRequiredSO.name);
             Completed = false;

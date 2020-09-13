@@ -8,7 +8,6 @@ namespace Game.Scripts.Controller.Player
         public KeyCode ButtonCode { get; private set; }
         public Command Command { get; private set; }
 
-
         public PlayerInput()
         {
             Id = string.Empty;
@@ -21,6 +20,11 @@ namespace Game.Scripts.Controller.Player
             Id = id;
             ButtonCode = buttonCode;
             Command = command;
+        }
+
+        public void ChangeInputCode(KeyCode buttonCode)
+        {
+            ButtonCode = buttonCode;
         }
     }    
 }

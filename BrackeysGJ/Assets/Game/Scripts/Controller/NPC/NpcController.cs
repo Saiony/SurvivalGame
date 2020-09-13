@@ -68,7 +68,7 @@ namespace Game.Scripts.Controller.NPC
         }
 
         protected override void OnPlayerInteract()
-        {
+        {            
             Debug.Log("Player interacted");
 
             var chosenDialog = GetDialog();

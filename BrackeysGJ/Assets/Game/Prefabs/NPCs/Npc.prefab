@@ -30,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8046897535676781054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 8046897536748268557}
   m_Father: {fileID: 0}
@@ -113,10 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questSO: {fileID: 0}
-  Id: 0
   ItensRequired: []
-  Started: 0
-  Completed: 0
 --- !u!135 &8046897535676781049
 SphereCollider:
   m_ObjectHideFlags: 0
