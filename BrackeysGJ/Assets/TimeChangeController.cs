@@ -13,7 +13,7 @@ public class TimeChangeController : MonoBehaviour
 
     private static TimeChangeController singleton;
     private bool IsShowingScreen => Canvas.enabled;
-    private Item Item { get; set; }
+    private ItemController Item { get; set; }
     private Canvas Canvas { get; set; }
 
     void Awake()
@@ -25,7 +25,7 @@ public class TimeChangeController : MonoBehaviour
         Canvas.enabled = false;
     }
 
-    public static void Instantiate(Item item)
+    public static void Instantiate(ItemController item)
     {
         if (singleton.IsShowingScreen)
             return;
@@ -46,7 +46,7 @@ public class TimeChangeController : MonoBehaviour
         singleton.fowardButton.gameObject.SetActive(false);
     }
 
-    private static void ShowOnlyAvailableButtons(Item item)
+    private static void ShowOnlyAvailableButtons(ItemController item)
     {
         if (item.Rewindable)
             singleton.rewindButton.gameObject.SetActive(true);

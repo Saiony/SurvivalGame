@@ -57,6 +57,8 @@ namespace Game.Scripts.Controller.Player
             //Esc command is UNBLOCKABLE
             if(Input.GetKeyDown(Button_Esc.ButtonCode))
                 return Button_Esc.Command;
+            else if (Input.GetKeyDown(Button_Space.ButtonCode))
+                return Button_Space.Command;
 
             if (InputBlocked)
                 return null;
@@ -69,9 +71,7 @@ namespace Game.Scripts.Controller.Player
             else if (Input.GetKey(Button_D.ButtonCode))
                 return Button_D.Command;
             else if (Input.GetKeyDown(Button_F.ButtonCode))
-                return Button_F.Command;
-            else if (Input.GetKeyDown(Button_Space.ButtonCode))
-                return Button_Space.Command;
+                return Button_F.Command;           
             
             return null;
         }

@@ -31,7 +31,7 @@ namespace Game.Scripts.Controller.NPC
 
         public void UpdateMissionStatusMark()
         {
-            if (QuestController.Started)
+            if (QuestsManager.Instance.CurrentQuest.name == QuestController.name)
             {
                 if (QuestController.Started)
                     MissionStatusMark.text = "?";
@@ -52,11 +52,6 @@ namespace Game.Scripts.Controller.NPC
             //QuestsManager.Instance.FinishQuest(QuestController);
         }
 
-        protected override void LateUpdate()
-        {
-            base.LateUpdate();
-        }
-
         protected override void OnPlayerEnter()
         {
             Debug.Log("Player nearby");
@@ -70,19 +65,10 @@ namespace Game.Scripts.Controller.NPC
         protected override void OnPlayerInteract()
         {            
             Debug.Log("Player interacted");
-
-            var chosenDialog = GetDialog();
-            DialogBoxController.Instance.StartDialog(chosenDialog, () => 
-            {
-                Debug.Log("Dialog Ended");
-            });
+            DialogBoxController.Instance.Interact(GetDialog());
         }
 
-        protected override void OnPlayerUse()
-        {
-            OnPlayerInteract();
-        }
-
+        //Alguém refatora isso pfvr
         private Dialogue[] GetDialog()
         {
             var chosenDialog = new Dialogue[0];
@@ -127,9 +113,6 @@ namespace Game.Scripts.Controller.NPC
             }
 
             return chosenDialog;
-            //mudança
-            //mudança 2
-            //mudança 3
         }
     }
 }

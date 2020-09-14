@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using Game.Scripts.Controller.Dialog;
 using System;
+using Game.Scripts.Controller.Interact;
+using Game.Scripts.Controller.Item;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -13,14 +15,17 @@ namespace Game.Scripts.Controller.Player
         private float Speed;
 
         [SerializeField]
-        private float RotationSpeed;
+        private float RotationSpeed = 0;
 
         [SerializeField]
-        private Animator Animator;
+        private Animator Animator = null;
+
+        [SerializeField]
+        private Collider ContactArea = null;
 
         private Rigidbody rgdBody = null;
 
-        public Item.Item ItemHeld { get; private set; }
+        public Item.ItemController ItemHeld { get; private set; }
 
         public bool HasItem => ItemHeld != null;
 
@@ -113,10 +118,19 @@ namespace Game.Scripts.Controller.Player
 
         public void Interact()
         {
-            
+            Debug.Log("Cmd Interact");
+            var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
+            foreach (var result in results)
+            {
+                if(!result.isTrigger && result.GetComponent<Interactable>())
+                {
+                    result.GetComponent<Interactable>().Interact();
+                    return;
+                }
+            }
         }
 
-        public void SetItem(Item.Item item)
+        public void SetItem(ItemController item)
         {
             item.gameObject.transform.position = Instance.hand.transform.position +
                                                  new Vector3(0, item.gameObject.GetComponent<MeshRenderer>().bounds.size.y / 2, 0);
@@ -124,7 +138,7 @@ namespace Game.Scripts.Controller.Player
             ItemHeld = item;
         }
 
-        public void ExchangeItem(Item.Item item)
+        public void ExchangeItem(ItemController item)
         {
             if (!item.Equals(ItemHeld))
             {
@@ -138,7 +152,7 @@ namespace Game.Scripts.Controller.Player
             }
         }
 
-        private void ThrowItem(Item.Item item)
+        private void ThrowItem(ItemController item)
         {
             ItemHeld.transform.parent = null;
             //To-do: @mike animação

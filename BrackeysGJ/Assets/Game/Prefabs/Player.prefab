@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 8987172963030178236}
   - component: {fileID: 584455122}
   - component: {fileID: 584455121}
+  - component: {fileID: 7531634464795592357}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -73,11 +74,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3067520272608499501}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0.75}
 --- !u!54 &584455122
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -109,7 +110,21 @@ MonoBehaviour:
   Speed: 5
   RotationSpeed: 2
   Animator: {fileID: 6486499832594193767}
+  ContactArea: {fileID: 7531634464795592357}
   hand: {fileID: 755171271500432940}
+--- !u!65 &7531634464795592357
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3067520272608499501}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1, z: 0.5}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!95 &6486499832594193767
 Animator:
   serializedVersion: 3

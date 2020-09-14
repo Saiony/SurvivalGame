@@ -9,36 +9,37 @@ using UnityEngine;
 
 namespace Game.Scripts.Controller.Item
 {
-    public abstract class Item : Interactable, ITimeChangeable
+    public class ItemController : Interactable, ITimeChangeable
     {
+        [SerializeField]
+        private InteractableItemSO InteractableItemSO;
+
+        public GameObject PastObject => InteractableItemSO.PastObject;
+        public GameObject FutureObject => InteractableItemSO.FutureObject;
+
         public bool Fowardable => InteractableItemSO.FutureObject != null;
         public bool Rewindable => InteractableItemSO.PastObject != null;
-        public InteractableItemSO InteractableItemSO;
-        public Rigidbody rigidbody;
 
-        void Start()
+        protected override void Start()
         {
             base.Start();
-            rigidbody = this.GetComponent<Rigidbody>();
         }
 
-        public Item FowardTime()
+        public ItemController FowardTime()
         {
             if (Fowardable)
             {
                 var item = Foward();
-                OnFoward();
                 return item;
             }
             throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.FutureObject));
         }
 
-        public Item RewindTime()
+        public ItemController RewindTime()
         {
             if (Rewindable)
             {
                 var item = Rewind();
-                OnRewind();
                 return item;
             }
             throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.PastObject));
@@ -46,6 +47,7 @@ namespace Game.Scripts.Controller.Item
 
         protected override void OnPlayerInteract()
         {
+            Debug.Log("Player interacted with Item");
             if (PlayerController.Instance.HasItem)
             {
                 PlayerController.Instance.ExchangeItem(this);
@@ -56,10 +58,7 @@ namespace Game.Scripts.Controller.Item
             }
         }
 
-        protected abstract void OnFoward();
-        protected abstract void OnRewind();
-
-        private Item Foward()
+        private ItemController Foward()
         {
             var currentObj = this.gameObject;
             var newObj = GameObject.Instantiate(
@@ -67,15 +66,15 @@ namespace Game.Scripts.Controller.Item
                 new Vector3(currentObj.transform.position.x, currentObj.transform.position.y, currentObj.transform.position.z),
                 new Quaternion(currentObj.transform.rotation.x, currentObj.transform.rotation.y, currentObj.transform.rotation.z, currentObj.transform.rotation.w));
             StartCoroutine(RunAnimation(currentObj, newObj));
-            return newObj.GetComponent<Item>();
+            return newObj.GetComponent<ItemController>();
         }
 
-        private Item Rewind()
+        private ItemController Rewind()
         {
             var currentObj = this.gameObject;
             var newObj = InteractableItemSO.PastObject;
             StartCoroutine(RunAnimation(currentObj, newObj));
-            return newObj.GetComponent<Item>();
+            return newObj.GetComponent<ItemController>();
         }
 
         private IEnumerator RunAnimation(GameObject objToDestroy, GameObject objToInstantiate)
@@ -109,9 +108,17 @@ namespace Game.Scripts.Controller.Item
             // Todo: @Mike
         }
 
-        public bool Equals(Item other)
+        public bool Equals(ItemController other)
         {
             return InteractableItemSO.name == other.InteractableItemSO.name;
+        }
+
+        protected override void OnPlayerEnter()
+        {            
+        }
+
+        protected override void OnPlayerExit()
+        {            
         }
     }
 }

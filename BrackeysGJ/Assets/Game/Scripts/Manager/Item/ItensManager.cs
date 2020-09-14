@@ -8,7 +8,7 @@ namespace Game.Scripts.Manager.Item
     public class ItensManager : MonoBehaviour
     {
         [SerializeField]
-        private List<Controller.Item.Item> itens;
+        private List<ItemController> itens;
 
         public static ItensManager Instance = null;
 
@@ -31,18 +31,18 @@ namespace Game.Scripts.Manager.Item
             foreach (var item in itens)
             {
 
-                var itemFuturo = item.InteractableItemSO.FutureObject != null ? item.InteractableItemSO.FutureObject.GetComponent<ItemInteractableController>() : null;
-                var itemPassado = item.InteractableItemSO.PastObject != null ? item.InteractableItemSO.PastObject.GetComponent<ItemInteractableController>() : null;
+                var itemFuturo = item.FutureObject != null ? item.FutureObject.GetComponent<ItemController>() : null;
+                var itemPassado = item.PastObject != null ? item.PastObject.GetComponent<ItemController>() : null;
 
                 if (itemFuturo != null)
                 {
-                    if (itemFuturo.InteractableItemSO.PastObject.name != item.name)
-                        throw new ArgumentOutOfRangeException($"{item.InteractableItemSO.name} não possuí {nameof(itemFuturo)}");
+                    if (itemFuturo.PastObject.name != item.name)
+                        throw new ArgumentOutOfRangeException($"{item.name} não possuí {nameof(itemFuturo)}");
                 }
                 if (itemPassado != null)
                 {
-                    if (itemPassado.InteractableItemSO.FutureObject.name != item.name)
-                        throw new ArgumentOutOfRangeException($"{item.InteractableItemSO.name} não possuí {nameof(itemPassado)}");
+                    if (itemPassado.FutureObject.name != item.name)
+                        throw new ArgumentOutOfRangeException($"{item.name} não possuí {nameof(itemPassado)}");
                 }
             }
         }

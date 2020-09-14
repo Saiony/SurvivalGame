@@ -5,6 +5,7 @@ using UnityEngine;
 using Game.Scripts.ScriptableObjects;
 using System.Linq;
 using Game.Scripts.Manager.Quest;
+using Game.Scripts.Controller.Item;
 
 namespace Game.Scripts.Controller.Quest
 {
@@ -34,7 +35,7 @@ namespace Game.Scripts.Controller.Quest
             Completed = false;
         }
 
-        public bool ReceiveItem(Item.Item item)
+        public bool ReceiveItem(ItemController item)
         {
             var itemReceived = ItensRequired.FirstOrDefault(x => x == item.name);
             if (itemReceived == null)

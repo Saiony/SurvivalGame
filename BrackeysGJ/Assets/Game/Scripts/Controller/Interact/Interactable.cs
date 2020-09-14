@@ -26,20 +26,6 @@ namespace Game.Scripts.Controller.Interact
             Col.radius = interactableRange;
         }
 
-        protected virtual void LateUpdate()
-        {
-#if UNITY_EDITOR
-            Col.radius = interactableRange;
-#endif
-            if (IsPlayerTouching /*&& !PlayerController.Instance.InputBlocked*/)
-            {
-                if (Input.GetKeyUp(KeyCode.Space))
-                    OnPlayerInteract();
-                if (Input.GetKeyDown(KeyCode.F))
-                    OnPlayerUse();
-            }
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player")
@@ -58,25 +44,13 @@ namespace Game.Scripts.Controller.Interact
             }
         }
 
-        private void OnCollisionEnter(Collision other)
+        public void Interact()
         {
-            if (other.gameObject.tag == "Player")
-            {
-                IsPlayerTouching = true;
-            }
-        }
-
-        private void OnCollisionExit(Collision other)
-        {
-            if (other.gameObject.tag == "Player")
-            {
-                IsPlayerTouching = false;
-            }
+            OnPlayerInteract();
         }
 
         protected abstract void OnPlayerEnter();
         protected abstract void OnPlayerExit();
         protected abstract void OnPlayerInteract();
-        protected abstract void OnPlayerUse();
     }
 }

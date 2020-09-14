@@ -19,7 +19,7 @@ namespace Game.Scripts.Controller.Dialog
 
         private Queue<Dialogue> Dialogues;
 
-        private bool DialogActive = false;
+        public bool DialogActive = false;
 
         public static DialogBoxController Instance = null;
 
@@ -47,20 +47,25 @@ namespace Game.Scripts.Controller.Dialog
             DisplayNextDialogue();
         }
 
+        public void Interact(Dialogue[] dialogue)
+        {
+            if (!DialogActive)
+            {
+                StartDialog(dialogue, () =>
+                {
+                    Debug.Log("Dialog Ended");
+                });
+                return;
+            }
+            DisplayNextDialogue();
+        }
+
         private void Setup(Dialogue[] dialogues)
         {
             Dialogues = new Queue<Dialogue>();
             foreach (var dialog in dialogues)
             {
                 Dialogues.Enqueue(dialog);
-            }
-        }
-
-        private void LateUpdate()
-        {
-            if (DialogActive && Input.GetKeyUp(KeyCode.Space))
-            {
-                DisplayNextDialogue();
             }
         }
 
