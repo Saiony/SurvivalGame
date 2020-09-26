@@ -14,36 +14,47 @@ namespace Game.Scripts.Controller.Quest
         [SerializeField]
         private QuestSO questSO = null;
 
-        private List<string> ItensRequired;
-        
-        [NonSerialized]
+        [SerializeField]
+        private List<string> ItensRequired = null;
+
+        //[NonSerialized]
         public string Name;
-        [NonSerialized]
+
+        //[NonSerialized]
+        public string SubQuest = null;
+
         public bool Started;
-        [NonSerialized]
         public bool Completed;
+
+        public bool HasSubQuest => SubQuest != null;
 
         private void Start()
         {
             if (!questSO)
                 throw new Exception("Quest controller without a quest");
 
+            //Setup
             Name = questSO.Name;
+
+            SubQuest = questSO.SubQuest != null ? questSO.SubQuest.Name : null;
+
             ItensRequired = new List<string>();
-            foreach(var itenRequiredSO in questSO.ItensRequired)
+            foreach (var itenRequiredSO in questSO.ItensRequired)
                 ItensRequired.Add(itenRequiredSO.name);
             Completed = false;
+
+            QuestsManager.Instance.SubscribeOnQuestFinished(OnAnyQuestFinished);
         }
 
         public bool ReceiveItem(ItemController item)
         {
-            var itemReceived = ItensRequired.FirstOrDefault(x => x == item.name);
+            var itemReceived = ItensRequired.FirstOrDefault(x => x == item.Id);
+
             if (itemReceived == null)
-            {
                 return false;
-            }
             else
             {
+                Debug.Log(item.name + " Received");
                 ItensRequired.Remove(itemReceived);
                 if (ItensRequired.Count == 0)
                     FinishQuest();
@@ -54,13 +65,20 @@ namespace Game.Scripts.Controller.Quest
         public void StartQuest()
         {
             Started = true;
-        }        
+            QuestsManager.Instance.StartQuest(this);
+        }
 
         public void FinishQuest()
         {
             QuestsManager.Instance.FinishQuest(this);
             Started = false;
             Completed = true;
+            QuestsManager.Instance.UnsubscribeOnQuestFinished(OnAnyQuestFinished);
+        }
+
+        public void OnAnyQuestFinished()
+        {
+            //ver se eu sou a current
         }
     }
 }

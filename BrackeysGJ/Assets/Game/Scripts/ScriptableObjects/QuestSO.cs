@@ -9,5 +9,6 @@ namespace Game.Scripts.ScriptableObjects
     {
         public string Name;
         public List<InteractableItemSO> ItensRequired;
+        public QuestSO SubQuest;
     }
 }

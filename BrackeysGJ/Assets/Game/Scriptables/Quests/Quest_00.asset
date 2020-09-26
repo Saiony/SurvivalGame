@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Quest_00
   ItensRequired:
-  - {fileID: 11400000, guid: c9350fb1469861e4284d921a8c13d3d9, type: 2}
+  - {fileID: 11400000, guid: eabb78daa72f5c24eb32d19128da7cb8, type: 2}

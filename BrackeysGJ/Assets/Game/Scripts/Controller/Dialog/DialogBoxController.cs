@@ -11,13 +11,13 @@ namespace Game.Scripts.Controller.Dialog
     public class DialogBoxController : MonoBehaviour
     {
         [SerializeField]
-        private Image Avatar;
+        private Image Avatar = null;
         [SerializeField]
-        private TextMeshProUGUI Name;
+        private TextMeshProUGUI Name = null;
         [SerializeField]
-        private TextMeshProUGUI DisplayedText;
+        private TextMeshProUGUI DisplayedText = null;
 
-        private Queue<Dialogue> Dialogues;
+        private Queue<Dialogue> Dialogues = null;
 
         public bool DialogActive = false;
 

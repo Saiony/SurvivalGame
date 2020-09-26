@@ -11,9 +11,14 @@ namespace Game.Scripts.Manager.Quest
 
     public class QuestsManager : MonoBehaviour
     {
-        public List<QuestSO> Quests = null;
+        [SerializeField]
+        private List<QuestSO> MainQuests = null;
+
+        [SerializeField]
+        private List<string> ActiveQuests = null;
         public static QuestsManager Instance = null;
-        public QuestSO CurrentQuest;
+
+        private event Action OnQuestStarted;
 
         void Awake()
         {
@@ -24,19 +29,67 @@ namespace Game.Scripts.Manager.Quest
 
         private void Start()
         {
-            if(Quests.Count == 0)
+            if (MainQuests.Count == 0)
                 throw new Exception("QuestsManager without quests");
-            CurrentQuest = Quests.First();
+            ActiveQuests = new List<string>();
+            ActiveQuests.Add(MainQuests.FirstOrDefault().Name);
+        }
+
+        public void StartQuest(QuestController quest)
+        {
+            if (quest.HasSubQuest)
+            {
+                ActiveQuests.Add(quest.SubQuest);
+            }
         }
 
         public void FinishQuest(QuestController quest)
         {
-            if(CurrentQuest.Name != quest.Name)
-                throw new Exception($"Tried to finish a quest that isn't the current one \nCurrentQuest: {CurrentQuest.Name} \nQuest: {quest.Name}");
-            if(Quests.IndexOf(CurrentQuest) >= Quests.Count-1) //Última quest do jogo
-                Debug.Log("Jogo acabou, parabéns por ser um otário");
-            else
-                CurrentQuest = Quests[Quests.IndexOf(CurrentQuest) + 1];    
+            if (!ActiveQuests.Exists(x => x == quest.Name))
+                throw new Exception($"Tried to finish a quest that isn't on the current ones \nQuest: {quest.Name}");
+            else //terminar a quest
+            {
+                var questToBeFinished = ActiveQuests.Where(x => x == quest.Name).FirstOrDefault();
+                if (MainQuests.Any(x => x.Name == quest.Name))
+                {
+                    GoToNextQuest(questToBeFinished);
+                    return;
+                }
+                ActiveQuests.Remove(questToBeFinished);
+            }
+        }
+
+        private void GoToNextQuest(string quest)
+        {
+            var questIndex = MainQuests.IndexOf(MainQuests.FirstOrDefault(x => x.Name == quest));
+            var nextQuest = MainQuests[questIndex + 1].Name;
+            if (nextQuest == null)
+            {
+                GameOver();
+                return;
+            }
+            ActiveQuests.Remove(quest);
+            ActiveQuests.Add(nextQuest);
+        }
+
+        private void GameOver()
+        {
+            Debug.Log("Jogo acabou, parabéns por ser um otário");
+        }
+
+        public bool IsActiveQuest(string questName)
+        {
+            return ActiveQuests.Any(x => x == questName);
+        }
+
+        public void SubscribeOnQuestFinished(Action action)
+        {
+            OnQuestStarted += action;
+        }
+
+        public void UnsubscribeOnQuestFinished(Action action)
+        {
+            OnQuestStarted -= action;
         }
     }
 }

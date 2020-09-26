@@ -12,7 +12,7 @@ namespace Game.Scripts.Controller.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
-        private float Speed;
+        private float Speed = 0;
 
         [SerializeField]
         private float RotationSpeed = 0;
@@ -22,6 +22,9 @@ namespace Game.Scripts.Controller.Player
 
         [SerializeField]
         private Collider ContactArea = null;
+
+        [SerializeField]
+        private Transform PlaceObjectPosition = null;
 
         private Rigidbody rgdBody = null;
 
@@ -54,7 +57,7 @@ namespace Game.Scripts.Controller.Player
                 command.Execute(this);
             else
                 rgdBody.velocity = Vector3.zero;
-                
+
             Animator.SetFloat("Speed", rgdBody.velocity.magnitude);
         }
 
@@ -63,7 +66,7 @@ namespace Game.Scripts.Controller.Player
             return null;
         }
 
-#region Movement
+        #region Movement
         public void Move_Left()
         {
             Move(Direction.Left);
@@ -114,7 +117,7 @@ namespace Game.Scripts.Controller.Player
 
             rgdBody.velocity = dir * Speed;
         }
-#endregion Movement
+        #endregion Movement
 
         public void Interact()
         {
@@ -122,11 +125,16 @@ namespace Game.Scripts.Controller.Player
             var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
             foreach (var result in results)
             {
-                if(!result.isTrigger && result.GetComponent<Interactable>())
+                if (!result.isTrigger && result.GetComponent<Interactable>())
                 {
                     result.GetComponent<Interactable>().Interact();
                     return;
                 }
+            }
+
+            if (HasItem)
+            {
+                ThrowItem(ItemHeld);
             }
         }
 
@@ -140,21 +148,29 @@ namespace Game.Scripts.Controller.Player
 
         public void ExchangeItem(ItemController item)
         {
-            if (!item.Equals(ItemHeld))
-            {
-                ItemHeld.transform.position = item.transform.position;
-                ItemHeld.transform.parent = null;
-                SetItem(item);
-            }
-            else
-            {
-                ThrowItem(item);
-            }
+            if (item.Equals(ItemHeld))
+                throw new InvalidOperationException("Can't exchange an item for itself");
+
+            ItemHeld.transform.position = item.transform.position;
+            ItemHeld.transform.parent = null;
+            SetItem(item);
         }
 
         private void ThrowItem(ItemController item)
         {
             ItemHeld.transform.parent = null;
+            ItemHeld.transform.DOMove(
+                new Vector3
+                (
+                    PlaceObjectPosition.position.x,
+                    PlaceObjectPosition.position.y + (item.transform.position.y - item.Feet.position.y),
+                    PlaceObjectPosition.position.z
+                ), 0.5f).OnComplete(() =>
+                {
+                    ItemHeld = null;
+                    item.OnItemThrown();
+                });
+
             //To-do: @mike animação
         }
 

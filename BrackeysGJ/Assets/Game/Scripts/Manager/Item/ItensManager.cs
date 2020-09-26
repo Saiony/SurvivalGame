@@ -8,13 +8,13 @@ namespace Game.Scripts.Manager.Item
     public class ItensManager : MonoBehaviour
     {
         [SerializeField]
-        private List<ItemController> itens;
+        private List<ItemController> itens = null;
 
         public static ItensManager Instance = null;
 
         void Awake()
         {
-            if(Instance != null)
+            if (Instance != null)
                 throw new Exception("Singleton already populated");
             Instance = this;
         }

@@ -13,13 +13,13 @@ namespace Game.Scripts.Controller.NPC
     public class NpcController : Interactable
     {
         [SerializeField]
-        private TextMeshProUGUI MissionStatusMark;
+        private TextMeshProUGUI MissionStatusMark = null;
 
         [SerializeField]
-        private NpcSO NpcConfig;
+        private NpcSO NpcConfig = null;
 
         [SerializeField]
-        private QuestController QuestController;
+        private QuestController QuestController = null;
 
         private bool HasQuest => QuestController != null;
 
@@ -31,7 +31,7 @@ namespace Game.Scripts.Controller.NPC
 
         public void UpdateMissionStatusMark()
         {
-            if (QuestsManager.Instance.CurrentQuest.name == QuestController.name)
+            if (QuestsManager.Instance.IsActiveQuest(QuestController.Name))
             {
                 if (QuestController.Started)
                     MissionStatusMark.text = "?";
@@ -43,7 +43,7 @@ namespace Game.Scripts.Controller.NPC
         }
 
         public void StartQuest()
-        {            
+        {
             QuestController.StartQuest();
         }
 
@@ -63,7 +63,7 @@ namespace Game.Scripts.Controller.NPC
         }
 
         protected override void OnPlayerInteract()
-        {            
+        {
             Debug.Log("Player interacted");
             DialogBoxController.Instance.Interact(GetDialog());
         }
@@ -80,7 +80,7 @@ namespace Game.Scripts.Controller.NPC
             {
                 chosenDialog = NpcConfig.AfterQuestDialog;
             }
-            else if (QuestsManager.Instance.CurrentQuest.Name != QuestController.Name)
+            else if (!QuestsManager.Instance.IsActiveQuest(QuestController.Name))
             {
                 chosenDialog = NpcConfig.StandardDialog;
             }

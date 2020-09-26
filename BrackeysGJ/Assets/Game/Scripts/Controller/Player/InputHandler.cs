@@ -54,7 +54,7 @@ namespace Game.Scripts.Controller.Player
 
         public Command HandleInput()
         {
-            //Esc command is UNBLOCKABLE
+            //Esc and Space command is UNBLOCKABLE
             if(Input.GetKeyDown(Button_Esc.ButtonCode))
                 return Button_Esc.Command;
             else if (Input.GetKeyDown(Button_Space.ButtonCode))

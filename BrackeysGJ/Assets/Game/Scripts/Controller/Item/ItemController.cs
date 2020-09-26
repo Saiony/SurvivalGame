@@ -12,7 +12,14 @@ namespace Game.Scripts.Controller.Item
     public class ItemController : Interactable, ITimeChangeable
     {
         [SerializeField]
-        private InteractableItemSO InteractableItemSO;
+        private InteractableItemSO InteractableItemSO = null;
+
+        [SerializeField]
+        private Collider Collider = null;
+
+        public string Id => InteractableItemSO.name;
+
+        public Transform Feet = null;
 
         public GameObject PastObject => InteractableItemSO.PastObject;
         public GameObject FutureObject => InteractableItemSO.FutureObject;
@@ -51,11 +58,18 @@ namespace Game.Scripts.Controller.Item
             if (PlayerController.Instance.HasItem)
             {
                 PlayerController.Instance.ExchangeItem(this);
+                Collider.enabled = true;
             }
             else
             {
                 PlayerController.Instance.SetItem(this);
+                Collider.enabled = false;
             }
+        }
+
+        public void OnItemThrown()
+        {
+            Collider.enabled = true;
         }
 
         private ItemController Foward()
@@ -114,11 +128,11 @@ namespace Game.Scripts.Controller.Item
         }
 
         protected override void OnPlayerEnter()
-        {            
+        {
         }
 
         protected override void OnPlayerExit()
-        {            
+        {
         }
     }
 }
