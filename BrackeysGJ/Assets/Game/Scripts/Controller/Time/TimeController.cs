@@ -41,6 +41,14 @@ namespace Game.Scripts.Controller.Time
 
         private bool TimePaused { get; set; }
 
+        public static TimeController Instance = null;
+
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+        }
+
         private void Start()
         {
             Calendar = new FarmCalendar(1, 4, 15, 22, 4, 2);
@@ -73,6 +81,12 @@ namespace Game.Scripts.Controller.Time
             TimePaused = false;
         }
 
+        public void PassDay(int finalHour)
+        {
+            Debug.Log("PassDay called");
+            Calendar.SetTime(0, 0, finalHour, Calendar.Day + 1, Calendar.Month, Calendar.Year);
+        }
+
         public void OnMinuteChanged()
         {
             var hourFormated = Calendar.Hour > 12 ? Calendar.Hour - 12 : Calendar.Hour;
@@ -90,6 +104,7 @@ namespace Game.Scripts.Controller.Time
         {
             var dayOfTheWeek = WeekDays[(Calendar.Day % 7)];
             DayText.text = Calendar.Day.ToString() + " " + dayOfTheWeek;
+            Debug.Log("DayChanged to: " + Calendar.Day.ToString());
         }
 
         public void OnMonthChanged()

@@ -32,13 +32,7 @@ namespace Game.Scripts.Controller.Time
 
         public FarmCalendar(int second, int minute, int hour, int day, int month, int year) : this()
         {
-            Second = second;
-            Minute = minute;
-            Hour = hour;
-
-            Day = day;
-            Month = month;
-            Year = year;
+            SetTime(second, minute, hour, day, month, year);
         }
 
         public FarmCalendar(int day, int month, int year) : this()
@@ -48,12 +42,30 @@ namespace Game.Scripts.Controller.Time
             Year = year;
         }
 
+        public void SetTime(int second, int minute, int hour, int day, int month, int year)
+        {
+            Second = second;
+            Minute = minute;
+            Hour = hour;
+
+            Day = day;
+            Month = month;
+            Year = year;
+
+            OnChangeMinute?.Invoke();
+            OnChangeHour?.Invoke();
+            OnChangeDay?.Invoke();
+            OnChangeMonth?.Invoke();
+            OnChangeYear?.Invoke();
+        }
+
         public void IncrementTime(int hour, int minute, int second)
         {
             IncrementHour(hour);
             IncrementMinute(minute);
             IncrementSecond(second);
         }
+
 
         #region Increment
         private void IncrementSecond(int second)
