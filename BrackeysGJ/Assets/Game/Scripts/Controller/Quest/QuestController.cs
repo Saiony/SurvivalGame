@@ -12,19 +12,19 @@ namespace Game.Scripts.Controller.Quest
     public class QuestController : MonoBehaviour
     {
         [SerializeField]
-        private QuestSO questSO = null;
+        private QuestSO _questSO = null;
+        private QuestSO questSO => _questSO;
 
-        [SerializeField]
-        private List<string> ItensRequired = null;
-
-        //[NonSerialized]
-        public string Name;
+        private List<string> ItensRequired { get; set; }
 
         //[NonSerialized]
-        public string SubQuest = null;
+        public string Name { get; private set; }
 
-        public bool Started;
-        public bool Completed;
+        //[NonSerialized]
+        public string SubQuest { get; private set; }
+
+        public bool Started { get; private set; }
+        public bool Completed { get; private set; }
 
         public bool HasSubQuest => SubQuest != null;
 

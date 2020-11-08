@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370605989878676314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8901405609118654295}
@@ -58,14 +58,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6538431099502556957}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3476571127415941127}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &6215716420946535277
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -73,7 +73,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6538431099502556957}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 382ced19f20c16d4382fdedbd194fee9, type: 3}
 --- !u!23 &3859530451312016126
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f372f38a1f7071645b2b64005e2380b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -139,10 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d1f917241a55348b5d82ae4b90e084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableRange: 1
-  InteractableItemSO: {fileID: 11400000, guid: c9350fb1469861e4284d921a8c13d3d9, type: 2}
-  Collider: {fileID: 7893092161056160919}
-  Feet: {fileID: 3476571127415941127}
+  _interactableRange: 0
+  _interactableItemSO: {fileID: 11400000, guid: c9350fb1469861e4284d921a8c13d3d9,
+    type: 2}
+  _collider: {fileID: 7893092161056160919}
+  _feet: {fileID: 3476571127415941127}
 --- !u!135 &2569384305707580728
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -154,5 +155,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0
   m_Center: {x: 0, y: 0, z: 0}

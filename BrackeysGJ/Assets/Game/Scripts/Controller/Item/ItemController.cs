@@ -12,14 +12,17 @@ namespace Game.Scripts.Controller.Item
     public class ItemController : Interactable, ITimeChangeable
     {
         [SerializeField]
-        private InteractableItemSO InteractableItemSO = null;
+        private InteractableItemSO _interactableItemSO = null;
+        private InteractableItemSO InteractableItemSO => _interactableItemSO;
 
         [SerializeField]
-        private Collider Collider = null;
+        private Collider _collider = null;
+        private Collider Collider => _collider;
 
+        [SerializeField]
+        private Transform _feet = null;
+        public Transform Feet => _feet;
         public string Id => InteractableItemSO.name;
-
-        public Transform Feet = null;
 
         public GameObject PastObject => InteractableItemSO.PastObject;
         public GameObject FutureObject => InteractableItemSO.FutureObject;

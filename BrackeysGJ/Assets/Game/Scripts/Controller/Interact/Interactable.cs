@@ -6,16 +6,13 @@ namespace Game.Scripts.Controller.Interact
     [ExecuteInEditMode]
     public abstract class Interactable : MonoBehaviour
     {
+        [SerializeField]
         [Range(1, 5f)]
-        public float interactableRange = 1f;
-        private SphereCollider Col;
+        private float _interactableRange = 0;
+        public float interactableRange => _interactableRange;
 
-
-        [SerializeField]
         private bool IsPlayerInside { get; set; }
-
-        [SerializeField]
-        private bool IsPlayerTouching { get; set; }
+        private SphereCollider Col { get; set; }
 
         protected virtual void Start()
         {

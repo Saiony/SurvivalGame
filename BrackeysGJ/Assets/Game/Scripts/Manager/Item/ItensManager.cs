@@ -8,7 +8,8 @@ namespace Game.Scripts.Manager.Item
     public class ItensManager : MonoBehaviour
     {
         [SerializeField]
-        private List<ItemController> itens = null;
+        private List<ItemController> _itens = null;
+        private List<ItemController> Itens => _itens;
 
         public static ItensManager Instance = null;
 
@@ -26,9 +27,9 @@ namespace Game.Scripts.Manager.Item
 
         private void ValidarExistenciaDosItens()
         {
-            if (itens == null)
-                throw new ArgumentOutOfRangeException(nameof(itens));
-            foreach (var item in itens)
+            if (Itens == null)
+                throw new ArgumentOutOfRangeException(nameof(Itens));
+            foreach (var item in Itens)
             {
 
                 var itemFuturo = item.FutureObject != null ? item.FutureObject.GetComponent<ItemController>() : null;

@@ -11,15 +11,30 @@ namespace Game.Scripts.Controller.Dialog
     public class DialogBoxController : MonoBehaviour
     {
         [SerializeField]
-        private Image Avatar = null;
+        private Image _avatar = null;
+        private Image Avatar => _avatar;
+
         [SerializeField]
-        private TextMeshProUGUI Name = null;
+        private TextMeshProUGUI _name = null;
+        private TextMeshProUGUI Name => _name;
+
         [SerializeField]
-        private TextMeshProUGUI DisplayedText = null;
+        private TextMeshProUGUI _displayedText = null;
+        private TextMeshProUGUI DisplayedText => _displayedText;
+
+        [SerializeField]
+        private Image _endDialogIndicator = null;
+        private Image EndDialogIndicator => _endDialogIndicator;
+
+        [SerializeField]
+        [Range(0.01f, 0.5f)]
+        private float _timePerWord = 0;
+        private float TimePerWord => _timePerWord;
 
         private Queue<Dialogue> Dialogues = null;
-
-        public bool DialogActive = false;
+        private bool DialogActive = false;
+        private bool AnimatingText = false;
+        private Sequence textAnimation = null;
 
         public static DialogBoxController Instance = null;
 
@@ -44,6 +59,7 @@ namespace Game.Scripts.Controller.Dialog
             //TODO: Animação @mike
             DialogActive = true;
             gameObject.SetActive(true);
+            EndDialogIndicator.DOFade(0, 0);
             DisplayNextDialogue();
         }
 
@@ -55,6 +71,12 @@ namespace Game.Scripts.Controller.Dialog
                 {
                     Debug.Log("Dialog Ended");
                 });
+                return;
+            }
+            if (AnimatingText && textAnimation != null)
+            {
+                //finish animation
+                textAnimation.Complete(true);
                 return;
             }
             DisplayNextDialogue();
@@ -76,13 +98,18 @@ namespace Game.Scripts.Controller.Dialog
                 EndDialog();
                 return;
             }
-
+            AnimatingText = true;
             Dialogue newDialogue = Dialogues.Dequeue();
             DisplayedText.text = String.Empty;
             Avatar.sprite = newDialogue.Portrait.Avatar;
             Name.text = newDialogue.Portrait.Name;
+            EndDialogIndicator.DOFade(0, 0);
 
-            DisplayedText.DOText(newDialogue.Sentence, 1f);
+            var textDuration = TimePerWord * newDialogue.Sentence.Length;
+            textAnimation = DOTween.Sequence();
+            textAnimation.Append(DisplayedText.DOText(newDialogue.Sentence, textDuration));
+            textAnimation.Append(EndDialogIndicator.DOFade(1, 0.15f));
+            textAnimation.AppendCallback(() => AnimatingText = false);
         }
 
         private void EndDialog()

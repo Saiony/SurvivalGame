@@ -9,7 +9,6 @@ namespace Game.Scripts.Controller.Player
     public class InputHandler : MonoBehaviour
     {
         private bool InputBlocked { get; set; }
-
         public List<PlayerInput> PlayerInputs { get; private set; }
 
         private PlayerInput Button_W;
@@ -19,6 +18,7 @@ namespace Game.Scripts.Controller.Player
         private PlayerInput Button_F;
         private PlayerInput Button_Space;
         private PlayerInput Button_Esc;
+
         public static InputHandler Instance;
 
         private void Awake()
@@ -55,7 +55,7 @@ namespace Game.Scripts.Controller.Player
         public Command HandleInput()
         {
             //Esc and Space command is UNBLOCKABLE
-            if(Input.GetKeyDown(Button_Esc.ButtonCode))
+            if (Input.GetKeyDown(Button_Esc.ButtonCode))
                 return Button_Esc.Command;
             else if (Input.GetKeyDown(Button_Space.ButtonCode))
                 return Button_Space.Command;
@@ -71,8 +71,8 @@ namespace Game.Scripts.Controller.Player
             else if (Input.GetKey(Button_D.ButtonCode))
                 return Button_D.Command;
             else if (Input.GetKeyDown(Button_F.ButtonCode))
-                return Button_F.Command;           
-            
+                return Button_F.Command;
+
             return null;
         }
 
@@ -89,7 +89,7 @@ namespace Game.Scripts.Controller.Player
         public bool UpdatePlayerInput(PlayerInput playerInput, KeyCode newKeyCode)
         {
             var oldInput = PlayerInputs.FirstOrDefault(x => x.Id == playerInput.Id);
-            if(PlayerInputs.Any(x => x.ButtonCode == newKeyCode))
+            if (PlayerInputs.Any(x => x.ButtonCode == newKeyCode))
             {
                 Debug.Log("Input already registered");
                 return false;

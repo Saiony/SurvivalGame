@@ -12,27 +12,32 @@ namespace Game.Scripts.Controller.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
-        private float Speed = 0;
+        private float _speed = 0;
+        private float Speed => _speed;
 
         [SerializeField]
-        private float RotationSpeed = 0;
+        private float _rotationSpeed = 0;
+        private float RotationSpeed => _rotationSpeed;
 
         [SerializeField]
-        private Animator Animator = null;
+        private Animator _animator = null;
+        private Animator Animator => _animator;
 
         [SerializeField]
-        private Collider ContactArea = null;
+        private Collider _contactArea = null;
+        private Collider ContactArea => _contactArea;
 
         [SerializeField]
-        private Transform PlaceObjectPosition = null;
+        private Transform _placeObjectPosition = null;
+        private Transform PlaceObjectPosition => _placeObjectPosition;
 
-        private Rigidbody rgdBody = null;
+        [SerializeField]
+        private GameObject _hand = null;
+        public GameObject Hand => _hand;
 
         public Item.ItemController ItemHeld { get; private set; }
-
         public bool HasItem => ItemHeld != null;
-
-        public GameObject hand;
+        private Rigidbody RgdBody { get; set; }
 
         public static PlayerController Instance = null;
 
@@ -46,7 +51,7 @@ namespace Game.Scripts.Controller.Player
 
         void Start()
         {
-            rgdBody = GetComponent<Rigidbody>();
+            RgdBody = GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -56,9 +61,9 @@ namespace Game.Scripts.Controller.Player
             if (command != null)
                 command.Execute(this);
             else
-                rgdBody.velocity = Vector3.zero;
+                RgdBody.velocity = Vector3.zero;
 
-            Animator.SetFloat("Speed", rgdBody.velocity.magnitude);
+            Animator.SetFloat("Speed", RgdBody.velocity.magnitude);
         }
 
         public static Dialogue Dialog(params string[] sentences)
@@ -89,7 +94,7 @@ namespace Game.Scripts.Controller.Player
 
         private void Move(Direction direction)
         {
-            rgdBody.velocity = Vector3.zero;
+            RgdBody.velocity = Vector3.zero;
             Vector3 dir = new Vector3();
 
             if (direction == Direction.Right) //Right
@@ -115,7 +120,7 @@ namespace Game.Scripts.Controller.Player
             else
                 throw new Exception($"Movement direction {direction}");
 
-            rgdBody.velocity = dir * Speed;
+            RgdBody.velocity = dir * Speed;
         }
         #endregion Movement
 
@@ -140,9 +145,10 @@ namespace Game.Scripts.Controller.Player
 
         public void SetItem(ItemController item)
         {
-            item.gameObject.transform.position = Instance.hand.transform.position +
+            Debug.Log("SetItem: " + item.name);
+            item.gameObject.transform.position = Instance.Hand.transform.position +
                                                  new Vector3(0, item.gameObject.GetComponent<MeshRenderer>().bounds.size.y / 2, 0);
-            item.gameObject.transform.parent = Instance.hand.transform;
+            item.gameObject.transform.parent = Instance.Hand.transform;
             ItemHeld = item;
         }
 
@@ -167,11 +173,12 @@ namespace Game.Scripts.Controller.Player
                     PlaceObjectPosition.position.z
                 ), 0.5f).OnComplete(() =>
                 {
-                    ItemHeld = null;
                     item.OnItemThrown();
+                    ItemHeld = null;
                 });
-
             //To-do: @mike animação
+
+            var playerloop = UnityEngine.LowLevel.PlayerLoop.GetDefaultPlayerLoop();
         }
 
         public void GiveItemHeld()

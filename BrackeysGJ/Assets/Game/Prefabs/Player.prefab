@@ -138,12 +138,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c7dc9b3bcf6b948a5a2abb72f0e9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
-  RotationSpeed: 2
-  Animator: {fileID: 6486499832594193767}
-  ContactArea: {fileID: 7531634464795592357}
-  PlaceObjectPosition: {fileID: 7036722206738019318}
-  hand: {fileID: 755171271500432940}
+  _speed: 0
+  _rotationSpeed: 0
+  _animator: {fileID: 6486499832594193767}
+  _contactArea: {fileID: 8987172963030178236}
+  _placeObjectPosition: {fileID: 7036722206738019318}
+  _hand: {fileID: 755171271500432940}
 --- !u!65 &7531634464795592357
 BoxCollider:
   m_ObjectHideFlags: 0

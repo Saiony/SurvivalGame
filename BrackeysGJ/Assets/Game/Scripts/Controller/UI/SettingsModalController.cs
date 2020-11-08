@@ -12,6 +12,8 @@ namespace Game.Scripts.Controller.UI
     {
         [SerializeField]
         private GameObject _changeInputPrefab = null;
+        private GameObject ChangeInputPrefab => _changeInputPrefab;
+
         private bool Showing { get; set; }
 
         public static SettingsModalController Instance = null;
@@ -57,7 +59,7 @@ namespace Game.Scripts.Controller.UI
             var playerInputs = InputHandler.Instance.PlayerInputs;
             foreach (var playerInput in playerInputs)
             {
-                var changeInputGO = Instantiate(_changeInputPrefab, Vector3.zero, Quaternion.identity, transform);
+                var changeInputGO = Instantiate(ChangeInputPrefab, Vector3.zero, Quaternion.identity, transform);
                 changeInputGO.GetComponent<ChangeInputController>().Setup(playerInput);
             }
         }

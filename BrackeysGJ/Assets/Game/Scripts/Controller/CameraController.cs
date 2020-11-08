@@ -6,22 +6,28 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private PlayerController player = null;
+    private PlayerController _player = null;
+    private PlayerController Player => _player;
 
     [SerializeField]
-    private float OffsetX = 0;
+    private float _offsetX = 0;
+    private float OffsetX => _offsetX;
+
     [SerializeField]
-    private float OffsetY = 0;
+    private float _offsetY = 0;
+    private float OffsetY => _offsetY;
+
     [SerializeField]
-    private float offsetZ = 0;
+    private float _offsetZ = 0;
+    private float OffsetZ => _offsetZ;
 
     private void FixedUpdate()
     {
         transform.position = new Vector3
         (
-            player.transform.position.x + OffsetX,
-            player.transform.position.y + OffsetY,
-            player.transform.position.z + offsetZ
+            Player.transform.position.x + OffsetX,
+            Player.transform.position.y + OffsetY,
+            Player.transform.position.z + OffsetZ
         );
     }
 }

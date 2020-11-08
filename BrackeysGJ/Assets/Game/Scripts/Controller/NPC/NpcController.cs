@@ -13,20 +13,24 @@ namespace Game.Scripts.Controller.NPC
     public class NpcController : Interactable
     {
         [SerializeField]
-        private TextMeshProUGUI MissionStatusMark = null;
+        private TextMeshProUGUI _missionStatusMark = null;
+        private TextMeshProUGUI MissionStatusMark => _missionStatusMark;
 
         [SerializeField]
-        private NpcSO NpcConfig = null;
+        private NpcSO _npcConfig = null;
+        private NpcSO NpcConfig => _npcConfig;
 
         [SerializeField]
-        private QuestController QuestController = null;
+        private QuestController _questController = null;
+        private QuestController QuestController => _questController;
 
         private bool HasQuest => QuestController != null;
 
         protected override void Start()
         {
             base.Start();
-            UpdateMissionStatusMark();
+            if (QuestController != null)
+                UpdateMissionStatusMark();
         }
 
         public void UpdateMissionStatusMark()

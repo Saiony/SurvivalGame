@@ -18,7 +18,7 @@ MonoBehaviour:
   StartQuestDialog:
   - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Hello? Good morning?\r"
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - Portrait: {fileID: 11400000, guid: af03d8d6a610bbe46b84078f5388467c, type: 2}
     Sentence: "Hello. Good morning, good afternoon, good night ... None of this really
       matters. Time is a social construction, and only the slaves of their own mind
       believes in it.\r"

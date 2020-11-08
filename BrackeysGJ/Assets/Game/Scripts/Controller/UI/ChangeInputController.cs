@@ -9,31 +9,34 @@ namespace Game.Scripts.Controller.UI
     public class ChangeInputController : MonoBehaviour
     {
         [SerializeField]
-        private Button readInputButton = null;
+        private Button _readInputButton = null;
+        private Button ReadInputButton => _readInputButton;
 
         [SerializeField]
-        private TextMeshProUGUI inputText = null;
+        private TextMeshProUGUI _inputText = null;
+        private TextMeshProUGUI InputText => _inputText;
 
         [SerializeField]
-        private TextMeshProUGUI commandText = null;
+        private TextMeshProUGUI _commandText = null;
+        private TextMeshProUGUI CommandText => _commandText;
 
         private PlayerInput PlayerInput { get; set; }
 
         private void Awake()
         {
-            readInputButton.onClick.AddListener(() => StartCoroutine(ReadInput()));
+            ReadInputButton.onClick.AddListener(() => StartCoroutine(ReadInput()));
         }
 
         public void Setup(PlayerInput playerInput)
         {
             PlayerInput = playerInput;
-            inputText.text = playerInput.ButtonCode.ToString();
-            commandText.text = playerInput.Command.Name;
+            InputText.text = playerInput.ButtonCode.ToString();
+            CommandText.text = playerInput.Command.Name;
         }
 
         private IEnumerator ReadInput()
         {
-            inputText.text = "Press any button";
+            InputText.text = "Press any button";
             Debug.Log("Reading Input...");
             bool done = false;
             while (!done)
@@ -43,8 +46,8 @@ namespace Game.Scripts.Controller.UI
                     if (Input.GetKeyDown(keyCode))
                     {
                         Debug.Log("KeyCode down: " + keyCode);
-                        if(InputHandler.Instance.UpdatePlayerInput(PlayerInput, keyCode))
-                            inputText.text = keyCode.ToString();
+                        if (InputHandler.Instance.UpdatePlayerInput(PlayerInput, keyCode))
+                            InputText.text = keyCode.ToString();
                         done = true;
                     }
                 }

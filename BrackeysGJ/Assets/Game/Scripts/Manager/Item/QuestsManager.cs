@@ -12,23 +12,22 @@ namespace Game.Scripts.Manager.Quest
     public class QuestsManager : MonoBehaviour
     {
         [SerializeField]
-        private List<QuestSO> MainQuests = null;
+        private List<QuestSO> _mainQuests = null;
+        private List<QuestSO> MainQuests => _mainQuests;
 
-        [SerializeField]
-        private List<string> ActiveQuests = null;
+        private List<string> ActiveQuests { get; set; }
+
+        private event Action OnQuestStarted = null;
+
         public static QuestsManager Instance = null;
 
-        private event Action OnQuestStarted;
 
-        void Awake()
+        private void Awake()
         {
             if (Instance != null)
                 throw new Exception("Singleton already populated.");
             Instance = this;
-        }
 
-        private void Start()
-        {
             if (MainQuests.Count == 0)
                 throw new Exception("QuestsManager without quests");
             ActiveQuests = new List<string>();
