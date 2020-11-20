@@ -26,9 +26,8 @@ namespace Game.Scripts.Controller.NPC
 
         private bool HasQuest => QuestController != null;
 
-        protected override void Start()
+        protected override void OnDidStart()
         {
-            base.Start();
             if (QuestController != null)
                 UpdateMissionStatusMark();
         }

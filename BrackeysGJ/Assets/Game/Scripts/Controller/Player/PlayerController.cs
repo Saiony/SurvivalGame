@@ -5,6 +5,7 @@ using Game.Scripts.Controller.Dialog;
 using System;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Item;
+using System.Linq;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -128,13 +129,11 @@ namespace Game.Scripts.Controller.Player
         {
             Debug.Log("Cmd Interact");
             var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
-            foreach (var result in results)
+            var interactableResults = results.ToList().Where(x => x.GetComponent<Interactable>());
+            foreach (var interactableResult in interactableResults)
             {
-                if (!result.isTrigger && result.GetComponent<Interactable>())
-                {
-                    result.GetComponent<Interactable>().Interact();
-                    return;
-                }
+                interactableResult.GetComponent<Interactable>().Interact();
+                return;
             }
 
             if (HasItem)

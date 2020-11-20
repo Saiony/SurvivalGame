@@ -30,11 +30,6 @@ namespace Game.Scripts.Controller.Item
         public bool Fowardable => InteractableItemSO.FutureObject != null;
         public bool Rewindable => InteractableItemSO.PastObject != null;
 
-        protected override void Start()
-        {
-            base.Start();
-        }
-
         public ItemController FowardTime()
         {
             if (Fowardable)

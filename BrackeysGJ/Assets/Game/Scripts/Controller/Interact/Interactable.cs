@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Game.Scripts.Controller.Interact
 {
-    [ExecuteInEditMode]
     public abstract class Interactable : MonoBehaviour
     {
         [SerializeField]
@@ -11,16 +10,21 @@ namespace Game.Scripts.Controller.Interact
         private float _interactableRange = 0;
         public float interactableRange => _interactableRange;
 
-        private bool IsPlayerInside { get; set; }
-        private SphereCollider Col { get; set; }
+        [SerializeField]
+        private Collider _detectionCollider = null;
+        protected Collider DetectionCollider => _detectionCollider;
 
-        protected virtual void Start()
+        private bool IsPlayerInside { get; set; }
+
+        private void Start()
         {
-            if (gameObject.GetComponent<SphereCollider>() == null)
-                gameObject.AddComponent<SphereCollider>();
-            Col = GetComponent<SphereCollider>();
-            Col.isTrigger = true;
-            Col.radius = interactableRange;
+            DetectionCollider.isTrigger = true;
+
+            OnDidStart();
+        }
+
+        protected virtual void OnDidStart()
+        {
         }
 
         private void OnTriggerEnter(Collider other)
