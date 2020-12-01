@@ -13,50 +13,76 @@ MonoBehaviour:
   m_Name: Kraut
   m_EditorClassIdentifier: 
   StandardDialog:
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
     Sentence: Alas children.  Alas village.
   StartQuestDialog:
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
     Sentence: "The store is did close.  Cometh back later or never. I don\u2019t
       care."
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Hey, chill! Are you the herbalist who closed your store?
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
     Sentence: "Yes, yes. \u201CIt is I\u201D. Didst thee cometh to make excit'ment
       of me? Draw mustaches on mine own signeth? Throw rotten egg at mine own window?!?"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Meeeee? No! Of course not! I never, and I repeat, NEVER would draw
       mustaches on private property. Is that the reason you closed your store?
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
     Sentence: "Hmpf\u2026 aye.  I have decided to holp this village with mine own
       years and years of healing exp'rience, but the children in this lodging are
       malapert and cullionly."
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
     Sentence: "Just because I used the ball yond hath fallen in mine yard to prepare
       a potion, those gents vandaliz'd mine store.  It took me days just to crisp
       the egg stuck to the mure, and mine store signeth was completely ruin'd.  Totally!\r"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "That's terrible. But what if I helped you get a new sign? You could
       open it, right? Not all children here are bad, you know... And some of them
       are in need of your potions. It\u2019s flu season.\r"
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
     Sentence: Aye.  I bethink so. There art kind people in this village. If you give
       me a new signeth, I has't not reason to stayeth close
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Great! Perfect! Just for inspiration and for no other reason, could
       I see the sign with the mustaches drawn on it?
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
     Sentence: "Nay.\r"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Ooook! See you later!\r"
   WaitingEndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - _portrait: {fileID: 0}
     Sentence: Avoid drawing mine own visage on the signe this time.
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - _portrait: {fileID: 0}
     Sentence: "It may be more difficult to put on mustaches lat\u2019r.\r\n"
   EndQuestDialog:
-  - Portrait: {fileID: 0}
-    Sentence: 
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: 'Hello! I got a great new sign for you. Very conceptual, right?
+
+'
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: 'Oh, allow me seeth! Int''resting.  What are these circles?
+
+'
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: 'They represent the growing and circular satisfaction of your customers,
+      of course.
+
+'
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Or it's just circles!\r"
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: "Very much int'resting.  Thanketh thee very much.  If thee wanteth
+      a potion or perfum'ry, feel free to asketh.\r"
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "What is that bottle with green liquid inside?\r"
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: "That? It is.  Mine own lemon juice.  T is not a product\r"
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Okay, I accept. I hope it\u2019s ice cold.\r"
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+    Sentence: " But...\r"
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Thank you! Goodbye! Good luck with the store!\r"
   AfterQuestDialog:
-  - Portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
+  - _portrait: {fileID: 11400000, guid: ad96908fbdb840c4f8856e6c30e86dd1, type: 2}
     Sentence: I still und'rstand not these geometric shapes, but i did like the colors.

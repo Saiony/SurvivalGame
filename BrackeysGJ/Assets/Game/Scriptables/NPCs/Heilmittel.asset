@@ -13,53 +13,53 @@ MonoBehaviour:
   m_Name: Heilmittel
   m_EditorClassIdentifier: 
   StandardDialog:
-  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+  - _portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
     Sentence: That always happens this time of the year ... Always.
   StartQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Hello, ma\u2019am! Is everything okay?"
-  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+  - _portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
     Sentence: "Hm? What? Oh, sorry. I was distracted. How much time do you think
       the herbalist will take to reopen his store?\r"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: An Herbalist? Does this village have an herbalist? I hope he is better
       than the apothecary back where I lived. He sold perfumes that attracted mosquitoes
       and then started selling repellents. Terrible.
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "I can try to discover that later\u2026 But what\u2019s your problem?
       Do you need any herbs?"
-  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+  - _portrait: {fileID: 0}
     Sentence: " So... Mr Kr\xE4ut has great flu potions in his store that never fail,
       especially in this cold time! But it has been five days since he closed the
       store and refuses to sell anything... I have a son in bed with a cold, and
       I can't get the ingredients myself because I need to take care of my babies."
-  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+  - _portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
     Sentence: I have a son in bed with a cold, and I can't get the ingredients myself
       because I need to take care of my babies.
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: " The babies can't take care of each other? I mean\u2026 What ingredients
       do you need? I can help! I'm great with plants, nature, those kinda things."
-  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+  - _portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
     Sentence: "Really? Would you do that for me?!? Oh, what a blessing! Thank you
       very much. It is a simple tea, I already have part of the ingredients here,
       the only thing missing is some honey and elderberries. Oh, you\u2019re such
       an angel!"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Oh, of course. The old and wide elderberry. My favorite plant! Haha\u2026
       I\u2019ll be right back with the ingredients for you!"
   WaitingEndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+  - _portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
     Sentence: His fever is rising... Did you get the ingredients?
   EndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Hi again, ma\u2019am! Here are the ingredients you need for your potion.
       I hope your son gets better soon!"
-  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+  - _portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
     Sentence: Thank you, miss! Thank you very much! And if you feel your nose stuffy
       or if want to eat a cake later, feel free to come over! I will be forever grateful.
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Come on, nonsense. No need to thank me! I'm happy to help. And my favorite
       cake flavor is carrot, okay? Bye!
   AfterQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
+  - _portrait: {fileID: 11400000, guid: 1a493d19347d3f444b5b49d206eb5841, type: 2}
     Sentence: Soon my little boy will stop sneezing. Thank you!

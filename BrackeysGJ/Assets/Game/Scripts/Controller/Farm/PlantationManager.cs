@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Player;
+using Game.Scripts.Controller.Time;
 using UnityEngine;
 
 public class PlantationManager : Interactable
@@ -18,6 +19,11 @@ public class PlantationManager : Interactable
     private GameObject _soilPrefab = null;
     private GameObject SoilPrefab => _soilPrefab;
 
+    [Header("Debug")]
+    [SerializeField]
+    private CropSO _debugCrop = null;
+    private CropSO DebugCrop => _debugCrop;
+
     private List<List<SoilController>> SoilList { get; set; }
 
     protected override void OnDidStart()
@@ -27,6 +33,8 @@ public class PlantationManager : Interactable
         CreateSoils();
         PositionSoils(area);
         ((BoxCollider)DetectionCollider).size = new Vector3(area.x * SoilSize.x, 1, area.y * SoilSize.y);
+        ((BoxCollider)DetectionCollider).center = new Vector3((area.x - 1) * SoilSize.x / 2, 0.5f, (area.y - 1) * SoilSize.y / 2);
+        TimeController.Instance.SubscribeDayChanged(OnDayChanged);
     }
 
     private Vector2 CalculatePlantationArea()
@@ -49,6 +57,15 @@ public class PlantationManager : Interactable
                 SoilList[i].Add(soilGO.GetComponent<SoilController>());
                 SoilList[i][j].Init();
             }
+        }
+
+        //DEBUG SOILS
+        SoilList[0][0].Plow();
+        SoilList[0][0].Plant(DebugCrop);
+        for (int i = 0; i < 7; i++)
+        {
+            SoilList[0][0].Water();
+            SoilList[0][0].OnDayPassed();
         }
     }
 
@@ -78,37 +95,45 @@ public class PlantationManager : Interactable
 
     protected override void OnPlayerEnter()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 
     protected override void OnPlayerExit()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
-    private int interactStateMachineFakeGps = 0;
 
-    //TODO: Bolar uma forma de saber a posição do interact e qual ferramenta usada
-    protected override void OnPlayerInteract()
+    protected override void OnInteract(Vector3 pos)
     {
-        Debug.Log("Player Interacted with PlantationManager");
-        var playerPos = PlayerController.Instance.transform.position;
-        var soil = GetSoilController(playerPos);
-        Debug.Log("Interacted with Soil: ", soil.gameObject);
+        var soil = GetSoilController(pos);
+        soil.Harvest();
+        Debug.Log("Command recebido -> Interact", soil.gameObject);
+    }
 
-        switch (interactStateMachineFakeGps)
-        {
-            case 0:
-                soil.Plow();
-                break;
-            case 1:
-                soil.Plant();
-                break;
-            case 2:
-                soil.Water();
-                break;
-            default:
-                break;
-        }
-        //interactStateMachineFakeGps++;
+    protected override void OnPlow(Vector3 pos)
+    {
+        var soil = GetSoilController(pos);
+        soil.Plow();
+        Debug.Log("Command recebido -> Plow", soil.gameObject);
+    }
+
+    protected override void OnPlant(Vector3 pos)
+    {
+        var soil = GetSoilController(pos);
+        soil.Plant(DebugCrop);
+        Debug.Log("Command recebido -> Plant", soil.gameObject);
+    }
+
+    protected override void OnWater(Vector3 pos)
+    {
+        var soil = GetSoilController(pos);
+        soil.Water();
+        Debug.Log("Command recebido -> Water", soil.gameObject);
+    }
+
+    public void OnDayChanged()
+    {
+        Debug.Log("PlantationManager -> Day Changed");
+        SoilList.ForEach(x => x.ForEach(y => y.OnDayPassed()));
     }
 }

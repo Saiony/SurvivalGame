@@ -45,13 +45,38 @@ namespace Game.Scripts.Controller.Interact
             }
         }
 
-        public void Interact()
+        public void Interact(Vector3 pos)
         {
-            OnPlayerInteract();
+            OnInteract(pos);
+        }
+
+        public void Plow(Vector3 pos)
+        {
+            OnPlow(pos);
+        }
+
+        public void Water(Vector3 pos)
+        {
+            OnWater(pos);
+        }
+
+        public void Plant(Vector3 pos)
+        {
+            OnPlant(pos);
         }
 
         protected abstract void OnPlayerEnter();
         protected abstract void OnPlayerExit();
-        protected abstract void OnPlayerInteract();
+        protected abstract void OnInteract(Vector3 pos);
+
+        protected virtual void OnPlow(Vector3 pos)
+        {
+        }
+        protected virtual void OnWater(Vector3 pos)
+        {
+        }
+        protected virtual void OnPlant(Vector3 pos)
+        {
+        }
     }
 }

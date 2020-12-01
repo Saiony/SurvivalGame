@@ -12,10 +12,17 @@ public class SoilController : MonoBehaviour
     private SoilVFX _soilVfx = null;
     private SoilVFX SoilVfx => _soilVfx;
 
+    [SerializeField]
+    private CropController _crop = null;
+    private CropController Crop => _crop;
+
+    private int Exp { get; set; }
+
     public void Init()
     {
         SoilState = new List<SoilType>();
         SoilState.Add(SoilType.Normal);
+        Exp = 0;
     }
 
     public void Plow()
@@ -28,13 +35,15 @@ public class SoilController : MonoBehaviour
         SoilVfx.Plow();
     }
 
-    public void Plant()
+    public void Plant(CropSO debugCrop)
     {
-        if (!SoilState.Contains(SoilType.Plowed))
+        if (!SoilState.Contains(SoilType.Plowed) || Crop.HasCrop)
             throw new InvalidOperationException("Tried to plant on a not Plowed soil");
-        SoilState.Add(SoilType.Planted);
 
-        SoilVfx.Plant();
+        Crop.Init(debugCrop);
+
+        SoilVfx.Plant(Crop.CurrentCropModel);
+        SoilState.Add(SoilType.Planted);
     }
 
     public void Water()
@@ -50,10 +59,24 @@ public class SoilController : MonoBehaviour
     {
         if (!SoilState.Contains(SoilType.Plowed) || !SoilState.Contains(SoilType.Planted))
             throw new InvalidOperationException("Tried to harvest on an invalid soil");
-        SoilState.Remove(SoilType.Planted);
-        SoilState.Add(SoilType.Plowed);
+        if (!Crop.Gatherable)
+            throw new InvalidOperationException("Tried to harvest but crop isn't ready");
 
+        Crop.OnHarvest();
+        SoilState.Remove(SoilType.Planted);
         SoilVfx.Harvest();
+    }
+
+    public void OnDayPassed()
+    {
+        bool watered = SoilState.Contains(SoilType.Watered);
+        if (Crop.HasCrop)
+            Crop.OnDayPassed(watered);
+        if (watered)
+        {
+            SoilState.Remove(SoilType.Watered);
+            SoilVfx.UnWater();
+        }
     }
 }
 

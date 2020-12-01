@@ -96,10 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b017c4cb40aea164b97277af1f23308e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableRange: 1
-  MissionStatusMark: {fileID: 8046897536406369236}
-  NpcConfig: {fileID: 0}
-  QuestController: {fileID: 2313779153862028536}
+  _interactableRange: 0
+  _detectionCollider: {fileID: 8046897535676781049}
+  _missionStatusMark: {fileID: 8046897536406369236}
+  _npcConfig: {fileID: 0}
+  _questController: {fileID: 2313779153862028536}
 --- !u!114 &2313779153862028536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,8 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec53bf9a12e06c844b0b207dcc25c678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questSO: {fileID: 0}
-  ItensRequired: []
+  _questSO: {fileID: 0}
 --- !u!135 &8046897535676781049
 SphereCollider:
   m_ObjectHideFlags: 0

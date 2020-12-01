@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class SoilVFX : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _crop = null;
-    private GameObject Crop => _crop;
 
     [SerializeField]
     private GameObject _plowed = null;
@@ -16,7 +13,6 @@ public class SoilVFX : MonoBehaviour
 
     private void DisableAllStates()
     {
-        Crop.SetActive(false);
         Plowed.SetActive(false);
         PlowedAndWatered.SetActive(false);
     }
@@ -27,9 +23,8 @@ public class SoilVFX : MonoBehaviour
         Plowed.SetActive(true);
     }
 
-    public void Plant()
+    public void Plant(GameObject crop)
     {
-        Crop.SetActive(true);
     }
 
     public void Water()
@@ -38,8 +33,14 @@ public class SoilVFX : MonoBehaviour
         PlowedAndWatered.SetActive(true);
     }
 
+    public void UnWater()
+    {
+        Plowed.SetActive(true);
+        PlowedAndWatered.SetActive(false);
+    }
+
     public void Harvest()
     {
-        Plow();
+
     }
 }

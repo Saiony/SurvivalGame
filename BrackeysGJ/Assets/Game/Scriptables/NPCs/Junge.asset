@@ -13,88 +13,70 @@ MonoBehaviour:
   m_Name: Junge
   m_EditorClassIdentifier: 
   StandardDialog:
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: '* Sigh*'
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: Life is bitter and pointless.
   StartQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Sir? You are in pain? Or with the flu? I know a woman who makes a great
       tea if you need it!
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: "*sighs*... I wish I had the flu. No, no\u2026 My affliction goes much
       deeper. No mundane tea would solve my problems."
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Good lord. Do I still have time to sneak out? Perhaps I can say that
       my mother is calling me. If I am convincing enough he will not suspect a thing..
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: "*more sighs*... but that\u2019s okay. I have already accepted that
       my fate is to be miserable for the rest of my days in this land. Happiness
       is a privilege reachable by few."
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Wow. I, hm...
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: '* long, melancholy sigh * ... if only someone could help me before
       I left this universe... '
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: "What kind of cheesemaker am I if I was never able to made and taste
       some goat cheese?!? I\u2019m on borrowed time and I will leave without fulfilling
       my greatest wish."
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Oh! You\u2019re sick, sir? I\u2019m so sorry..."
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: "Sick? No, why do you ask? We are all on borrowed time on this earth,
       and I know someday in the future I\u2019ll leave sad and unsatisfied."
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Okay, okay! I\u2019ll get some goat cheese for you, right?"
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: Everyone says that ... But nobody ever comes back ... * sighs *
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Damn, I need to get out of here before I start crying.
   WaitingEndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: You didn't get the milk, did you?
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: I knew it. No one will ever get it
   EndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
-    Sentence: 'Hello! I got a great new sign for you. Very conceptual, right?
-
-'
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
-    Sentence: 'Oh, allow me seeth! Int''resting.  What are these circles?
-
-'
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
-    Sentence: "They represent the growing and circular satisfaction of your customers,
-      of course.\r"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
-    Sentence: 'Or it''s just circles!
-
-'
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
-    Sentence: 'Very much int''resting.  Thanketh thee very much.  If thee wanteth
-      a potion or perfum''ry, feel free to asketh.
-
-'
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
-    Sentence: 'What is that bottle with green liquid inside?
-
-'
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
-    Sentence: 'That? It is.  Mine own lemon juice.  T is not a product
-
-'
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
-    Sentence: "Okay, I accept. I hope it\u2019s ice cold.\r\n"
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
-    Sentence: 'But...
-
-'
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
-    Sentence: "Thank you! Goodbye! Good luck with the store!\r"
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Sirrrr! Look what I have for you!\r"
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: "You ... Oh! Wow. I thought you already forgot about me, just like
+      everyone else\u2026 "
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: " I am very grateful. You gave a reason for a depressed old man to
+      smile again. Thank you!\r"
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: You're welcome! I hope your cheese tastes good. I heard that the milk
+      came from a goat that was very productive.
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "I hope this is something positive ...\r"
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+    Sentence: "Thank you again. Oh, if I only had a little wine to accompany this
+      meal ...\r"
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+    Sentence: "Wow, someone is calling me over there in the square! Goodbye!\r"
   AfterQuestDialog:
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: I can't wait to taste the cheese.
-  - Portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
+  - _portrait: {fileID: 11400000, guid: a179e59b5dad9a946ab39766eaaaf094, type: 2}
     Sentence: But I still wanted that wine ...

@@ -50,14 +50,12 @@ namespace Game.Scripts.Controller.Item
             throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.PastObject));
         }
 
-        protected override void OnPlayerInteract()
+        protected override void OnInteract(Vector3 pos)
         {
             Debug.Log("Player interacted with Item");
             if (PlayerController.Instance.HasItem)
-            {
-                PlayerController.Instance.ExchangeItem(this);
-                Collider.enabled = true;
-            }
+                return;
+
             else
             {
                 PlayerController.Instance.SetItem(this);

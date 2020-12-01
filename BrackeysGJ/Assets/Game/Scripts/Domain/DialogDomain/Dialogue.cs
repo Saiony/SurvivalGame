@@ -6,7 +6,9 @@ namespace Game.Scripts.Controller.Dialog
     [System.Serializable]
     public class Dialogue
     {
-        public PortraitSO Portrait { get; private set; }
+        [SerializeField]
+        private PortraitSO _portrait = null;
+        public PortraitSO Portrait => _portrait;
 
         [SerializeField]
         [TextArea(3, 10)]
@@ -14,13 +16,13 @@ namespace Game.Scripts.Controller.Dialog
 
         public Dialogue()
         {
-            Portrait = null;
+            _portrait = null;
             Sentence = string.Empty;
         }
 
         public Dialogue(string name, PortraitSO portrait, string sentence) : this()
         {
-            Portrait = portrait;
+            _portrait = portrait;
             Sentence = sentence;
         }
     }

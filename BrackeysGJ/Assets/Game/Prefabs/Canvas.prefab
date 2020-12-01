@@ -736,13 +736,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0486a743f072ac74ba2b2225d391b2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 6384796267207334641}
-  Name: {fileID: 2424329600396565628}
-  DisplayedText: {fileID: 2773680611175942516}
-  EndDialogIndicator: {fileID: 1906606223613476177}
-  TimePerWord: 0
-  DialogActive: 0
-  AnimatingText: 0
+  _avatar: {fileID: 6384796267207334641}
+  _name: {fileID: 2424329600396565628}
+  _displayedText: {fileID: 2773680611175942516}
+  _endDialogIndicator: {fileID: 1906606223613476177}
+  _timePerWord: 0.05
 --- !u!1 &8294133503131978264
 GameObject:
   m_ObjectHideFlags: 0

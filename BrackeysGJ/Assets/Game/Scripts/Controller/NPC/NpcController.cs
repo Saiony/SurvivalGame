@@ -65,7 +65,7 @@ namespace Game.Scripts.Controller.NPC
             Debug.Log("Player left");
         }
 
-        protected override void OnPlayerInteract()
+        protected override void OnInteract(Vector3 pos)
         {
             Debug.Log("Player interacted");
             DialogBoxController.Instance.Interact(GetDialog());

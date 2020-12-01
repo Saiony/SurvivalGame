@@ -13,46 +13,46 @@ MonoBehaviour:
   m_Name: Eikelin
   m_EditorClassIdentifier: 
   StandardDialog:
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: I can't believe she did that to me ... I raised her up so well!
   StartQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Good morning, kid! What happened?\r"
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: 'My ... Sniff ... My grandmother birthday is tomorrow, and I was going
       to prepare her favorite apple pie.
 
 '
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: "The ingredients were all ready-to-go, but I distracted myself for
       ten seconds and when I noticed, my pet goat had devoured three of the five
       apples I needed to use for the recipe!\r"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Do you have a pet goat?
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: "(...) and using just two apples I won\u2019t be able to make a pie.
       A cupcake, maybe? But not a pie. And my grandma looooooves these pies so much
       ... Snif."
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Well, don\u2019t worry! I\u2019ll help you. "
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: "But\u2026 H-how? Do you know someone who plants apples? Are those
       gourmet apples?!?"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "What? No! I\u2026 I have my ways. Just you wait!"
   WaitingEndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: Have you found the apples? Please say yes!
   EndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: ' Wow! You really did it! Amazing!'
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Yes, incredible. But you don't need to go around talking about how
       I am a charitable, kind and dedicated soul who loves to help others, okay?
       Unless you want to do that, then I wouldn't complain.\r"
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: "I'm going to start preparing the pies right now! Thank you very much,
       lady. You saved my day!\r"
   AfterQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
+  - _portrait: {fileID: 11400000, guid: 6d71a8404abeb5c4d826ca4a741ecc2e, type: 2}
     Sentence: Grandma will be so happy with the pies! She may even smile this time!

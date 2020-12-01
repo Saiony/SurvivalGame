@@ -13,67 +13,67 @@ MonoBehaviour:
   m_Name: Oma
   m_EditorClassIdentifier: 
   StandardDialog:
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: What do you want in my house?
   StartQuestDialog:
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Hello, grandma! How are you? Beautiful glasses. And great hair. And
       what a gorgeous posture!\r"
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: "What do you want?\r"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Gosh. That\u2019s the cute and sweet granny that will get some apple
       pie? \r\n"
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Me? I just want to bring happiness to everyone! Haha! Don't you want
       the same? Old and wise people tend to desire these kind of things, right?\r"
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: Who are you calling old?
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "N-no one.. I don't even know what \"old\" actually means. Where I
       came from we don't communicate with words, you know? Only with grunts. Grrrrr.
       Well, I mean, hm\u2026 Do you have goat's milk ???"
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 0}
     Sentence: Jungetrauriger spoke to you, right? That damn old whine. I don't think
       he'll ever leave me alone with that goat cheese talk. Well, my goat is very
       productive this month...
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Ew.
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: (...) and you are the girl who helped my granddaughter earlier, right?
       I can make an exception for you. But only if you help me first.
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Of course! I love to help and be kind and helpful to everyone around
       me. What do you need? A walking stick?\r"
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: Candles. I need candles to help me knit at night. It is difficult to
       see the thread when it gets dark.
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Awn, cute! Of course, I\u2019ll get some candle for you!"
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: 'And none of those tallow candles, okay? They are smelly.
 
 '
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: "Okay, candle, candle ... If she doesn't want one made of animal fat,
       what else can I use to make a candle?!?\r"
   WaitingEndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: Where are my candles?
   EndQuestDialog:
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: "Beeswax candle, huh? Not bad, not bad\u2026 This will help, thanks.
       You can get a bottle of goat milk when you leave, you earn it."
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Uhul! It was all I ever wanted, to earn a bottle of goat's milk. Thank
       you, Grandma! Happy 120 years tomorrow!
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: And, random comment, but my favorite color is turquoise. So, just in
       case you want to knit something for someone but don't have anyone in mind ...
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: Goodbye.
-  - Portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
+  - _portrait: {fileID: 11400000, guid: 54afff23815e15d41a1da07de5a17d50, type: 2}
     Sentence: Byeee!
   AfterQuestDialog:
-  - Portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
+  - _portrait: {fileID: 11400000, guid: d84190c9e5aa4cf48969796d09c04570, type: 2}
     Sentence: Didn't I give you the milk already? What else do you want?

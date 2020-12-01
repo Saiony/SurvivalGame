@@ -94,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.7, y: 0.7, z: 0.7}
+  m_Center: {x: 0, y: 0, z: 0.2}
 --- !u!114 &5031783892124359068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableRange: 0
+  _detectionCollider: {fileID: 3039132667086520893}
   _interactableItemSO: {fileID: 11400000, guid: 7be62d2e4fdd0f943a729b354965a9be,
     type: 2}
   _collider: {fileID: 3740162520378678389}
@@ -124,8 +125,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.65
+  m_Center: {x: 0, y: 0, z: 0.2}
 --- !u!1 &3458390955660005871
 GameObject:
   m_ObjectHideFlags: 0

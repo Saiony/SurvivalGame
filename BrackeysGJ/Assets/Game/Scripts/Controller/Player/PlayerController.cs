@@ -6,6 +6,7 @@ using System;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Item;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -128,18 +129,53 @@ namespace Game.Scripts.Controller.Player
         public void Interact()
         {
             Debug.Log("Cmd Interact");
-            var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
-            var interactableResults = results.ToList().Where(x => x.GetComponent<Interactable>());
-            foreach (var interactableResult in interactableResults)
+
+            var interactables = GetInteractablesOnRange();
+            //TODO: criar um IsNullEmpty
+            if (HasItem && !interactables.Any())
             {
-                interactableResult.GetComponent<Interactable>().Interact();
+                ThrowItem(ItemHeld);
                 return;
             }
 
-            if (HasItem)
+            interactables.FirstOrDefault().Interact(transform.position + transform.forward);
+        }
+
+        private List<Interactable> GetInteractablesOnRange()
+        {
+            var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
+            var interactableList = new List<Interactable>();
+            results.ToList().ForEach(x =>
             {
-                ThrowItem(ItemHeld);
-            }
+                var interactable = x.GetComponent<Interactable>();
+                if (interactable != null)
+                    interactableList.Add(interactable);
+            });
+            return interactableList;
+        }
+
+        public void Plow()
+        {
+            //TODO: regras de negócio de Plow
+            var interactables = GetInteractablesOnRange();
+            if (interactables.Count > 0)
+                interactables.First().Plow(transform.position + transform.forward);
+        }
+
+        public void Water()
+        {
+            //TODO: regras de negócio de Water
+            var interactables = GetInteractablesOnRange();
+            if (interactables.Count > 0)
+                interactables.First().Water(transform.position + transform.forward);
+        }
+
+        public void Plant()
+        {
+            //TODO: regras de negócio de Plant
+            var interactables = GetInteractablesOnRange();
+            if (interactables.Count > 0)
+                interactables.First().Plant(transform.position + transform.forward);
         }
 
         public void SetItem(ItemController item)
@@ -151,18 +187,9 @@ namespace Game.Scripts.Controller.Player
             ItemHeld = item;
         }
 
-        public void ExchangeItem(ItemController item)
-        {
-            if (item.Equals(ItemHeld))
-                throw new InvalidOperationException("Can't exchange an item for itself");
-
-            ItemHeld.transform.position = item.transform.position;
-            ItemHeld.transform.parent = null;
-            SetItem(item);
-        }
-
         private void ThrowItem(ItemController item)
         {
+            Debug.Log("ThrowItem: " + item.name);
             ItemHeld.transform.parent = null;
             ItemHeld.transform.DOMove(
                 new Vector3

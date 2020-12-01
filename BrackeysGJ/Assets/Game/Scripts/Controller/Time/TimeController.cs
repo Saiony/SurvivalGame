@@ -2,6 +2,7 @@
 using TMPro;
 using System;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 namespace Game.Scripts.Controller.Time
 {
@@ -43,10 +44,13 @@ namespace Game.Scripts.Controller.Time
 
         public static TimeController Instance = null;
 
+        private List<Action> OnChangeDayListeners { get; set; }
+
         private void Awake()
         {
             if (Instance == null)
                 Instance = this;
+            OnChangeDayListeners = new List<Action>();
         }
 
         private void Start()
@@ -84,7 +88,8 @@ namespace Game.Scripts.Controller.Time
         public void PassDay(int finalHour)
         {
             Debug.Log("PassDay called");
-            Calendar.SetTime(0, 0, finalHour, Calendar.Day + 1, Calendar.Month, Calendar.Year);
+            Calendar.SetTime(0, 0, finalHour, Calendar.Day, Calendar.Month, Calendar.Year);
+            Calendar.IncrementTime(24, 0, 0);
         }
 
         public void OnMinuteChanged()
@@ -105,6 +110,8 @@ namespace Game.Scripts.Controller.Time
             var dayOfTheWeek = WeekDays[(Calendar.Day % 7)];
             DayText.text = Calendar.Day.ToString() + " " + dayOfTheWeek;
             Debug.Log("DayChanged to: " + Calendar.Day.ToString());
+
+            OnChangeDayListeners.ForEach(x => x());
         }
 
         public void OnMonthChanged()
@@ -116,6 +123,11 @@ namespace Game.Scripts.Controller.Time
         {
         }
 
+        public void SubscribeDayChanged(Action action)
+        {
+            Debug.Log("subscribed");
+            OnChangeDayListeners.Add(action);
+        }
         private string[] WeekDays =
         {
             "Sun",

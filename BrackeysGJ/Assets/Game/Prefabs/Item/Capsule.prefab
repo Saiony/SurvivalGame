@@ -124,9 +124,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Height: 1.5
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &908599279892358108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableRange: 0
+  _detectionCollider: {fileID: 2569384305707580728}
   _interactableItemSO: {fileID: 11400000, guid: c9350fb1469861e4284d921a8c13d3d9,
     type: 2}
   _collider: {fileID: 7893092161056160919}
@@ -155,5 +156,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0.5}
