@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game.Helper;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Player;
 using Game.Scripts.Controller.Time;
@@ -35,6 +36,7 @@ public class PlantationManager : Interactable
         ((BoxCollider)DetectionCollider).size = new Vector3(area.x * SoilSize.x, 1, area.y * SoilSize.y);
         ((BoxCollider)DetectionCollider).center = new Vector3((area.x - 1) * SoilSize.x / 2, 0.5f, (area.y - 1) * SoilSize.y / 2);
         TimeController.Instance.SubscribeDayChanged(OnDayChanged);
+        TimeController.Instance.SubscribeSeasonChanged(OnSeasonChanged);
     }
 
     private Vector2 CalculatePlantationArea()
@@ -65,7 +67,7 @@ public class PlantationManager : Interactable
         for (int i = 0; i < 7; i++)
         {
             SoilList[0][0].Water();
-            SoilList[0][0].OnDayPassed();
+            SoilList[0][0].OnDayChanged();
         }
     }
 
@@ -134,6 +136,13 @@ public class PlantationManager : Interactable
     public void OnDayChanged()
     {
         Debug.Log("PlantationManager -> Day Changed");
-        SoilList.ForEach(x => x.ForEach(y => y.OnDayPassed()));
+        SoilList.ForEach(x => x.ForEach(y => y.OnDayChanged()));
+    }
+
+    public void OnSeasonChanged()
+    {
+        Debug.Log("PllantationManager -> Season Changed");
+        var currentSeason = TimeController.Instance.GetSeason();
+        SoilList.ForEach(x => x.ForEach(y => y.OnSeasonChanged(currentSeason)));
     }
 }

@@ -3,6 +3,7 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Game.Helper;
 
 namespace Game.Scripts.Controller.Time
 {
@@ -45,12 +46,14 @@ namespace Game.Scripts.Controller.Time
         public static TimeController Instance = null;
 
         private List<Action> OnChangeDayListeners { get; set; }
+        private List<Action> OnChangeSeasonListeners { get; set; }
 
         private void Awake()
         {
             if (Instance == null)
                 Instance = this;
             OnChangeDayListeners = new List<Action>();
+            OnChangeSeasonListeners = new List<Action>();
         }
 
         private void Start()
@@ -61,12 +64,12 @@ namespace Game.Scripts.Controller.Time
             Calendar.OnChangeMinute += OnMinuteChanged;
             Calendar.OnChangeHour += OnHourChanged;
             Calendar.OnChangeDay += OnDayChanged;
-            Calendar.OnChangeMonth += OnMonthChanged;
+            Calendar.OnChangeMonth += OnSeasonChanged;
             Calendar.OnChangeYear += OnYearChanged;
 
             OnHourChanged();
             OnDayChanged();
-            OnMonthChanged();
+            OnSeasonChanged();
         }
 
         private void PassTime()
@@ -111,12 +114,13 @@ namespace Game.Scripts.Controller.Time
             DayText.text = Calendar.Day.ToString() + " " + dayOfTheWeek;
             Debug.Log("DayChanged to: " + Calendar.Day.ToString());
 
-            OnChangeDayListeners.ForEach(x => x());
+            OnChangeDayListeners.ForEach(x => x?.Invoke());
         }
 
-        public void OnMonthChanged()
+        public void OnSeasonChanged()
         {
             SeasonImage.sprite = SeasonImageList[Calendar.Month - 1];
+            OnChangeSeasonListeners.ForEach(x => x?.Invoke());
         }
 
         public void OnYearChanged()
@@ -125,9 +129,31 @@ namespace Game.Scripts.Controller.Time
 
         public void SubscribeDayChanged(Action action)
         {
-            Debug.Log("subscribed");
             OnChangeDayListeners.Add(action);
         }
+
+        public void SubscribeSeasonChanged(Action action)
+        {
+            OnChangeSeasonListeners.Add(action);
+        }
+
+        public SeasonType GetSeason()
+        {
+            switch (Calendar.Month)
+            {
+                case 1:
+                    return SeasonType.Spring;
+                case 2:
+                    return SeasonType.Summer;
+                case 3:
+                    return SeasonType.Autumn;
+                case 4:
+                    return SeasonType.Winter;
+                default:
+                    return SeasonType.Unknown;
+            }
+        }
+
         private string[] WeekDays =
         {
             "Sun",

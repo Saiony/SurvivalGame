@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Helper;
 using UnityEngine;
 
 public class CropController : MonoBehaviour
@@ -14,6 +15,8 @@ public class CropController : MonoBehaviour
     [SerializeField]
     private Transform _cropSpot = null;
     private Transform CropSpot => _cropSpot;
+
+    public SeasonType Season { get; private set; }
 
     private bool Rotten { get; set; }
     public bool HasCrop => CurrentCropModel != null;
@@ -32,12 +35,12 @@ public class CropController : MonoBehaviour
         ConsecutiveDaysWithoutWater = 0;
         Rotten = false;
 
+        Season = cropSO.Season;
         ExpToLvlUp = new List<int>();
         cropSO.ExpToLvlUp.ForEach(x => ExpToLvlUp.Add(x));
 
         CropModels = new List<GameObject>();
         cropSO.CropModels.ForEach(x => CropModels.Add(x));
-
         CurrentCropModel = Instantiate(CropModels[0], CropSpot.position, Quaternion.identity, transform);
     }
 
@@ -64,6 +67,15 @@ public class CropController : MonoBehaviour
             ConsecutiveDaysWithoutWater++;
             if (ConsecutiveDaysWithoutWater >= DaysToRot)
                 Rot();
+        }
+    }
+
+    public void OnSeasonChanged(SeasonType currentSeason)
+    {
+        if (HasCrop && Season != currentSeason)
+        {
+            Debug.Log("[SoilController] Crop season different than current. Make it ROT");
+            Rot();
         }
     }
 

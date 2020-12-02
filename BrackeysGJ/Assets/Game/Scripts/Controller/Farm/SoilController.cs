@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Helper;
 using UnityEngine;
 
 public class SoilController : MonoBehaviour
@@ -67,7 +68,7 @@ public class SoilController : MonoBehaviour
         SoilVfx.Harvest();
     }
 
-    public void OnDayPassed()
+    public void OnDayChanged()
     {
         bool watered = SoilState.Contains(SoilType.Watered);
         if (Crop.HasCrop)
@@ -77,6 +78,13 @@ public class SoilController : MonoBehaviour
             SoilState.Remove(SoilType.Watered);
             SoilVfx.UnWater();
         }
+    }
+
+    public void OnSeasonChanged(SeasonType currentSeason)
+    {
+        if (Crop == null)
+            return;
+        Crop.OnSeasonChanged(currentSeason);
     }
 }
 

@@ -148,6 +148,6 @@ public interface ICalendarListener
     void OnMinuteChanged();
     void OnHourChanged();
     void OnDayChanged();
-    void OnMonthChanged();
+    void OnSeasonChanged();
     void OnYearChanged();
 }
