@@ -4,6 +4,7 @@ using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Game.Helper;
+using DG.Tweening;
 
 namespace Game.Scripts.Controller.Time
 {
@@ -24,12 +25,12 @@ namespace Game.Scripts.Controller.Time
         private TextMeshProUGUI AMPMText => _ampmText;
 
         [SerializeField]
-        private Image _seasonImage = null;
-        private Image SeasonImage => _seasonImage;
-
-        [SerializeField]
         private Sprite[] _seasonImageList = null;
         private Sprite[] SeasonImageList => _seasonImageList;
+
+        [SerializeField]
+        private Transform _arrow = null;
+        private Transform Arrow => _arrow;
 
         [SerializeField]
         [Range(0, 60)]
@@ -66,6 +67,8 @@ namespace Game.Scripts.Controller.Time
             Calendar.OnChangeDay += OnDayChanged;
             Calendar.OnChangeMonth += OnSeasonChanged;
             Calendar.OnChangeYear += OnYearChanged;
+
+            MoveArrow(Calendar.Month, false);
 
             OnHourChanged();
             OnDayChanged();
@@ -119,8 +122,19 @@ namespace Game.Scripts.Controller.Time
 
         public void OnSeasonChanged()
         {
-            SeasonImage.sprite = SeasonImageList[Calendar.Month - 1];
+            Debug.Log("Nova season: " + GetSeason().ToString());
             OnChangeSeasonListeners.ForEach(x => x?.Invoke());
+            //fazer virar a setinha doida
+            MoveArrow(Calendar.Month);
+        }
+
+        private void MoveArrow(int season, bool anim = true)
+        {
+            var angle = 45 + (90 * (season + 2));
+            var finalRotation = Quaternion.AngleAxis(angle, Vector3.back);
+            var time = anim == true ? 0.5f : 0f;
+
+            Arrow.DORotateQuaternion(finalRotation, time);
         }
 
         public void OnYearChanged()
