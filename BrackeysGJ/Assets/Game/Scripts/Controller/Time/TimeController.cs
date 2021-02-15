@@ -33,6 +33,10 @@ namespace Game.Scripts.Controller.Time
         private Transform Arrow => _arrow;
 
         [SerializeField]
+        private SeasonWheelVfx _wheelVfx = null;
+        private SeasonWheelVfx WheelVfx => _wheelVfx;
+
+        [SerializeField]
         [Range(0, 60)]
         private float _timeUpdateFrequency = 0;
         private float TimeUpdateFrequency => _timeUpdateFrequency;
@@ -69,10 +73,6 @@ namespace Game.Scripts.Controller.Time
             Calendar.OnChangeYear += OnYearChanged;
 
             MoveArrow(Calendar.Month, false);
-
-            OnHourChanged();
-            OnDayChanged();
-            OnSeasonChanged();
         }
 
         private void PassTime()
@@ -94,8 +94,8 @@ namespace Game.Scripts.Controller.Time
         public void PassDay(int finalHour)
         {
             Debug.Log("PassDay called");
-            Calendar.SetTime(0, 0, finalHour, Calendar.Day, Calendar.Month, Calendar.Year);
-            Calendar.IncrementTime(24, 0, 0);
+
+            Calendar.JumpTo(0, 0, finalHour, Calendar.Day + 1, Calendar.Month, Calendar.Year);
         }
 
         public void OnMinuteChanged()
@@ -130,11 +130,15 @@ namespace Game.Scripts.Controller.Time
 
         private void MoveArrow(int season, bool anim = true)
         {
-            var angle = 45 + (90 * (season + 2));
-            var finalRotation = Quaternion.AngleAxis(angle, Vector3.back);
-            var time = anim == true ? 0.5f : 0f;
+            var angle = 45 + (90 * (-season + 1));
+            var finalRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            var time = anim == true ? 0.3f : 0f;
 
-            Arrow.DORotateQuaternion(finalRotation, time);
+            Sequence seq = DOTween.Sequence();
+            seq.Append(Arrow.DORotateQuaternion(finalRotation, time));
+            seq.Join(WheelVfx.SetCurrent(season - 1));
+            seq.Append(Arrow.DOPunchRotation(-Arrow.transform.forward * 10, 0.3f, 1, 10));
+            seq.Play();
         }
 
         public void OnYearChanged()

@@ -42,7 +42,7 @@ namespace Game.Scripts.Controller.Time
             Year = year;
         }
 
-        public void SetTime(int second, int minute, int hour, int day, int month, int year)
+        private void SetTime(int second, int minute, int hour, int day, int month, int year)
         {
             Second = second;
             Minute = minute;
@@ -59,11 +59,33 @@ namespace Game.Scripts.Controller.Time
             OnChangeYear?.Invoke();
         }
 
+        public void JumpTo(int second, int minute, int hour, int day, int month, int year)
+        {
+            var newTime = new FarmCalendar(second, minute, hour, day, month, year);
+            var difference = newTime.TotalSeconds() - this.TotalSeconds();
+            IncrementTime(difference);
+        }
+
+        public void IncrementTime(int second)
+        {
+            IncrementSecond(second);
+        }
+
         public void IncrementTime(int hour, int minute, int second)
         {
             IncrementHour(hour);
             IncrementMinute(minute);
             IncrementSecond(second);
+        }
+
+        public int TotalSeconds()
+        {
+            return Second
+                   + (Minute * 60)
+                   + (Hour * 60 * 60)
+                   + (Day * 24 * 60 * 60)
+                   + (Month * 30 * 24 * 60 * 60)
+                   + (Year * 4 * 30 * 24 * 60 * 60);
         }
 
 
