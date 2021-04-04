@@ -20,7 +20,7 @@ namespace Game.Scripts.Controller.Player
         private PlayerInput Button_F;
         private PlayerInput Button_Space;
         private PlayerInput Button_Esc;
-
+        private PlayerInput Button_I;
 
         public static InputHandler Instance;
 
@@ -48,7 +48,7 @@ namespace Game.Scripts.Controller.Player
 
             Button_Space = new PlayerInput("button_space", KeyCode.Space, new InteractCommand());
             Button_Esc = new PlayerInput("button_esc", KeyCode.Escape, new OpenSettingsCommand());
-
+            Button_I = new PlayerInput("button_i", KeyCode.I, new OpenInventoryCommand());
 
             PlayerInputs = new List<PlayerInput>();
             PlayerInputs.Add(Button_W);
@@ -62,11 +62,13 @@ namespace Game.Scripts.Controller.Player
 
         public Command HandleInput()
         {
-            //Esc and Space command is UNBLOCKABLE
+            //Esc and Space command are UNBLOCKABLE
             if (Input.GetKeyDown(Button_Esc.ButtonCode))
                 return Button_Esc.Command;
             else if (Input.GetKeyDown(Button_Space.ButtonCode))
                 return Button_Space.Command;
+            else if (Input.GetKeyDown(Button_I.ButtonCode))
+                return Button_I.Command;
 
             if (InputBlocked)
                 return null;

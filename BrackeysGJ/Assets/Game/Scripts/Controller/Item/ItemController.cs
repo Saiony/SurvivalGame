@@ -2,18 +2,17 @@
 using System.Collections;
 using DG.Tweening;
 using Game.Scripts.Controller.Interact;
-using Game.Scripts.Controller.Interface.Item;
 using Game.Scripts.Controller.Player;
 using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
-namespace Game.Scripts.Controller.Item
+namespace Game.Scripts.Controller.Itens
 {
-    public class ItemController : Interactable, ITimeChangeable
+    public class ItemController : Interactable
     {
         [SerializeField]
-        private InteractableItemSO _interactableItemSO = null;
-        private InteractableItemSO InteractableItemSO => _interactableItemSO;
+        private ItemSO _interactableItemSO = null;
+        private ItemSO InteractableItemSO => _interactableItemSO;
 
         [SerializeField]
         private Collider _collider = null;
@@ -23,32 +22,6 @@ namespace Game.Scripts.Controller.Item
         private Transform _feet = null;
         public Transform Feet => _feet;
         public string Id => InteractableItemSO.name;
-
-        public GameObject PastObject => InteractableItemSO.PastObject;
-        public GameObject FutureObject => InteractableItemSO.FutureObject;
-
-        public bool Fowardable => InteractableItemSO.FutureObject != null;
-        public bool Rewindable => InteractableItemSO.PastObject != null;
-
-        public ItemController FowardTime()
-        {
-            if (Fowardable)
-            {
-                var item = Foward();
-                return item;
-            }
-            throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.FutureObject));
-        }
-
-        public ItemController RewindTime()
-        {
-            if (Rewindable)
-            {
-                var item = Rewind();
-                return item;
-            }
-            throw new ArgumentOutOfRangeException(nameof(InteractableItemSO.PastObject));
-        }
 
         protected override void OnInteract(Vector3 pos)
         {
@@ -66,34 +39,6 @@ namespace Game.Scripts.Controller.Item
         public void OnItemThrown()
         {
             Collider.enabled = true;
-        }
-
-        private ItemController Foward()
-        {
-            var currentObj = this.gameObject;
-            var newObj = GameObject.Instantiate(
-                InteractableItemSO.FutureObject,
-                new Vector3(currentObj.transform.position.x, currentObj.transform.position.y, currentObj.transform.position.z),
-                new Quaternion(currentObj.transform.rotation.x, currentObj.transform.rotation.y, currentObj.transform.rotation.z, currentObj.transform.rotation.w));
-            StartCoroutine(RunAnimation(currentObj, newObj));
-            return newObj.GetComponent<ItemController>();
-        }
-
-        private ItemController Rewind()
-        {
-            var currentObj = this.gameObject;
-            var newObj = InteractableItemSO.PastObject;
-            StartCoroutine(RunAnimation(currentObj, newObj));
-            return newObj.GetComponent<ItemController>();
-        }
-
-        private IEnumerator RunAnimation(GameObject objToDestroy, GameObject objToInstantiate)
-        {
-            yield return Shrink(objToDestroy);
-            Destroy(objToDestroy);
-
-            yield return Shrink(objToInstantiate, false);
-            yield return Expand(objToInstantiate);
         }
 
         public void DestroyItself()

@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Game.Helper;
+using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 public class CropController : MonoBehaviour
 {
     private int Lvl { get; set; }
     private int Exp { get; set; }
-    private List<int> ExpToLvlUp { get; set; }
-    private List<GameObject> CropModels { get; set; }
     public GameObject CurrentCropModel { get; private set; }
     private int ConsecutiveDaysWithoutWater;
 
@@ -16,17 +15,12 @@ public class CropController : MonoBehaviour
     private Transform _cropSpot = null;
     private Transform CropSpot => _cropSpot;
 
-    public SeasonType Season { get; private set; }
+    public Crop Crop { get; set; }
 
+    //TODO: jogar essas regras para Crop
     private bool Rotten { get; set; }
     public bool HasCrop => CurrentCropModel != null;
-    public bool Gatherable => (Lvl >= LvlToGather) && !Rotten;
-
-
-    //TODO: colocar no SO
-    private int LvlToGather => 3;
-    private int DaysToRot => 2;
-
+    public bool Gatherable => (Lvl >= Crop.LvlToGather) && !Rotten;
 
     public void Init(CropSO cropSO)
     {
@@ -35,17 +29,15 @@ public class CropController : MonoBehaviour
         ConsecutiveDaysWithoutWater = 0;
         Rotten = false;
 
-        Season = cropSO.Season;
-        ExpToLvlUp = new List<int>();
-        cropSO.ExpToLvlUp.ForEach(x => ExpToLvlUp.Add(x));
+        var cropItem = new Item(cropSO.Item.name, cropSO.Item.Description, cropSO.Item.Image);
+        Crop = new Crop(cropSO.ExpToLvlUp, cropSO.CropModels, cropSO.Season, cropSO.LvlToGather, cropSO.DaysToRot, cropItem);
 
-        CropModels = new List<GameObject>();
-        cropSO.CropModels.ForEach(x => CropModels.Add(x));
-        CurrentCropModel = Instantiate(CropModels[0], CropSpot.position, Quaternion.identity, transform);
+        CurrentCropModel = Instantiate(Crop.CropModels[0], CropSpot.position, Quaternion.identity, transform);
     }
 
     public void OnHarvest()
     {
+        Crop = null;
         Destroy(CurrentCropModel);
         CurrentCropModel = null;
     }
@@ -59,20 +51,20 @@ public class CropController : MonoBehaviour
                 return;
 
             Exp++;
-            if (Exp >= ExpToLvlUp[Lvl])
+            if (Exp >= Crop.ExpToLvlUp[Lvl])
                 LvlUp();
         }
         else
         {
             ConsecutiveDaysWithoutWater++;
-            if (ConsecutiveDaysWithoutWater >= DaysToRot)
+            if (ConsecutiveDaysWithoutWater >= Crop.DaysToRot)
                 Rot();
         }
     }
 
     public void OnSeasonChanged(SeasonType currentSeason)
     {
-        if (HasCrop && Season != currentSeason)
+        if (HasCrop && Crop.Season != currentSeason)
         {
             Debug.Log("[SoilController] Crop season different than current. Make it ROT");
             Rot();
@@ -81,19 +73,19 @@ public class CropController : MonoBehaviour
 
     private void LvlUp()
     {
-        if (Lvl >= LvlToGather)
-            throw new InvalidOperationException("Crop at maximum level");
+        if (Lvl >= Crop.LvlToGather)
+            Debug.Log("Crop at maximum level");
         Lvl++;
         Exp = 0;
         DestroyImmediate(CurrentCropModel, true);
-        CurrentCropModel = Instantiate(CropModels[Lvl], transform.position, Quaternion.identity, transform);
+        CurrentCropModel = Instantiate(Crop.CropModels[Lvl], transform.position, Quaternion.identity, transform);
     }
 
     private void Rot()
     {
         Rotten = true;
         DestroyImmediate(CurrentCropModel, true);
-        CurrentCropModel = Instantiate(CropModels[LvlToGather + 1], transform.position, Quaternion.identity, transform);
+        CurrentCropModel = Instantiate(Crop.CropModels[Crop.LvlToGather + 1], transform.position, Quaternion.identity, transform);
     }
 }
 

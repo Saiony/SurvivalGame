@@ -1,12 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Game.Helper;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Crop", menuName = "ScriptableObjects/Crop", order = 1)]
-public class CropSO : ScriptableObject
+namespace Game.Scripts.ScriptableObjects
 {
-    public List<int> ExpToLvlUp;
-    public List<GameObject> CropModels;
-    public SeasonType Season;
+    [CreateAssetMenu(fileName = "Crop", menuName = "ScriptableObjects/Crop", order = 1)]
+    public class CropSO : ScriptableObject
+    {
+        public ItemSO Item;
+        public List<int> ExpToLvlUp;
+        public int LvlToGather;
+        public int DaysToRot;
+        public SeasonType Season;
+        public List<GameObject> CropModels;
+    }
 }

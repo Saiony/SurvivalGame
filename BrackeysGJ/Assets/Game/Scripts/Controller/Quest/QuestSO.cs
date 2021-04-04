@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Game.Scripts.Controller.Item;
+using Game.Scripts.Controller.Itens;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects
@@ -8,7 +8,7 @@ namespace Game.Scripts.ScriptableObjects
     public class QuestSO : ScriptableObject
     {
         public string Name;
-        public List<InteractableItemSO> ItensRequired;
+        public List<ItemSO> ItensRequired;
         public QuestSO SubQuest;
     }
 }

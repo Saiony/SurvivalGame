@@ -7,7 +7,7 @@ namespace Game.Scripts.Controller.Player
 
         public override void Execute(PlayerController actor)
         {
-            actor.Water();
+            actor.PlayWaterAnimation();
         }
     }
 }

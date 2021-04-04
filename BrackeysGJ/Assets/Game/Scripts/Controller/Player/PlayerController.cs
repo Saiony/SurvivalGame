@@ -4,7 +4,7 @@ using UnityEngine;
 using Game.Scripts.Controller.Dialog;
 using System;
 using Game.Scripts.Controller.Interact;
-using Game.Scripts.Controller.Item;
+using Game.Scripts.Controller.Itens;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -37,7 +37,15 @@ namespace Game.Scripts.Controller.Player
         private GameObject _hand = null;
         public GameObject Hand => _hand;
 
-        public Item.ItemController ItemHeld { get; private set; }
+        [SerializeField]
+        private PlayerAnimatorController _playerAnimator = null;
+        private PlayerAnimatorController PlayerAnimator => _playerAnimator;
+
+        [SerializeField]
+        private InventoryController _inventory = null;
+        private InventoryController Inventory => _inventory;
+
+        public Itens.ItemController ItemHeld { get; private set; }
         public bool HasItem => ItemHeld != null;
         private Rigidbody RgdBody { get; set; }
 
@@ -131,7 +139,7 @@ namespace Game.Scripts.Controller.Player
             Debug.Log("Cmd Interact");
 
             var interactables = GetInteractablesOnRange();
-            //TODO: criar um IsNullEmpty
+            //TODO: criar um IsNullOrEmpty
             if (HasItem && !interactables.Any())
             {
                 ThrowItem(ItemHeld);
@@ -154,7 +162,13 @@ namespace Game.Scripts.Controller.Player
             return interactableList;
         }
 
-        public void Plow()
+        public void PlayPlowAnimation()
+        {
+            InputHandler.Instance.DisableInput();
+            Animator.SetTrigger("Plowing_Trigger");
+        }
+
+        public void DoTheActualPlowThing()
         {
             //TODO: regras de negócio de Plow
             var interactables = GetInteractablesOnRange();
@@ -162,7 +176,13 @@ namespace Game.Scripts.Controller.Player
                 interactables.First().Plow(transform.position + transform.forward);
         }
 
-        public void Water()
+        public void PlayWaterAnimation()
+        {
+            InputHandler.Instance.DisableInput();
+            Animator.SetTrigger("Watering_Trigger");
+        }
+
+        public void DoTheActualWaterThing()
         {
             //TODO: regras de negócio de Water
             var interactables = GetInteractablesOnRange();
@@ -170,7 +190,13 @@ namespace Game.Scripts.Controller.Player
                 interactables.First().Water(transform.position + transform.forward);
         }
 
-        public void Plant()
+        public void PlayPlantAnimation()
+        {
+            InputHandler.Instance.DisableInput();
+            Animator.SetTrigger("Planting_Trigger");
+        }
+
+        public void DoTheActualPlantThing()
         {
             //TODO: regras de negócio de Plant
             var interactables = GetInteractablesOnRange();
@@ -202,20 +228,19 @@ namespace Game.Scripts.Controller.Player
                     item.OnItemThrown();
                     ItemHeld = null;
                 });
-            //To-do: @mike animação
 
             var playerloop = UnityEngine.LowLevel.PlayerLoop.GetDefaultPlayerLoop();
+        }
+
+        public void GiveItem(Item item)
+        {
+            Inventory.AddItem(item);
         }
 
         public void GiveItemHeld()
         {
             ItemHeld.DestroyItself();
             ItemHeld = null;
-        }
-
-        public void TimeTravel()
-        {
-            Debug.Log("TIME TRAVEL");
         }
     }
 

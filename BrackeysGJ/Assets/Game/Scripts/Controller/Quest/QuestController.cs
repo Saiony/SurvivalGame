@@ -5,7 +5,7 @@ using UnityEngine;
 using Game.Scripts.ScriptableObjects;
 using System.Linq;
 using Game.Scripts.Manager.Quest;
-using Game.Scripts.Controller.Item;
+using Game.Scripts.Controller.Itens;
 
 namespace Game.Scripts.Controller.Quest
 {

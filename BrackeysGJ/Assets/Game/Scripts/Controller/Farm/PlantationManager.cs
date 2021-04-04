@@ -4,6 +4,7 @@ using Game.Helper;
 using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Player;
 using Game.Scripts.Controller.Time;
+using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 public class PlantationManager : Interactable
@@ -108,7 +109,8 @@ public class PlantationManager : Interactable
     protected override void OnInteract(Vector3 pos)
     {
         var soil = GetSoilController(pos);
-        soil.Harvest();
+        var crop = soil.Harvest();
+        PlayerController.Instance.GiveItem(crop.Item);
         Debug.Log("Command recebido -> Interact", soil.gameObject);
     }
 

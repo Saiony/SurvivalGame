@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Game.Helper;
+using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 public class SoilController : MonoBehaviour
@@ -56,16 +57,19 @@ public class SoilController : MonoBehaviour
         SoilVfx.Water();
     }
 
-    public void Harvest()
+    public Crop Harvest()
     {
         if (!SoilState.Contains(SoilType.Plowed) || !SoilState.Contains(SoilType.Planted))
             throw new InvalidOperationException("Tried to harvest on an invalid soil");
         if (!Crop.Gatherable)
             throw new InvalidOperationException("Tried to harvest but crop isn't ready");
 
+        var crop = Crop.Crop;
         Crop.OnHarvest();
         SoilState.Remove(SoilType.Planted);
         SoilVfx.Harvest();
+
+        return crop;
     }
 
     public void OnDayChanged()
