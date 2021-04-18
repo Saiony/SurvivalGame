@@ -12,14 +12,17 @@ public class InventoryController : MonoBehaviour
     {
         QuickItems = new List<Item>(8);
         Items = new List<Item>(15);
+
+        for (int i = 0; i < Items.Capacity; i++)
+            Items.Add(null);
     }
 
     public bool AddItem(Item item)
     {
-        if (Items.Count >= Items.Capacity)
-            return false;
+        var firstNullItem = Items.FirstOrDefault(x => x == null);
+        var firstNullItemPos = Items.IndexOf(firstNullItem);
+        Items[firstNullItemPos] = item;
 
-        Items.Add(item);
         return true;
     }
 }

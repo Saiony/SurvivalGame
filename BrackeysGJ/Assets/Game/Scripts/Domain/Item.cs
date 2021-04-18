@@ -4,8 +4,8 @@ using UnityEngine;
 public class Item
 {
     private Guid Id { get; set; }
-    private string Name { get; set; }
-    private string Description { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
     public Sprite Image { get; set; }
 
     public Item()
@@ -45,5 +45,15 @@ public class Item
             throw new InvalidOperationException("Image can't be null");
 
         Image = image;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return ((Item)obj).Id == Id;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 }
