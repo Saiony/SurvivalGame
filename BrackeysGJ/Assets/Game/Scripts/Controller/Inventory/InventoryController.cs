@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    private List<Item> QuickItems { get; set; }
+    private List<Item> QuickItems => Items.Take(5).ToList();
     public List<Item> Items { get; set; }
+    private List<InventoryListener> Listeners { get; set; }
 
-    private void Start()
+    private void Awake()
     {
-        QuickItems = new List<Item>(8);
         Items = new List<Item>(15);
+        Listeners = new List<InventoryListener>();
 
         for (int i = 0; i < Items.Capacity; i++)
             Items.Add(null);
@@ -23,6 +24,29 @@ public class InventoryController : MonoBehaviour
         var firstNullItemPos = Items.IndexOf(firstNullItem);
         Items[firstNullItemPos] = item;
 
+        Listeners.ForEach(x => x.OnInventoryChanged());
         return true;
     }
+
+    public void MoveItem(int posFrom, int posTo)
+    {
+        if (posFrom == posTo)
+            return;
+
+        var aux = Items[posFrom];
+        Items[posFrom] = Items[posTo];
+        Items[posTo] = aux;
+
+        Listeners.ForEach(x => x.OnInventoryChanged());
+    }
+
+    public void Subscribe(InventoryListener listener)
+    {
+        Listeners.Add(listener);
+    }
+}
+
+public interface InventoryListener
+{
+    void OnInventoryChanged();
 }

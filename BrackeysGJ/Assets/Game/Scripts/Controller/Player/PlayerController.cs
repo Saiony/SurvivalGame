@@ -146,7 +146,7 @@ namespace Game.Scripts.Controller.Player
                 return;
             }
 
-            interactables.FirstOrDefault().Interact(transform.position + transform.forward);
+            interactables.FirstOrDefault()?.Interact(transform.position + transform.forward);
         }
 
         private List<Interactable> GetInteractablesOnRange()

@@ -20,12 +20,8 @@ public class InventoryDisplayController : MonoBehaviour, InventoryItemDisplayLis
     private InventoryInfoController InventoryInfo => _inventoryInfo;
 
     [SerializeField]
-    private List<InventoryItemDisplayController> _quickItems = null;
-    private List<InventoryItemDisplayController> QuickItems => _quickItems;
-
-    [SerializeField]
-    private List<InventoryItemDisplayController> _displayItems = null;
-    private List<InventoryItemDisplayController> DisplayItems => _displayItems;
+    private List<InventoryItemDisplayController> _displayedItems = null;
+    private List<InventoryItemDisplayController> DisplayedItems => _displayedItems;
 
     [SerializeField]
     private ImageFollowMouse _imageFollowMose = null;
@@ -42,8 +38,7 @@ public class InventoryDisplayController : MonoBehaviour, InventoryItemDisplayLis
 
         Modal.gameObject.SetActive(false);
         SelectedItem = null;
-
-        DisplayItems.ForEach(item => item.Init(this));
+        DisplayedItems.ForEach(item => item.Init(this));
     }
 
     public void Toggle()
@@ -77,14 +72,13 @@ public class InventoryDisplayController : MonoBehaviour, InventoryItemDisplayLis
         var items = Inventory.Items;
         for (int i = 0; i < items.Count; i++)
         {
-            DisplayItems[i].SetItem(items[i]);
+            DisplayedItems[i].SetItem(items[i]);
         }
     }
 
     private void Clear()
     {
-        QuickItems.ForEach(item => item.Clear());
-        DisplayItems.ForEach(item => item.Clear());
+        DisplayedItems.ForEach(item => item.Clear());
     }
 
     public void OnItemDisplayClicked(InventoryItemDisplayController itemDisplay)
@@ -120,17 +114,13 @@ public class InventoryDisplayController : MonoBehaviour, InventoryItemDisplayLis
 
     private void SwapItems(InventoryItemDisplayController item1, InventoryItemDisplayController item2)
     {
-        //change position in list
-        var items = Inventory.Items;
-        var pos1 = DisplayItems.FindIndex(x => x == item1);
-        var pos2 = DisplayItems.FindIndex(x => x == item2);
-
-        var aux = item1.Item;
-        items[pos1] = item2.Item;
-        items[pos2] = item1.Item;
+        var pos1 = DisplayedItems.IndexOf(item1);
+        var pos2 = DisplayedItems.IndexOf(item2);
+        Inventory.MoveItem(pos1, pos2);
 
         //change visually
-        DisplayItems[pos1].SetItem(item2.Item);
-        DisplayItems[pos2].SetItem(aux);
+        var aux = item1.Item;
+        DisplayedItems[pos1].SetItem(item2.Item);
+        DisplayedItems[pos2].SetItem(aux);
     }
 }
