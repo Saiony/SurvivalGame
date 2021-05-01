@@ -3677,6 +3677,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d425bcd5db7a44a48954870a0072b1f4, type: 3}
+--- !u!114 &1960731892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4767006087735887709, guid: 6bcd91261d7694947bc41a51da7f616d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1835922739}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a017b82fba0044897c2982bb27eb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1976642733 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8901405609118654295, guid: ac06683cf396f2e40b42eca053670ce8,
@@ -4436,6 +4448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5000772691754354906, guid: a49196ac818893446b88108d7760d048,
+        type: 3}
+      propertyPath: _quickItemsController
+      value: 
+      objectReference: {fileID: 1960731892}
     - target: {fileID: 7361283747861818102, guid: a49196ac818893446b88108d7760d048,
         type: 3}
       propertyPath: m_LocalPosition.x

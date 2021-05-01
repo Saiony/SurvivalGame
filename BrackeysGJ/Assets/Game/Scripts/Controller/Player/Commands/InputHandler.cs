@@ -22,6 +22,12 @@ namespace Game.Scripts.Controller.Player
         private PlayerInput Button_Esc;
         private PlayerInput Button_I;
 
+        private PlayerInput Button_1;
+        private PlayerInput Button_2;
+        private PlayerInput Button_3;
+        private PlayerInput Button_4;
+        private PlayerInput Button_5;
+
         public static InputHandler Instance;
 
         private void Awake()
@@ -49,6 +55,13 @@ namespace Game.Scripts.Controller.Player
             Button_Space = new PlayerInput("button_space", KeyCode.Space, new InteractCommand());
             Button_Esc = new PlayerInput("button_esc", KeyCode.Escape, new OpenSettingsCommand());
             Button_I = new PlayerInput("button_i", KeyCode.I, new OpenInventoryCommand());
+
+            Button_1 = new PlayerInput("button_1", KeyCode.Alpha1, new SelectQuickItemCommand_1());
+            Button_2 = new PlayerInput("button_2", KeyCode.Alpha2, new SelectQuickItemCommand_2());
+            Button_3 = new PlayerInput("button_3", KeyCode.Alpha3, new SelectQuickItemCommand_3());
+            Button_4 = new PlayerInput("button_4", KeyCode.Alpha4, new SelectQuickItemCommand_4());
+            Button_5 = new PlayerInput("button_5", KeyCode.Alpha5, new SelectQuickItemCommand_5());
+
 
             PlayerInputs = new List<PlayerInput>();
             PlayerInputs.Add(Button_W);
@@ -87,6 +100,18 @@ namespace Game.Scripts.Controller.Player
                 return Button_R.Command;
             else if (Input.GetKeyDown(Button_F.ButtonCode))
                 return Button_F.Command;
+
+            //Quick Inventory
+            if (Input.GetKeyDown(Button_1.ButtonCode))
+                return Button_1.Command;
+            else if (Input.GetKeyDown(Button_2.ButtonCode))
+                return Button_2.Command;
+            else if (Input.GetKeyDown(Button_3.ButtonCode))
+                return Button_3.Command;
+            else if (Input.GetKeyDown(Button_4.ButtonCode))
+                return Button_4.Command;
+            else if (Input.GetKeyDown(Button_5.ButtonCode))
+                return Button_5.Command;
 
             return null;
         }

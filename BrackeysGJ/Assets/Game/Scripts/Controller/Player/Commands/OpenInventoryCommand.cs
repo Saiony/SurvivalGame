@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Game.Scripts.Controller.UI;
 using UnityEngine;
 namespace Game.Scripts.Controller.Player
 {

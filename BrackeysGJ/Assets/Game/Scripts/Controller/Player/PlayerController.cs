@@ -232,6 +232,11 @@ namespace Game.Scripts.Controller.Player
             var playerloop = UnityEngine.LowLevel.PlayerLoop.GetDefaultPlayerLoop();
         }
 
+        public void SelectQuickItem(int index)
+        {
+            Inventory.SelectQuickItem(index);
+        }
+
         public void GiveItem(Item item)
         {
             Inventory.AddItem(item);

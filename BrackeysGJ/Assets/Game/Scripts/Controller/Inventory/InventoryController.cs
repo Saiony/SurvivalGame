@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    private List<Item> QuickItems => Items.Take(5).ToList();
+
+    [SerializeField]
+    private QuickItemsDisplayController _quickItemsController = null;
+    private QuickItemsDisplayController QuickItemsController => _quickItemsController;
+
     public List<Item> Items { get; set; }
     private List<InventoryListener> Listeners { get; set; }
+    public Item SelectedItem => QuickItemsController.SelectedItem.Item;
 
     private void Awake()
     {
@@ -43,6 +48,11 @@ public class InventoryController : MonoBehaviour
     public void Subscribe(InventoryListener listener)
     {
         Listeners.Add(listener);
+    }
+
+    public void SelectQuickItem(int index)
+    {
+        QuickItemsController.SelectItem(index);
     }
 }
 

@@ -1,0 +1,56 @@
+using System.Collections;
+using System.Collections.Generic;
+using Game.Scripts.Controller.UI;
+using UnityEngine;
+namespace Game.Scripts.Controller.Player
+{
+    public class SelectQuickItemCommand_1 : Command
+    {
+        public override string Name { get; set; } = "Select Quick Item -> 1";
+
+        public override void Execute(PlayerController actor)
+        {
+            actor.SelectQuickItem(1);
+        }
+    }
+
+    public class SelectQuickItemCommand_2 : Command
+    {
+        public override string Name { get; set; } = "Select Quick Item";
+
+        public override void Execute(PlayerController actor)
+        {
+            actor.SelectQuickItem(2);
+        }
+    }
+
+    public class SelectQuickItemCommand_3 : Command
+    {
+        public override string Name { get; set; } = "Select Quick Item";
+
+        public override void Execute(PlayerController actor)
+        {
+            actor.SelectQuickItem(3);
+        }
+    }
+
+    public class SelectQuickItemCommand_4 : Command
+    {
+        public override string Name { get; set; } = "Select Quick Item";
+
+        public override void Execute(PlayerController actor)
+        {
+            actor.SelectQuickItem(4);
+        }
+    }
+
+    public class SelectQuickItemCommand_5 : Command
+    {
+        public override string Name { get; set; } = "Select Quick Item";
+
+        public override void Execute(PlayerController actor)
+        {
+            actor.SelectQuickItem(5);
+        }
+    }
+}
