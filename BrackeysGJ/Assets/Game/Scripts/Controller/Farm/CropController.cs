@@ -29,7 +29,7 @@ public class CropController : MonoBehaviour
         ConsecutiveDaysWithoutWater = 0;
         Rotten = false;
 
-        var cropItem = new Item(cropSO.Item.name, cropSO.Item.Description, cropSO.Item.Image);
+        var cropItem = new Misc(cropSO.Item.Id, cropSO.Item.name, cropSO.Item.Description, cropSO.Item.Image);
         Crop = new Crop(cropSO.ExpToLvlUp, cropSO.CropModels, cropSO.Season, cropSO.LvlToGather, cropSO.DaysToRot, cropItem);
 
         CurrentCropModel = Instantiate(Crop.CropModels[0], CropSpot.position, Quaternion.identity, transform);

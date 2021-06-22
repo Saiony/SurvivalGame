@@ -23,14 +23,35 @@ public class InventoryController : MonoBehaviour
             Items.Add(null);
     }
 
-    public bool AddItem(Item item)
+    public void AddItem(Item item)
     {
+        //Check if already has item
+        var repeatedItem = Items.FirstOrDefault(x => item.Equals(x));
+        if (repeatedItem != null)
+        {
+            repeatedItem.IncrementQuantity(item.Quantity);
+            NotifyListener();
+            return;
+        }
+
         var firstNullItem = Items.FirstOrDefault(x => x == null);
         var firstNullItemPos = Items.IndexOf(firstNullItem);
         Items[firstNullItemPos] = item;
 
-        Listeners.ForEach(x => x.OnInventoryChanged());
-        return true;
+        NotifyListener();
+    }
+
+    public void RemoveItem(Item item)
+    {
+        //Check if already has item
+        var repeatedItem = Items.FirstOrDefault(x => item.Equals(x));
+        if (repeatedItem == null)
+            return;
+
+        if (!repeatedItem.DecrementQuantity(1))
+            Items[Items.IndexOf(repeatedItem)] = null;
+
+        NotifyListener();
     }
 
     public void MoveItem(int posFrom, int posTo)
@@ -42,7 +63,7 @@ public class InventoryController : MonoBehaviour
         Items[posFrom] = Items[posTo];
         Items[posTo] = aux;
 
-        Listeners.ForEach(x => x.OnInventoryChanged());
+        NotifyListener();
     }
 
     public void Subscribe(InventoryListener listener)
@@ -53,6 +74,21 @@ public class InventoryController : MonoBehaviour
     public void SelectQuickItem(int index)
     {
         QuickItemsController.SelectItem(index);
+    }
+
+    public void UseSelectedItem()
+    {
+        if (SelectedItem == null)
+            return;
+
+        SelectedItem.Use();
+        if (SelectedItem is Consumable)
+            RemoveItem(SelectedItem);
+    }
+
+    private void NotifyListener()
+    {
+        Listeners.ForEach(x => x.OnInventoryChanged());
     }
 }
 

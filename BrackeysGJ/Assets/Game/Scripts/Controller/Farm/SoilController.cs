@@ -30,7 +30,8 @@ public class SoilController : MonoBehaviour
     public void Plow()
     {
         if (!SoilState.Contains(SoilType.Normal))
-            throw new InvalidOperationException("Tried to plow a not Normal soil");
+            return;
+
         SoilState.Remove(SoilType.Normal);
         SoilState.Add(SoilType.Plowed);
 
@@ -40,7 +41,7 @@ public class SoilController : MonoBehaviour
     public void Plant(CropSO debugCrop)
     {
         if (!SoilState.Contains(SoilType.Plowed) || Crop.HasCrop)
-            throw new InvalidOperationException("Tried to plant on a not Plowed soil");
+            return;
 
         Crop.Init(debugCrop);
 
@@ -51,7 +52,7 @@ public class SoilController : MonoBehaviour
     public void Water()
     {
         if (!SoilState.Contains(SoilType.Plowed))
-            throw new InvalidOperationException("Tried to water a not Plowed soil");
+            return;
         SoilState.Add(SoilType.Watered);
 
         SoilVfx.Water();
@@ -60,9 +61,9 @@ public class SoilController : MonoBehaviour
     public Crop Harvest()
     {
         if (!SoilState.Contains(SoilType.Plowed) || !SoilState.Contains(SoilType.Planted))
-            throw new InvalidOperationException("Tried to harvest on an invalid soil");
+            return null;
         if (!Crop.Gatherable)
-            throw new InvalidOperationException("Tried to harvest but crop isn't ready");
+            return null;
 
         var crop = Crop.Crop;
         Crop.OnHarvest();

@@ -5,9 +5,9 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Interact";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            actor.Interact();
+            PlayerController.Instance.Interact();
         }
     }
 }

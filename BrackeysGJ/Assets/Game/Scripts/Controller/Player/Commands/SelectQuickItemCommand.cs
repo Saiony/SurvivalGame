@@ -8,9 +8,9 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Select Quick Item -> 1";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            actor.SelectQuickItem(1);
+            PlayerController.Instance.SelectQuickItem(1);
         }
     }
 
@@ -18,9 +18,9 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Select Quick Item";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            actor.SelectQuickItem(2);
+            PlayerController.Instance.SelectQuickItem(2);
         }
     }
 
@@ -28,9 +28,9 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Select Quick Item";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            actor.SelectQuickItem(3);
+            PlayerController.Instance.SelectQuickItem(3);
         }
     }
 
@@ -38,9 +38,9 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Select Quick Item";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            actor.SelectQuickItem(4);
+            PlayerController.Instance.SelectQuickItem(4);
         }
     }
 
@@ -48,9 +48,9 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Select Quick Item";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            actor.SelectQuickItem(5);
+            PlayerController.Instance.SelectQuickItem(5);
         }
     }
 }

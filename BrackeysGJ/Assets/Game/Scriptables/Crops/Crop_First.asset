@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b53bde9ca327064ebb0ada155da525b, type: 3}
   m_Name: Crop_First
   m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 5c2616a6384d20b469a8fa33d5c36888, type: 2}
+  Item: {fileID: 11400000, guid: 64dffb433f5d9c3439e0ad1cc1fb0f7a, type: 2}
   ExpToLvlUp: 01000000020000000300000004000000
   LvlToGather: 2
   DaysToRot: 2

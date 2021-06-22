@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,10 @@ public class QuickItemDisplayController : MonoBehaviour
     [SerializeField]
     private Transform _itemSelector = null;
     private Transform ItemSelector => _itemSelector;
+
+    [SerializeField]
+    private StackDisplayController _stack = null;
+    private StackDisplayController stack => _stack;
 
     public Item Item { get; private set; }
 
@@ -33,11 +38,15 @@ public class QuickItemDisplayController : MonoBehaviour
 
         DisplayImage.sprite = Item.Image;
         DisplayImage.DOFade(1, 0).Play();
+        stack.DisplayQuantity(item);
     }
 
     private void Clear()
     {
-        DisplayImage.DOFade(0, 0).Play();
+        Sequence seq = DOTween.Sequence();
+        seq.Append(DisplayImage.DOFade(0, 0));
+        seq.Append(stack.Clear());
+        seq.Play();
     }
 
     public void Select()

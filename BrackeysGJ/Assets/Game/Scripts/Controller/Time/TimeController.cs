@@ -86,7 +86,7 @@ namespace Game.Scripts.Controller.Time
             TimePaused = true;
         }
 
-        public void UnpauseTime()
+        public void ResumeTime()
         {
             TimePaused = false;
         }

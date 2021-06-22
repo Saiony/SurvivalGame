@@ -65,6 +65,11 @@ namespace Game.Scripts.Controller.Interact
             OnPlant(pos);
         }
 
+        public void Chop(Vector3 pos)
+        {
+            OnChop(pos);
+        }
+
         protected abstract void OnPlayerEnter();
         protected abstract void OnPlayerExit();
         protected abstract void OnInteract(Vector3 pos);
@@ -76,6 +81,9 @@ namespace Game.Scripts.Controller.Interact
         {
         }
         protected virtual void OnPlant(Vector3 pos)
+        {
+        }
+        protected virtual void OnChop(Vector3 pos)
         {
         }
     }

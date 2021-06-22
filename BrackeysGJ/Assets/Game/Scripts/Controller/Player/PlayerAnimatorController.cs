@@ -44,6 +44,11 @@ public class PlayerAnimatorController : MonoBehaviour
     {
         PlayerController.DoTheActualPlowThing();
     }
+
+    public void Chop()
+    {
+        PlayerController.DoTheActualChopThing();
+    }
 }
 
 //Must match animation names

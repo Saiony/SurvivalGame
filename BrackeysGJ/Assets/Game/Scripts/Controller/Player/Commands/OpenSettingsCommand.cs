@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Scripts.Controller.UI;
+﻿using Game.Scripts.Controller.UI;
 using UnityEngine;
 namespace Game.Scripts.Controller.Player
 {
@@ -8,9 +6,8 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Open Settings";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            Debug.Log("Toggle Settings Modal");
             SettingsModalController.Instance.Toggle();
         }
     }

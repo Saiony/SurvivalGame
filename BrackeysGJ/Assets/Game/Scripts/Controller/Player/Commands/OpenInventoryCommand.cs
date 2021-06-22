@@ -5,9 +5,8 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Open Inventory";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            Debug.Log("Toggle Settings Modal");
             InventoryDisplayController.Instance.Toggle();
         }
     }

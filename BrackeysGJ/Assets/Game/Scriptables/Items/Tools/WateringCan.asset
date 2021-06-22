@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b311cbad64a417f478165c766948f607, type: 3}
-  m_Name: Crop_1
+  m_Script: {fileID: 11500000, guid: 718bbec771990ea4c88447d974ee8108, type: 3}
+  m_Name: WateringCan
   m_EditorClassIdentifier: 
-  Id: bad65e7f-c9ce-4b87-b568-7f9796709abc
-  Name: Crop_1
-  Description: This is a unique Crop designed by Julia Milreu
-  Image: {fileID: 21300000, guid: 20c13e22941ba72449f20b63a541de41, type: 3}
+  Id: b9dd7364-4819-4501-8778-b4b2d5fe36e4
+  Name: Watering Can
+  Description: Use it only on plants
+  Image: {fileID: 21300000, guid: 083835f930fdc1f44b275509c87cd0de, type: 3}
+  Command: 2

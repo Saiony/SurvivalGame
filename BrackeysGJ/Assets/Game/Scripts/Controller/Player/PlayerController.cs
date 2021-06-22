@@ -7,6 +7,7 @@ using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Itens;
 using System.Linq;
 using System.Collections.Generic;
+using Game.Scripts.ScriptableObjects;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -45,6 +46,14 @@ namespace Game.Scripts.Controller.Player
         private InventoryController _inventory = null;
         private InventoryController Inventory => _inventory;
 
+        [SerializeField]
+        private List<ItemSO> _initialItens = null;
+        private List<ItemSO> InitialItens => _initialItens;
+
+        [SerializeField]
+        private GameObject _itemOnHand = null;
+        private GameObject ItemOnHand => _itemOnHand;
+
         public Itens.ItemController ItemHeld { get; private set; }
         public bool HasItem => ItemHeld != null;
         private Rigidbody RgdBody { get; set; }
@@ -57,6 +66,27 @@ namespace Game.Scripts.Controller.Player
                 Instance = this;
             else
                 Destroy(gameObject);
+
+            InitialItens.ForEach(item =>
+            {
+                switch (item)
+                {
+                    case ToolSO _:
+                        var tool = new Tool((item as ToolSO).Id, (item as ToolSO).name, (item as ToolSO).Description, (item as ToolSO).Image, (item as ToolSO).Command);
+                        Inventory.AddItem(tool);
+                        break;
+                    case ConsumableSO _:
+                        var consumable = new Consumable((item as ConsumableSO).Id, (item as ConsumableSO).name, (item as ConsumableSO).Description, (item as ConsumableSO).Image, (item as ConsumableSO).Command);
+                        Inventory.AddItem(consumable);
+                        break;
+                    case MiscSO _:
+                        var misc = new Misc((item as MiscSO).Id, (item as MiscSO).name, (item as MiscSO).Description, (item as MiscSO).Image);
+                        Inventory.AddItem(misc);
+                        break;
+                    default:
+                        throw new InvalidOperationException("Invalid item type");
+                }
+            });
         }
 
         void Start()
@@ -66,10 +96,10 @@ namespace Game.Scripts.Controller.Player
 
         private void Update()
         {
-            var command = InputHandler.Instance.HandleInput();
+            var commands = InputHandler.Instance.HandleInput();
 
-            if (command != null)
-                command.Execute(this);
+            if (commands.Count > 0)
+                commands.ForEach(x => x.Execute());
             else
                 RgdBody.velocity = Vector3.zero;
 
@@ -136,8 +166,6 @@ namespace Game.Scripts.Controller.Player
 
         public void Interact()
         {
-            Debug.Log("Cmd Interact");
-
             var interactables = GetInteractablesOnRange();
             //TODO: criar um IsNullOrEmpty
             if (HasItem && !interactables.Any())
@@ -204,6 +232,20 @@ namespace Game.Scripts.Controller.Player
                 interactables.First().Plant(transform.position + transform.forward);
         }
 
+        public void PlayChopAnimation()
+        {
+            InputHandler.Instance.DisableInput();
+            Animator.SetTrigger("Chopping_Trigger");
+        }
+
+        public void DoTheActualChopThing()
+        {
+            //TODO: regras de negócio de Chop
+            var interactables = GetInteractablesOnRange();
+            if (interactables.Count > 0)
+                interactables.First().Chop(transform.position + transform.forward);
+        }
+
         public void SetItem(ItemController item)
         {
             Debug.Log("SetItem: " + item.name);
@@ -246,6 +288,11 @@ namespace Game.Scripts.Controller.Player
         {
             ItemHeld.DestroyItself();
             ItemHeld = null;
+        }
+
+        public void UseSelectedItem()
+        {
+            Inventory.UseSelectedItem();
         }
     }
 

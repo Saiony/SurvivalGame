@@ -4,9 +4,9 @@ namespace Game.Scripts.Controller.Player
     {
         public override string Name { get; set; } = "Move Up";
 
-        public override void Execute(PlayerController actor)
+        public override void Execute()
         {
-            actor.Move_Up();
+            PlayerController.Instance.Move_Up();
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Game.Scripts.Controller.Player;
+using Game.Scripts.Controller.Time;
 using UnityEngine;
 
 public class InventoryDisplayController : MonoBehaviour, InventoryItemDisplayListener
@@ -52,20 +52,25 @@ public class InventoryDisplayController : MonoBehaviour, InventoryItemDisplayLis
     private void Hide()
     {
         Showing = false;
-        Sequence seq = DOTween.Sequence();
 
+        Sequence seq = DOTween.Sequence();
         seq.Append(Modal.DOFade(0, 0.3f));
         seq.AppendCallback(() => Modal.gameObject.SetActive(false));
+        seq.AppendCallback(InputHandler.Instance.EnableInput);
+        seq.AppendCallback(TimeController.Instance.ResumeTime);
         seq.Play();
     }
+
 
     private void Show()
     {
         Showing = true;
-        Clear();
+        TimeController.Instance.PauseTime();
+        InputHandler.Instance.DisableInput();
         Modal.gameObject.SetActive(true);
-        Sequence seq = DOTween.Sequence();
+        Clear();
 
+        Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => Modal.DOFade(1, 0.3f));
         seq.Play();
 
@@ -79,20 +84,6 @@ public class InventoryDisplayController : MonoBehaviour, InventoryItemDisplayLis
     private void Clear()
     {
         DisplayedItems.ForEach(item => item.Clear());
-    }
-
-    public void OnItemDisplayClicked(InventoryItemDisplayController itemDisplay)
-    {
-        if (SelectedItem != null)
-        {
-            SwapItems(SelectedItem, itemDisplay);
-            DeselectItem(itemDisplay);
-            return;
-        }
-        if (itemDisplay.Item == null)
-            return;
-
-        SelectItem(itemDisplay);
     }
 
     private void SelectItem(InventoryItemDisplayController item)
@@ -122,5 +113,26 @@ public class InventoryDisplayController : MonoBehaviour, InventoryItemDisplayLis
         var aux = item1.Item;
         DisplayedItems[pos1].SetItem(item2.Item);
         DisplayedItems[pos2].SetItem(aux);
+    }
+
+    public void OnItemDisplayClicked(InventoryItemDisplayController itemDisplay)
+    {
+        if (SelectedItem != null)
+        {
+            SwapItems(SelectedItem, itemDisplay);
+            DeselectItem(itemDisplay);
+            return;
+        }
+        if (itemDisplay.Item == null)
+            return;
+
+        SelectItem(itemDisplay);
+    }
+
+    public void OnItemDisplayHovered(InventoryItemDisplayController itemDisplay)
+    {
+        if (SelectedItem != null)
+            return;
+        InventoryInfo.DisplayItem(itemDisplay.Item);
     }
 }
