@@ -18,8 +18,6 @@ namespace Game.Scripts.Controller.Interact
 
         private void Start()
         {
-            DetectionCollider.isTrigger = true;
-
             OnDidStart();
         }
 
@@ -27,18 +25,18 @@ namespace Game.Scripts.Controller.Interact
         {
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnCollisionEnter(Collision col)
         {
-            if (other.gameObject.tag == "Player")
+            if (col.gameObject.tag == "Player")
             {
                 IsPlayerInside = true;
                 OnPlayerEnter();
             }
         }
 
-        private void OnTriggerExit(Collider other)
+        private void OnCollisionExit(Collision col)
         {
-            if (other.gameObject.tag == "Player")
+            if (col.gameObject.tag == "Player")
             {
                 IsPlayerInside = false;
                 OnPlayerExit();

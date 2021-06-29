@@ -11,8 +11,8 @@ namespace Game.Scripts.Controller.Itens
     public class ItemController : Interactable
     {
         [SerializeField]
-        private ItemSO _interactableItemSO = null;
-        private ItemSO InteractableItemSO => _interactableItemSO;
+        private ItemSO _itemSO = null;
+        private ItemSO ItemSO => _itemSO;
 
         [SerializeField]
         private Collider _collider = null;
@@ -21,7 +21,14 @@ namespace Game.Scripts.Controller.Itens
         [SerializeField]
         private Transform _feet = null;
         public Transform Feet => _feet;
-        public string Id => InteractableItemSO.name;
+        public string Id => ItemSO.name;
+
+        public Item Item { get; private set; }
+
+        private void Awake()
+        {
+            Item = new Misc(ItemSO.Id, ItemSO.Name, ItemSO.Description, ItemSO.Image, 1);
+        }
 
         protected override void OnInteract(Vector3 pos)
         {
@@ -65,7 +72,7 @@ namespace Game.Scripts.Controller.Itens
 
         public bool Equals(ItemController other)
         {
-            return InteractableItemSO.name == other.InteractableItemSO.name;
+            return ItemSO.name == other.ItemSO.name;
         }
 
         protected override void OnPlayerEnter()

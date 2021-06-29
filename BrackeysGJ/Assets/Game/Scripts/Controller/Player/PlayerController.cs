@@ -12,7 +12,7 @@ using Game.Scripts.ScriptableObjects;
 namespace Game.Scripts.Controller.Player
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IObjectPickerListener
     {
         [SerializeField]
         private float _speed = 0;
@@ -47,12 +47,16 @@ namespace Game.Scripts.Controller.Player
         private InventoryController Inventory => _inventory;
 
         [SerializeField]
-        private List<ItemSO> _initialItens = null;
-        private List<ItemSO> InitialItens => _initialItens;
-
-        [SerializeField]
         private GameObject _itemOnHand = null;
         private GameObject ItemOnHand => _itemOnHand;
+
+        [SerializeField]
+        private ObjectPickerController _objectPicker = null;
+        private ObjectPickerController ObjectPicker => _objectPicker;
+
+        [SerializeField]
+        private List<ItemSO> _initialItens = null;
+        private List<ItemSO> InitialItens => _initialItens;
 
         public Itens.ItemController ItemHeld { get; private set; }
         public bool HasItem => ItemHeld != null;
@@ -67,6 +71,7 @@ namespace Game.Scripts.Controller.Player
             else
                 Destroy(gameObject);
 
+            ObjectPicker.Init(this);
             InitialItens.ForEach(item =>
             {
                 switch (item)
@@ -293,6 +298,11 @@ namespace Game.Scripts.Controller.Player
         public void UseSelectedItem()
         {
             Inventory.UseSelectedItem();
+        }
+
+        public void OnObjectPicked(Item item)
+        {
+            GiveItem(item);
         }
     }
 
