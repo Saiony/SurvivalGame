@@ -45,11 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d1f917241a55348b5d82ae4b90e084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactableRange: 0
-  _detectionCollider: {fileID: 0}
   _itemSO: {fileID: 11400000, guid: 2cc8b02978dd6994aa468e6ba0aa1cc3, type: 2}
-  _collider: {fileID: 0}
-  _feet: {fileID: 0}
+  _detectionCollider: {fileID: 1486354598327147739}
 --- !u!135 &1486354598327147739
 SphereCollider:
   m_ObjectHideFlags: 0

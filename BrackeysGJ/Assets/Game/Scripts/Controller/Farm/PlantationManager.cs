@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Game.Helper;
-using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Player;
 using Game.Scripts.Controller.Time;
 using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
-public class PlantationManager : Interactable
+public class PlantationManager : MonoBehaviour, IPlowable, IWaterable, IPlantable, IPickable
 {
     [SerializeField]
     private Vector2 _plantationGrid = Vector2.zero;
@@ -21,6 +20,10 @@ public class PlantationManager : Interactable
     private GameObject _soilPrefab = null;
     private GameObject SoilPrefab => _soilPrefab;
 
+    [SerializeField]
+    private Collider _detectionCollider = null;
+    public Collider DetectionCollider => _detectionCollider;
+
     [Header("Debug")]
     [SerializeField]
     private CropSO _debugCrop = null;
@@ -28,7 +31,7 @@ public class PlantationManager : Interactable
 
     private List<List<SoilController>> SoilList { get; set; }
 
-    protected override void OnDidStart()
+    private void Start()
     {
         var area = CalculatePlantationArea();
 
@@ -96,17 +99,7 @@ public class PlantationManager : Interactable
         return SoilList[soilIndexX][soilIndexY];
     }
 
-    protected override void OnPlayerEnter()
-    {
-        // throw new System.NotImplementedException();
-    }
-
-    protected override void OnPlayerExit()
-    {
-        // throw new System.NotImplementedException();
-    }
-
-    protected override void OnInteract(Vector3 pos)
+    public void OnPick(Vector3 pos)
     {
         var soil = GetSoilController(pos);
         var crop = soil.Harvest();
@@ -114,21 +107,21 @@ public class PlantationManager : Interactable
         Debug.Log("Command recebido -> Interact", soil.gameObject);
     }
 
-    protected override void OnPlow(Vector3 pos)
+    public void OnPlow(Vector3 pos)
     {
         var soil = GetSoilController(pos);
         soil.Plow();
         Debug.Log("Command recebido -> Plow", soil.gameObject);
     }
 
-    protected override void OnPlant(Vector3 pos)
+    public void OnPlant(Vector3 pos)
     {
         var soil = GetSoilController(pos);
         soil.Plant(DebugCrop);
         Debug.Log("Command recebido -> Plant", soil.gameObject);
     }
 
-    protected override void OnWater(Vector3 pos)
+    public void OnWater(Vector3 pos)
     {
         var soil = GetSoilController(pos);
         soil.Water();

@@ -1,7 +1,6 @@
 ﻿using System;
 using Game.ScriptableObjects;
 using Game.Scripts.Controller.Dialog;
-using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Player;
 using Game.Scripts.Controller.Quest;
 using Game.Scripts.Manager.Quest;
@@ -10,7 +9,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Controller.NPC
 {
-    public class NpcController : Interactable
+    public class NpcController : MonoBehaviour, ITalkable
     {
         [SerializeField]
         private TextMeshProUGUI _missionStatusMark = null;
@@ -24,9 +23,13 @@ namespace Game.Scripts.Controller.NPC
         private QuestController _questController = null;
         private QuestController QuestController => _questController;
 
+        [SerializeField]
+        private Collider _detectionCollider = null;
+        public Collider DetectionCollider => _detectionCollider;
+
         private bool HasQuest => QuestController != null;
 
-        protected override void OnDidStart()
+        private void Start()
         {
             if (QuestController != null)
                 UpdateMissionStatusMark();
@@ -55,17 +58,7 @@ namespace Game.Scripts.Controller.NPC
             //QuestsManager.Instance.FinishQuest(QuestController);
         }
 
-        protected override void OnPlayerEnter()
-        {
-            Debug.Log("Player nearby");
-        }
-
-        protected override void OnPlayerExit()
-        {
-            Debug.Log("Player left");
-        }
-
-        protected override void OnInteract(Vector3 pos)
+        public void OnTalk()
         {
             Debug.Log("Player interacted");
             DialogBoxController.Instance.Interact(GetDialog());

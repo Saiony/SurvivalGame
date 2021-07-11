@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using Game.Scripts.Controller.Dialog;
 using System;
-using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Itens;
 using System.Linq;
 using System.Collections.Generic;
@@ -169,30 +168,27 @@ namespace Game.Scripts.Controller.Player
         }
         #endregion Movement
 
-        public void Interact()
-        {
-            var interactables = GetInteractablesOnRange();
-            //TODO: criar um IsNullOrEmpty
-            if (HasItem && !interactables.Any())
-            {
-                ThrowItem(ItemHeld);
-                return;
-            }
-
-            interactables.FirstOrDefault()?.Interact(transform.position + transform.forward);
-        }
-
-        private List<Interactable> GetInteractablesOnRange()
+        private List<IBaseInteractable> GetInteractablesOnRange()
         {
             var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
-            var interactableList = new List<Interactable>();
+            var interactableList = new List<IBaseInteractable>();
             results.ToList().ForEach(x =>
             {
-                var interactable = x.GetComponent<Interactable>();
+                var interactable = x.GetComponent<IBaseInteractable>();
                 if (interactable != null)
                     interactableList.Add(interactable);
             });
             return interactableList;
+        }
+
+        public void Interact()
+        {
+            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IInteractable) as IInteractable;
+            //TODO: criar um IsNullOrEmpty
+            if (interactable == null)
+                return;
+
+            interactable.OnInteract();
         }
 
         public void PlayPlowAnimation()
@@ -204,9 +200,10 @@ namespace Game.Scripts.Controller.Player
         public void DoTheActualPlowThing()
         {
             //TODO: regras de negócio de Plow
-            var interactables = GetInteractablesOnRange();
-            if (interactables.Count > 0)
-                interactables.First().Plow(transform.position + transform.forward);
+            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IPlowable) as IPlowable;
+            if (interactable == null)
+                return;
+            interactable.OnPlow(transform.position + transform.forward);
         }
 
         public void PlayWaterAnimation()
@@ -218,9 +215,11 @@ namespace Game.Scripts.Controller.Player
         public void DoTheActualWaterThing()
         {
             //TODO: regras de negócio de Water
-            var interactables = GetInteractablesOnRange();
-            if (interactables.Count > 0)
-                interactables.First().Water(transform.position + transform.forward);
+            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IWaterable) as IWaterable;
+
+            if (interactable == null)
+                return;
+            interactable.OnWater(transform.position + transform.forward);
         }
 
         public void PlayPlantAnimation()
@@ -232,9 +231,11 @@ namespace Game.Scripts.Controller.Player
         public void DoTheActualPlantThing()
         {
             //TODO: regras de negócio de Plant
-            var interactables = GetInteractablesOnRange();
-            if (interactables.Count > 0)
-                interactables.First().Plant(transform.position + transform.forward);
+            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IPlantable) as IPlantable;
+
+            if (interactable == null)
+                return;
+            interactable.OnPlant(transform.position + transform.forward);
         }
 
         public void PlayChopAnimation()
@@ -246,9 +247,11 @@ namespace Game.Scripts.Controller.Player
         public void DoTheActualChopThing()
         {
             //TODO: regras de negócio de Chop
-            var interactables = GetInteractablesOnRange();
-            if (interactables.Count > 0)
-                interactables.First().Chop(transform.position + transform.forward);
+            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IDamageable) as IDamageable;
+
+            if (interactable == null)
+                return;
+            interactable.OnDamage(1);
         }
 
         public void SetItem(ItemController item)
@@ -258,25 +261,6 @@ namespace Game.Scripts.Controller.Player
                                                  new Vector3(0, item.gameObject.GetComponent<MeshRenderer>().bounds.size.y / 2, 0);
             item.gameObject.transform.parent = Instance.Hand.transform;
             ItemHeld = item;
-        }
-
-        private void ThrowItem(ItemController item)
-        {
-            Debug.Log("ThrowItem: " + item.name);
-            ItemHeld.transform.parent = null;
-            ItemHeld.transform.DOMove(
-                new Vector3
-                (
-                    PlaceObjectPosition.position.x,
-                    PlaceObjectPosition.position.y + (item.transform.position.y - item.Feet.position.y),
-                    PlaceObjectPosition.position.z
-                ), 0.5f).OnComplete(() =>
-                {
-                    item.OnItemThrown();
-                    ItemHeld = null;
-                });
-
-            var playerloop = UnityEngine.LowLevel.PlayerLoop.GetDefaultPlayerLoop();
         }
 
         public void SelectQuickItem(int index)

@@ -1,51 +1,28 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
-using Game.Scripts.Controller.Interact;
 using Game.Scripts.Controller.Player;
 using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Game.Scripts.Controller.Itens
 {
-    public class ItemController : Interactable
+    public class ItemController : MonoBehaviour
     {
         [SerializeField]
         private ItemSO _itemSO = null;
         private ItemSO ItemSO => _itemSO;
 
         [SerializeField]
-        private Collider _collider = null;
-        private Collider Collider => _collider;
+        private Collider _detectionCollider = null;
+        public Collider DetectionCollider => _detectionCollider;
 
-        [SerializeField]
-        private Transform _feet = null;
-        public Transform Feet => _feet;
         public string Id => ItemSO.name;
-
         public Item Item { get; private set; }
 
         private void Awake()
         {
             Item = new Misc(ItemSO.Id, ItemSO.Name, ItemSO.Description, ItemSO.Image, 1);
-        }
-
-        protected override void OnInteract(Vector3 pos)
-        {
-            Debug.Log("Player interacted with Item");
-            if (PlayerController.Instance.HasItem)
-                return;
-
-            else
-            {
-                PlayerController.Instance.SetItem(this);
-                Collider.enabled = false;
-            }
-        }
-
-        public void OnItemThrown()
-        {
-            Collider.enabled = true;
         }
 
         public void DestroyItself()
@@ -73,14 +50,6 @@ namespace Game.Scripts.Controller.Itens
         public bool Equals(ItemController other)
         {
             return ItemSO.name == other.ItemSO.name;
-        }
-
-        protected override void OnPlayerEnter()
-        {
-        }
-
-        protected override void OnPlayerExit()
-        {
         }
     }
 }

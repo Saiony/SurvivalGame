@@ -1,9 +1,8 @@
-﻿using Game.Scripts.Controller.Interact;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 using System;
 
-public class TreeController : Interactable
+public class TreeController : MonoBehaviour, IDamageable
 {
     [Header("Prefabs")]
     [SerializeField]
@@ -31,23 +30,20 @@ public class TreeController : Interactable
     private TreeState _state = TreeState.Unknown;
     private TreeState State => _state;
 
-    private int Life = 1;
+    [SerializeField]
+    private Collider _detectionCollider = null;
+    public Collider DetectionCollider => _detectionCollider;
+
+    public int Life { get; private set; }
+
+    private void Awake()
+    {
+        Life = 1;
+    }
+
     private bool Alive = true;
 
-
-    protected override void OnInteract(Vector3 pos)
-    {
-    }
-
-    protected override void OnPlayerEnter()
-    {
-    }
-
-    protected override void OnPlayerExit()
-    {
-    }
-
-    protected override void OnChop(Vector3 pos)
+    public void OnDamage(int damage)
     {
         Debug.Log("Tree Chopped \tLife: " + Life);
         if (!Alive)
@@ -90,6 +86,7 @@ public class TreeController : Interactable
         }
         Destroy(gameObject);
     }
+
 
     private enum TreeState
     {
