@@ -386,12 +386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f933c23f4ea791499a77c53283c7e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactableRange: 5
-  _detectionCollider: {fileID: 159086082}
   _plantationGrid: {x: 6, y: 6}
   _soilSize: {x: 1, y: 1}
   _soilPrefab: {fileID: 7288043835761370051, guid: e8d1112951a84524195672697028d920,
     type: 3}
+  _detectionCollider: {fileID: 159086082}
   _debugCrop: {fileID: 11400000, guid: 16e062e51044cb7479166180ff87c4bf, type: 2}
 --- !u!4 &159086084
 Transform:
@@ -859,7 +858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115b55813a3204d48bb117816eddd820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactableRange: 1
   _detectionCollider: {fileID: 810211977}
 --- !u!135 &810211977
 SphereCollider:

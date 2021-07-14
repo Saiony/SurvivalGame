@@ -87,6 +87,12 @@ namespace Game.Scripts.Controller.Player
                         var misc = new Misc((item as MiscSO).Id, (item as MiscSO).name, (item as MiscSO).Description, (item as MiscSO).Image);
                         Inventory.AddItem(misc);
                         break;
+                    case WeaponSO _:
+                        var attacks = new List<Attack>();
+
+                        var weapon = new Weapon((item as MiscSO).Id, (item as MiscSO).name, (item as MiscSO).Description, (item as MiscSO).Image, (item as WeaponSO).Command, (item as WeaponSO).atta);
+                        Inventory.AddItem(weapon);
+                        break;
                     default:
                         throw new InvalidOperationException("Invalid item type");
                 }
@@ -238,13 +244,13 @@ namespace Game.Scripts.Controller.Player
             interactable.OnPlant(transform.position + transform.forward);
         }
 
-        public void PlayChopAnimation()
+        public void PlayAttackAnimation()
         {
             InputHandler.Instance.DisableInput();
-            Animator.SetTrigger("Chopping_Trigger");
+            Animator.SetTrigger("Attacking_Trigger");
         }
 
-        public void DoTheActualChopThing()
+        public void DoTheActualAttackThing()
         {
             //TODO: regras de negócio de Chop
             var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IDamageable) as IDamageable;

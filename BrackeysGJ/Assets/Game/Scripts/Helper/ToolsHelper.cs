@@ -12,8 +12,6 @@ public static class ToolsHelper
                 return new PlowCommand();
             case ToolActions.Water:
                 return new WaterCommand();
-            case ToolActions.Chop:
-                return new ChopCommand();
             default:
                 throw new InvalidOperationException("Invalid Tool Action");
         }
@@ -25,6 +23,6 @@ public enum ToolActions
     Unknown = 0,
     Plow = 1,
     Water = 2,
-    Chop = 3
+    Attack = 3
 }
 

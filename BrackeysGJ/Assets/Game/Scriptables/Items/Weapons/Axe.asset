@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 718bbec771990ea4c88447d974ee8108, type: 3}
+  m_Script: {fileID: 11500000, guid: b92629cd5afc9634ea52dac76ad022a2, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
   Id: 6b62ed3c-7f79-4ae3-8aea-8b713cdeb204
   Name: "Ax\xE9 \xE9 m\xFAsica?"
   Description: "N\xE3o"
   Image: {fileID: 21300000, guid: 6098fcbe6d1f4b84293dee309ac910e6, type: 3}
-  Command: 3
+  Command: 1
+  AttackTypes: 0100000002000000
+  AttackDamages: 0f00000014000000

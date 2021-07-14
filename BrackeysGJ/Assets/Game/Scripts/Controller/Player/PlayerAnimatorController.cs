@@ -45,9 +45,9 @@ public class PlayerAnimatorController : MonoBehaviour
         PlayerController.DoTheActualPlowThing();
     }
 
-    public void Chop()
+    public void Attack()
     {
-        PlayerController.DoTheActualChopThing();
+        PlayerController.DoTheActualAttackThing();
     }
 }
 
