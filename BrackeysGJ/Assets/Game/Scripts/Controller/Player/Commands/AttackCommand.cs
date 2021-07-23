@@ -6,31 +6,30 @@ namespace Game.Scripts.Controller.Player
 {
     public class AttackCommand : Command
     {
-        public List<Attack> Attacks { get; private set; }
-        public override string Name
-        { get; set; } = "Attack";
+        public Attack Attack { get; private set; }
+        public override string Name { get; set; } = "Attack";
 
         private AttackCommand()
         {
-            Attacks = new List<Attack>();
+            Attack = null;
         }
 
-        public AttackCommand(List<Attack> attacks)
+        public AttackCommand(Attack attack) : this()
         {
-            SetAttacks(attacks);
+            SetAttack(attack);
         }
 
-        private void SetAttacks(List<Attack> attacks)
+        private void SetAttack(Attack attack)
         {
-            if (attacks == null)
-                throw new InvalidOperationException("Attacks can't be null");
+            if (attack == null)
+                throw new InvalidOperationException("Attack can't be null");
 
-            Attacks = attacks.ToList();
+            Attack = attack;
         }
 
         public override void Execute()
         {
-            PlayerController.Instance.PlayAttackAnimation();
+            PlayerController.Instance.PlayAttackAnimation(Attack);
         }
     }
 }

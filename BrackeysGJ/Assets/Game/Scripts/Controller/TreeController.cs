@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using System;
+using System.Linq;
 
 public class TreeController : MonoBehaviour, IDamageable
 {
@@ -43,18 +44,23 @@ public class TreeController : MonoBehaviour, IDamageable
 
     private bool Alive = true;
 
-    public void OnDamage(int damage)
+    public void ReceiveAttack(Attack attack)
     {
-        Debug.Log("Tree Chopped \tLife: " + Life);
         if (!Alive)
             return;
 
-        Life--;
+        foreach (var damage in attack.Damages)
+        {
+            //TODO: Checar tabela de resistências e modificar damage
+            Life -= damage.Value;
+        }
+
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOPunchScale(Vector3.one * 0.03f, 0.3f, 7, 5));
 
         if (Life <= 0)
             Die();
+        Debug.Log("Tree Chopped \tLife: " + Life);
     }
 
     private void Die()

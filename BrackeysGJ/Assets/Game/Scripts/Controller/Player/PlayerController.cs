@@ -57,6 +57,10 @@ namespace Game.Scripts.Controller.Player
         private List<ItemSO> _initialItens = null;
         private List<ItemSO> InitialItens => _initialItens;
 
+        [SerializeField]
+        private HandController _handController = null;
+        public HandController HandController => _handController;
+
         public Itens.ItemController ItemHeld { get; private set; }
         public bool HasItem => ItemHeld != null;
         private Rigidbody RgdBody { get; set; }
@@ -88,9 +92,9 @@ namespace Game.Scripts.Controller.Player
                         Inventory.AddItem(misc);
                         break;
                     case WeaponSO _:
-                        var attacks = new List<Attack>();
-
-                        var weapon = new Weapon((item as MiscSO).Id, (item as MiscSO).name, (item as MiscSO).Description, (item as MiscSO).Image, (item as WeaponSO).Command, (item as WeaponSO).atta);
+                        var attack = new Attack((item as WeaponSO).DamagesType, (item as WeaponSO).DamagesValue);
+                        var weapon = new Weapon((item as WeaponSO).Id, (item as WeaponSO).name, (item as WeaponSO).Description, (item as WeaponSO).Image,
+                                                (item as WeaponSO).Command, attack);
                         Inventory.AddItem(weapon);
                         break;
                     default:
@@ -102,6 +106,7 @@ namespace Game.Scripts.Controller.Player
         void Start()
         {
             RgdBody = GetComponent<Rigidbody>();
+            HandController.Init(Inventory);
         }
 
         private void Update()
@@ -174,13 +179,13 @@ namespace Game.Scripts.Controller.Player
         }
         #endregion Movement
 
-        private List<IBaseInteractable> GetInteractablesOnRange()
+        private List<T> GetInteractablesOnRange<T>() where T : IBaseInteractable
         {
             var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
-            var interactableList = new List<IBaseInteractable>();
+            var interactableList = new List<T>();
             results.ToList().ForEach(x =>
             {
-                var interactable = x.GetComponent<IBaseInteractable>();
+                var interactable = x.GetComponent<T>();
                 if (interactable != null)
                     interactableList.Add(interactable);
             });
@@ -189,7 +194,7 @@ namespace Game.Scripts.Controller.Player
 
         public void Interact()
         {
-            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IInteractable) as IInteractable;
+            var interactable = GetInteractablesOnRange<IInteractable>().FirstOrDefault();
             //TODO: criar um IsNullOrEmpty
             if (interactable == null)
                 return;
@@ -206,7 +211,7 @@ namespace Game.Scripts.Controller.Player
         public void DoTheActualPlowThing()
         {
             //TODO: regras de negócio de Plow
-            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IPlowable) as IPlowable;
+            var interactable = GetInteractablesOnRange<IPlowable>().FirstOrDefault(); ;
             if (interactable == null)
                 return;
             interactable.OnPlow(transform.position + transform.forward);
@@ -221,7 +226,7 @@ namespace Game.Scripts.Controller.Player
         public void DoTheActualWaterThing()
         {
             //TODO: regras de negócio de Water
-            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IWaterable) as IWaterable;
+            var interactable = GetInteractablesOnRange<IWaterable>().FirstOrDefault();
 
             if (interactable == null)
                 return;
@@ -237,27 +242,35 @@ namespace Game.Scripts.Controller.Player
         public void DoTheActualPlantThing()
         {
             //TODO: regras de negócio de Plant
-            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IPlantable) as IPlantable;
+            var interactable = GetInteractablesOnRange<IPlantable>().FirstOrDefault();
 
             if (interactable == null)
                 return;
             interactable.OnPlant(transform.position + transform.forward);
         }
 
-        public void PlayAttackAnimation()
+        public void PlayAttackAnimation(Attack attack)
         {
             InputHandler.Instance.DisableInput();
             Animator.SetTrigger("Attacking_Trigger");
+
+            var attackAnim = Animator.runtimeAnimatorController.animationClips.FirstOrDefault(x => x.name == "Attacking");
+            var actionTime = attackAnim.events.FirstOrDefault(x => x.functionName == "Attack").time;
+
+            StartCoroutine(DoTheActualAttackThing(actionTime, attack));
         }
 
-        public void DoTheActualAttackThing()
+        public IEnumerator DoTheActualAttackThing(float time, Attack attack)
         {
-            //TODO: regras de negócio de Chop
-            var interactable = GetInteractablesOnRange().FirstOrDefault(x => x is IDamageable) as IDamageable;
+            yield return new WaitForSeconds(time);
 
-            if (interactable == null)
-                return;
-            interactable.OnDamage(1);
+            //TODO: regras de negócio de Chop
+            ContactArea.enabled = true;
+            var interactables = GetInteractablesOnRange<IDamageable>();
+            if (interactables == null)
+                yield return null;
+
+            interactables.ForEach(x => x.ReceiveAttack(attack));
         }
 
         public void SetItem(ItemController item)

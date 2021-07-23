@@ -3,6 +3,7 @@ using UnityEditor;
 using Game.Scripts.ScriptableObjects;
 using UnityEditor.SceneManagement;
 using System.Collections.Generic;
+using System;
 
 [CustomEditor(typeof(WeaponSO))]
 public class WeaponEditor : Editor
@@ -15,23 +16,26 @@ public class WeaponEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Damage");
 
-        var attackTypes = serializedObject.FindProperty("AttackTypes");
-        var attackDamages = serializedObject.FindProperty("AttackDamages");
+        var damagesType = serializedObject.FindProperty("DamagesType");
+        var damagesValue = serializedObject.FindProperty("DamagesValue");
+
+        if (damagesType == null || damagesValue == null)
+            throw new InvalidOperationException("Property names changed and we don't know how to do change automatically :(");
 
         GUILayout.BeginHorizontal();
         GUILayout.BeginVertical();
 
-        for (int i = 0; i < attackTypes.arraySize; i++)
+        for (int i = 0; i < damagesType.arraySize; i++)
         {
-            EditorGUILayout.PropertyField(attackTypes.GetArrayElementAtIndex(i), GUIContent.none);
+            EditorGUILayout.PropertyField(damagesType.GetArrayElementAtIndex(i), GUIContent.none);
         }
 
         GUILayout.EndVertical();
         GUILayout.BeginVertical();
 
-        for (int i = 0; i < attackDamages.arraySize; i++)
+        for (int i = 0; i < damagesValue.arraySize; i++)
         {
-            EditorGUILayout.PropertyField(attackDamages.GetArrayElementAtIndex(i), GUIContent.none);
+            EditorGUILayout.PropertyField(damagesValue.GetArrayElementAtIndex(i), GUIContent.none);
         }
 
         EditorGUILayout.EndVertical();

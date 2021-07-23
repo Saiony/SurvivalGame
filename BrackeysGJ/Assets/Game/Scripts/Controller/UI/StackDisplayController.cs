@@ -28,7 +28,7 @@ public class StackDisplayController : MonoBehaviour
 
     public void DisplayQuantity(Item item)
     {
-        if (item is Tool)
+        if (item is Tool || item is Weapon)
         {
             Clear().Play();
             return;

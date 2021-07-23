@@ -4319,7 +4319,7 @@ PrefabInstance:
     - target: {fileID: 584455121, guid: a49196ac818893446b88108d7760d048, type: 3}
       propertyPath: _initialItens.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: 9879c8c85e08f924c89a4d59f3476671,
+      objectReference: {fileID: 11400000, guid: 8f220d7f8d232034f99dba22829f8974,
         type: 2}
     - target: {fileID: 584455121, guid: a49196ac818893446b88108d7760d048, type: 3}
       propertyPath: _initialTools.Array.data[0]

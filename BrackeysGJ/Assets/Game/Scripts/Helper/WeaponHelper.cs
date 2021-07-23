@@ -5,12 +5,12 @@ using UnityEngine;
 
 public static class WeaponHelper
 {
-    public static Command NewCommand(WeaponActions actionEnum, List<Attack> attacks)
+    public static Command NewCommand(WeaponActions actionEnum, Attack attack)
     {
         switch (actionEnum)
         {
             case WeaponActions.Attack:
-                return new AttackCommand(attacks);
+                return new AttackCommand(attack);
             default:
                 throw new InvalidOperationException("Invalid Tool Action");
         }
@@ -20,7 +20,6 @@ public static class WeaponHelper
 public enum WeaponActions
 {
     Unknown = 0,
-    Attack = 1,
-    Chop = 2
+    Attack = 1
 }
 

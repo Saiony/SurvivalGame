@@ -28,6 +28,7 @@ public class PlayerAnimatorController : MonoBehaviour
     public void ReleaseInput()
     {
         InputHandler.Instance.EnableInput();
+        PlayerController.HandController.EndAction();
     }
 
     public void Water()
@@ -47,7 +48,12 @@ public class PlayerAnimatorController : MonoBehaviour
 
     public void Attack()
     {
-        PlayerController.DoTheActualAttackThing();
+
+    }
+
+    public void AttackComParametro(System.Object x)
+    {
+
     }
 }
 

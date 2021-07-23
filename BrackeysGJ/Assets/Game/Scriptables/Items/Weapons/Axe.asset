@@ -16,6 +16,5 @@ MonoBehaviour:
   Name: "Ax\xE9 \xE9 m\xFAsica?"
   Description: "N\xE3o"
   Image: {fileID: 21300000, guid: 6098fcbe6d1f4b84293dee309ac910e6, type: 3}
-  Command: 1
-  AttackTypes: 0100000002000000
-  AttackDamages: 0f00000014000000
+  DamagesType: 0100000002000000
+  DamagesValue: 0a0000000f000000

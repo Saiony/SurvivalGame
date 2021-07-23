@@ -8,30 +8,32 @@ namespace Game.Scripts.ScriptableObjects
     [CreateAssetMenu(fileName = "Item", menuName = "ScriptableObjects/Item/Weapon", order = 1)]
     public class WeaponSO : ItemSO
     {
-        public WeaponActions Command;
+        [HideInInspector]
+        public WeaponActions Command { get; private set; }
 
         [HideInInspector]
-        public List<AttackType> AttackTypes;
+        public List<DamageType> DamagesType;
 
         [HideInInspector]
-        public List<int> AttackDamages;
+        public List<int> DamagesValue;
 
         public WeaponSO()
         {
-            AttackTypes = new List<AttackType>();
-            AttackDamages = new List<int>();
+            Command = WeaponActions.Attack;
+            DamagesType = new List<DamageType>();
+            DamagesValue = new List<int>();
         }
 
         public void AddDamage()
         {
-            AttackTypes.Add(AttackType.Unknown);
-            AttackDamages.Add(0);
+            DamagesType.Add(DamageType.Unknown);
+            DamagesValue.Add(0);
         }
 
         public void RemoveDamage()
         {
-            AttackTypes.RemoveAt(AttackTypes.Count - 1);
-            AttackDamages.RemoveAt(AttackDamages.Count - 1);
+            DamagesType.RemoveAt(DamagesType.Count - 1);
+            DamagesValue.RemoveAt(DamagesValue.Count - 1);
         }
     }
 }

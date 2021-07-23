@@ -7,20 +7,21 @@ using UnityEngine;
 
 public class Weapon : Item
 {
-    public List<Attack> Attacks { get; private set; }
+    public Attack Attack { get; private set; }
 
-    public Weapon(string id, string name, string description, Sprite image, WeaponActions commandEnum, List<Attack> attacks, int quantity = 1) : base(id, name, description, image, quantity)
+    public Weapon(string id, string name, string description, Sprite image, WeaponActions commandEnum, Attack attack, int quantity = 1)
+                  : base(id, name, description, image, quantity)
     {
-        SetAttacks(attacks);
-        var command = WeaponHelper.NewCommand(commandEnum, Attacks);
+        SetAttack(attack);
+        var command = WeaponHelper.NewCommand(commandEnum, Attack);
         SetCommand(command);
     }
 
-    private void SetAttacks(List<Attack> attacks)
+    private void SetAttack(Attack attack)
     {
-        if (attacks == null)
-            throw new InvalidOperationException("Attacks can't be null");
+        if (attack == null)
+            throw new InvalidOperationException("Attack can't be null");
 
-        Attacks = attacks.ToList();
+        Attack = attack;
     }
 }
