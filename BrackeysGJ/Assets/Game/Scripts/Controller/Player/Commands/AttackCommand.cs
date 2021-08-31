@@ -29,7 +29,7 @@ namespace Game.Scripts.Controller.Player
 
         public override void Execute()
         {
-            PlayerController.Instance.PlayAttackAnimation(Attack);
+            PlayerController.Instance.Attack(Attack);
         }
     }
 }

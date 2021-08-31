@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -26,7 +28,7 @@ public class StackDisplayController : MonoBehaviour
         return seq;
     }
 
-    public void DisplayQuantity(Item item)
+    public void DisplayQuantity(IItem item)
     {
         if (item is Tool || item is Weapon)
         {

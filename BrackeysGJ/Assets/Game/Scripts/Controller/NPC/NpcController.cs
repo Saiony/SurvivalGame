@@ -68,45 +68,7 @@ namespace Game.Scripts.Controller.NPC
         private Dialogue[] GetDialog()
         {
             var chosenDialog = new Dialogue[0];
-            if (!HasQuest)
-            {
-                chosenDialog = NpcConfig.StandardDialog;
-            }
-            else if (QuestController.Completed)
-            {
-                chosenDialog = NpcConfig.AfterQuestDialog;
-            }
-            else if (!QuestsManager.Instance.IsActiveQuest(QuestController.Name))
-            {
-                chosenDialog = NpcConfig.StandardDialog;
-            }
-            else if (!QuestController.Started)
-            {
-                chosenDialog = NpcConfig.StartQuestDialog;
-                StartQuest();
-            }
-            else if (PlayerController.Instance.ItemHeld == null)
-            {
-                chosenDialog = NpcConfig.WaitingEndQuestDialog;
-            }
-            else if (QuestController.ReceiveItem(PlayerController.Instance.ItemHeld))
-            {
-                //Feedback positivo de UI
-                Debug.Log("O NPC gosta do que você fez pq vc tem cheiro de monange");
-                PlayerController.Instance.GiveItemHeld();
-
-                if (QuestController.Completed)
-                {
-                    chosenDialog = NpcConfig.EndQuestDialog;
-                    Finishquest();
-                }
-            }
-            else
-            {
-                //Feedback negativo de UI
-                PlayerController.Instance.GiveItemHeld();
-                Debug.Log("O NPC não gosta do que você fez pq você fede");
-            }
+            chosenDialog = NpcConfig.StandardDialog;
 
             return chosenDialog;
         }

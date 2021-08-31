@@ -158,8 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328cf8c3070cdf54690d1e8e6d741a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactableRange: 0
-  _detectionCollider: {fileID: 0}
   _treePrefab: {fileID: 368729420626575307, guid: db463ae81497efe459a5eb63d0b45c5f,
     type: 3}
   _logPrefab: {fileID: 5436994168623353424}
@@ -169,3 +167,5 @@ MonoBehaviour:
   _woodItemPrefab: {fileID: 4744204098471796840, guid: d1e950c17ca295c4a816e253d38845c1,
     type: 3}
   _state: 3
+  _detectionCollider: {fileID: 670377346076698529}
+  _treeSO: {fileID: 11400000, guid: be37efa803b7996438e295021c59ba0d, type: 2}

@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 
 public class InventoryInfoController : MonoBehaviour
 {
@@ -17,7 +18,12 @@ public class InventoryInfoController : MonoBehaviour
     private TextMeshProUGUI _description = null;
     private TextMeshProUGUI Description => _description;
 
-    private void Awake()
+    public void Init()
+    {
+
+    }
+
+    private void Show()
     {
         Sequence seq = DOTween.Sequence();
         seq.Insert(0, Image.DOFade(0, 0));
@@ -26,7 +32,7 @@ public class InventoryInfoController : MonoBehaviour
         seq.Play();
     }
 
-    public void DisplayItem(Item item)
+    public void DisplayItem(IItem item)
     {
         if (item == null)
             return;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class QuickItemDisplayController : MonoBehaviour
     private StackDisplayController _stack = null;
     private StackDisplayController stack => _stack;
 
-    public Item Item { get; private set; }
+    public IItem Item { get; private set; }
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class QuickItemDisplayController : MonoBehaviour
         ItemSelector.localScale = Vector3.zero;
     }
 
-    public void SetItem(Item item)
+    public void SetItem(IItem item)
     {
         Item = item;
         if (Item == null)

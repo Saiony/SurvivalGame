@@ -1,3 +1,4 @@
+using BrackeysGJ.Assets.Game.Scripts.Controller.Inventory;
 using UnityEngine;
 namespace Game.Scripts.Controller.Player
 {
@@ -7,7 +8,7 @@ namespace Game.Scripts.Controller.Player
 
         public override void Execute()
         {
-            InventoryDisplayController.Instance.Toggle();
+            InventorySceneController.Instance.Toggle();
         }
     }
 }

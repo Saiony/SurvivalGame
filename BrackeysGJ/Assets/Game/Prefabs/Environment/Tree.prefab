@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 368729420626575307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.465, y: 0.543, z: 4.0794}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.6615261, y: 0.6038883, z: 0.6452307}
   m_Children:
   - {fileID: 4436321126362001736}
   - {fileID: 6565195584651934911}
@@ -59,8 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328cf8c3070cdf54690d1e8e6d741a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactableRange: 0
-  _detectionCollider: {fileID: 6273227608389144836}
   _treePrefab: {fileID: 368729420626575307}
   _logPrefab: {fileID: 5661002673712599687, guid: dd38f4150ea19624fa44b7ca94ed274f,
     type: 3}
@@ -71,6 +69,8 @@ MonoBehaviour:
   _woodItemPrefab: {fileID: 4744204098471796840, guid: d1e950c17ca295c4a816e253d38845c1,
     type: 3}
   _state: 1
+  _detectionCollider: {fileID: 6273227608389144836}
+  _treeSO: {fileID: 11400000, guid: be37efa803b7996438e295021c59ba0d, type: 2}
 --- !u!1 &651714234834869441
 GameObject:
   m_ObjectHideFlags: 0

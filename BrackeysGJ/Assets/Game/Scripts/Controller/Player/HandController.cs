@@ -10,32 +10,50 @@ public class HandController : MonoBehaviour
     private Collider _contactArea = null;
     private Collider ContactArea => _contactArea;
 
-    private InventoryController Inventory { get; set; }
-    private Item SelectedItem => Inventory.SelectedItem;
+    private IDetectionListener Listener { get; set; }
 
 
-    public void Init(InventoryController inventory)
+    // private List<T> GetInteractablesOnRange<T>() where T : IBaseInteractable
+    // {
+    //     var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
+    //     var interactableList = new List<T>();
+    //     results.ToList().ForEach(x =>
+    //     {
+    //         var interactable = x.GetComponent<T>();
+    //         if (interactable != null)
+    //             interactableList.Add(interactable);
+    //     });
+    //     return interactableList;
+    // }
+
+    private void OnTriggerEnter(Collider col)
     {
-        Inventory = inventory;
+        var damageable = col.gameObject.GetComponent<IDamageable>();
+        if (damageable == null)
+            return;
+
+        Listener?.OnDetect(damageable);
     }
 
-    private List<T> GetInteractablesOnRange<T>() where T : IBaseInteractable
+    public void EnableDetection(IDetectionListener listener)
     {
-        var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
-        var interactableList = new List<T>();
-        results.ToList().ForEach(x =>
-        {
-            var interactable = x.GetComponent<T>();
-            if (interactable != null)
-                interactableList.Add(interactable);
-        });
-        return interactableList;
+        Listener = listener;
+        ContactArea.enabled = true;
+    }
+
+    public void DisableDetection()
+    {
+        Listener = null;
+        ContactArea.enabled = false;
     }
 
     public void EndAction()
     {
         ContactArea.enabled = false;
     }
+}
 
-
+public interface IDetectionListener
+{
+    void OnDetect(IDamageable interactable);
 }

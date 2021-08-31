@@ -1,9 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-using Game.Scripts.Controller.Player;
-using Game.Scripts.ScriptableObjects;
-using UnityEngine;
 
 [Serializable]
 public class Attack

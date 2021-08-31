@@ -103,7 +103,7 @@ public class PlantationManager : MonoBehaviour, IPlowable, IWaterable, IPlantabl
     {
         var soil = GetSoilController(pos);
         var crop = soil.Harvest();
-        PlayerController.Instance.GiveItem(crop.Item);
+        PlayerController.Instance.Items.Inventory.AddItem(crop.Item);
         Debug.Log("Command recebido -> Interact", soil.gameObject);
     }
 
