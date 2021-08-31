@@ -8,8 +8,9 @@ namespace Game.Scripts.ScriptableObjects
     [CreateAssetMenu(fileName = "Item", menuName = "ScriptableObjects/Item/Weapon", order = 1)]
     public class WeaponSO : ItemSO
     {
-        [HideInInspector]
-        public WeaponActions Command { get; private set; }
+        public EquipmentSlot Slot;
+
+        public WeaponActions Command;
 
         [HideInInspector]
         public List<DamageType> DamagesType;
@@ -22,6 +23,7 @@ namespace Game.Scripts.ScriptableObjects
             Command = WeaponActions.Attack;
             DamagesType = new List<DamageType>();
             DamagesValue = new List<int>();
+            Slot = EquipmentSlot.Unknown;
         }
 
         public void AddDamage()

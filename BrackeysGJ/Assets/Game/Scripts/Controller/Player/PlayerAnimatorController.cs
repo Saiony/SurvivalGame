@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using BrackeysGJ.Assets.Game.Scripts.Controller.Player;
 using Game.Scripts.Controller.Player;
 using UnityEngine;
 
@@ -46,14 +47,18 @@ public class PlayerAnimatorController : MonoBehaviour
         PlayerController.DoTheActualPlowThing();
     }
 
-    public void Attack()
+    public void EnableAttack()
     {
-
+        if (!(PlayerController.State is PlayerAttackState))
+            return;
+        ((PlayerAttackState)PlayerController.State).EnableAttack();
     }
 
-    public void AttackComParametro(System.Object x)
+    public void DisableAttack()
     {
-
+        if (!(PlayerController.State is PlayerAttackState))
+            return;
+        ((PlayerAttackState)PlayerController.State).DisableAttack();
     }
 }
 

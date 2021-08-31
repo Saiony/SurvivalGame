@@ -7,6 +7,10 @@ using Game.Scripts.Controller.Itens;
 using System.Linq;
 using System.Collections.Generic;
 using Game.Scripts.ScriptableObjects;
+using BrackeysGJ.Assets.Game.Scripts.Controller.Player;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -23,31 +27,15 @@ namespace Game.Scripts.Controller.Player
 
         [SerializeField]
         private Animator _animator = null;
-        private Animator Animator => _animator;
+        public Animator Animator => _animator;
 
         [SerializeField]
         private Collider _contactArea = null;
         private Collider ContactArea => _contactArea;
 
         [SerializeField]
-        private Transform _placeObjectPosition = null;
-        private Transform PlaceObjectPosition => _placeObjectPosition;
-
-        [SerializeField]
-        private GameObject _hand = null;
-        public GameObject Hand => _hand;
-
-        [SerializeField]
         private PlayerAnimatorController _playerAnimator = null;
         private PlayerAnimatorController PlayerAnimator => _playerAnimator;
-
-        [SerializeField]
-        private InventoryController _inventory = null;
-        private InventoryController Inventory => _inventory;
-
-        [SerializeField]
-        private GameObject _itemOnHand = null;
-        private GameObject ItemOnHand => _itemOnHand;
 
         [SerializeField]
         private ObjectPickerController _objectPicker = null;
@@ -61,11 +49,13 @@ namespace Game.Scripts.Controller.Player
         private HandController _handController = null;
         public HandController HandController => _handController;
 
-        public Itens.ItemController ItemHeld { get; private set; }
-        public bool HasItem => ItemHeld != null;
-        private Rigidbody RgdBody { get; set; }
+        [SerializeField]
+        private Rigidbody _rgdBody = null;
+        private Rigidbody RgdBody => _rgdBody;
 
+        public IPlayerState State { get; private set; }
         public static PlayerController Instance = null;
+        public IPlayerItems Items { get; private set; }
 
         void Awake()
         {
@@ -74,39 +64,35 @@ namespace Game.Scripts.Controller.Player
             else
                 Destroy(gameObject);
 
+            State = new PlayerIdleState();
+            Items = new PlayerItems(new Inventory(), new EquippedItems());
             ObjectPicker.Init(this);
             InitialItens.ForEach(item =>
             {
                 switch (item)
                 {
                     case ToolSO _:
-                        var tool = new Tool((item as ToolSO).Id, (item as ToolSO).name, (item as ToolSO).Description, (item as ToolSO).Image, (item as ToolSO).Command);
-                        Inventory.AddItem(tool);
+                        var tool = new Tool((item as ToolSO).Id, (item as ToolSO).Name, (item as ToolSO).Description, (item as ToolSO).Image, (item as ToolSO).Command);
+                        Items.Inventory.AddItem(tool);
                         break;
                     case ConsumableSO _:
-                        var consumable = new Consumable((item as ConsumableSO).Id, (item as ConsumableSO).name, (item as ConsumableSO).Description, (item as ConsumableSO).Image, (item as ConsumableSO).Command);
-                        Inventory.AddItem(consumable);
+                        var consumable = new Consumable((item as ConsumableSO).Id, (item as ConsumableSO).Name, (item as ConsumableSO).Description, (item as ConsumableSO).Image, (item as ConsumableSO).Command);
+                        Items.Inventory.AddItem(consumable);
                         break;
                     case MiscSO _:
-                        var misc = new Misc((item as MiscSO).Id, (item as MiscSO).name, (item as MiscSO).Description, (item as MiscSO).Image);
-                        Inventory.AddItem(misc);
+                        var misc = new Misc((item as MiscSO).Id, (item as MiscSO).Name, (item as MiscSO).Description, (item as MiscSO).Image);
+                        Items.Inventory.AddItem(misc);
                         break;
                     case WeaponSO _:
                         var attack = new Attack((item as WeaponSO).DamagesType, (item as WeaponSO).DamagesValue);
-                        var weapon = new Weapon((item as WeaponSO).Id, (item as WeaponSO).name, (item as WeaponSO).Description, (item as WeaponSO).Image,
-                                                (item as WeaponSO).Command, attack);
-                        Inventory.AddItem(weapon);
+                        var weapon = new Weapon((item as WeaponSO).Id, (item as WeaponSO).Name, (item as WeaponSO).Description, (item as WeaponSO).Image,
+                                                (item as WeaponSO).Command, attack, (item as WeaponSO).Slot);
+                        Items.Inventory.AddItem(weapon);
                         break;
                     default:
                         throw new InvalidOperationException("Invalid item type");
                 }
             });
-        }
-
-        void Start()
-        {
-            RgdBody = GetComponent<Rigidbody>();
-            HandController.Init(Inventory);
         }
 
         private void Update()
@@ -118,7 +104,14 @@ namespace Game.Scripts.Controller.Player
             else
                 RgdBody.velocity = Vector3.zero;
 
+            //TODO: colocar Speed numa var
             Animator.SetFloat("Speed", RgdBody.velocity.magnitude);
+        }
+
+        public void Attack(Attack attack)
+        {
+            State = new PlayerAttackState();
+            (State as PlayerAttackState).BeginAttack(this, attack, HandController);
         }
 
         public static Dialogue Dialog(params string[] sentences)
@@ -155,7 +148,7 @@ namespace Game.Scripts.Controller.Player
             if (direction == Direction.Right) //Right
             {
                 dir = Vector3.right;
-                gameObject.transform.DOLocalRotate(new Vector3(0, 90, 0), RotationSpeed);
+                transform.DOLocalRotate(new Vector3(0, 90, 0), RotationSpeed);
             }
             else if (direction == Direction.Left) //Left
             {
@@ -179,7 +172,7 @@ namespace Game.Scripts.Controller.Player
         }
         #endregion Movement
 
-        private List<T> GetInteractablesOnRange<T>() where T : IBaseInteractable
+        public List<T> GetInteractablesOnRange<T>() where T : IBaseInteractable
         {
             var results = Physics.OverlapBox(ContactArea.transform.position, ContactArea.bounds.size, Quaternion.identity);
             var interactableList = new List<T>();
@@ -249,63 +242,14 @@ namespace Game.Scripts.Controller.Player
             interactable.OnPlant(transform.position + transform.forward);
         }
 
-        public void PlayAttackAnimation(Attack attack)
-        {
-            InputHandler.Instance.DisableInput();
-            Animator.SetTrigger("Attacking_Trigger");
-
-            var attackAnim = Animator.runtimeAnimatorController.animationClips.FirstOrDefault(x => x.name == "Attacking");
-            var actionTime = attackAnim.events.FirstOrDefault(x => x.functionName == "Attack").time;
-
-            StartCoroutine(DoTheActualAttackThing(actionTime, attack));
-        }
-
-        public IEnumerator DoTheActualAttackThing(float time, Attack attack)
-        {
-            yield return new WaitForSeconds(time);
-
-            //TODO: regras de negócio de Chop
-            ContactArea.enabled = true;
-            var interactables = GetInteractablesOnRange<IDamageable>();
-            if (interactables == null)
-                yield return null;
-
-            interactables.ForEach(x => x.ReceiveAttack(attack));
-        }
-
-        public void SetItem(ItemController item)
-        {
-            Debug.Log("SetItem: " + item.name);
-            item.gameObject.transform.position = Instance.Hand.transform.position +
-                                                 new Vector3(0, item.gameObject.GetComponent<MeshRenderer>().bounds.size.y / 2, 0);
-            item.gameObject.transform.parent = Instance.Hand.transform;
-            ItemHeld = item;
-        }
-
-        public void SelectQuickItem(int index)
-        {
-            Inventory.SelectQuickItem(index);
-        }
-
-        public void GiveItem(Item item)
-        {
-            Inventory.AddItem(item);
-        }
-
-        public void GiveItemHeld()
-        {
-            ItemHeld.DestroyItself();
-            ItemHeld = null;
-        }
-
-        public void UseSelectedItem()
-        {
-            Inventory.UseSelectedItem();
-        }
-
         public void OnObjectPicked(Item item)
         {
-            GiveItem(item);
+            Items.Inventory.AddItem(item);
+        }
+
+        public void UseQuickItem(int index)
+        {
+            Items.Inventory.UseQuickItem(index);
         }
     }
 

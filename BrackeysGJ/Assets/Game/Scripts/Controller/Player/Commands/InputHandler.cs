@@ -54,7 +54,7 @@ namespace Game.Scripts.Controller.Player
             Button_Esc = new PlayerInput("button_esc", KeyCode.Escape, new OpenSettingsCommand());
             Button_I = new PlayerInput("button_i", KeyCode.I, new OpenInventoryCommand());
 
-            Button_Mouse_Left = new PlayerInput("button_mouse_left", KeyCode.Mouse0, new UseSelectedItemCommand());
+            Button_Mouse_Left = new PlayerInput("button_mouse_left", KeyCode.Mouse0, new MoveUpCommand());
 
             Button_1 = new PlayerInput("button_1", KeyCode.Alpha1, new SelectQuickItemCommand_1());
             Button_2 = new PlayerInput("button_2", KeyCode.Alpha2, new SelectQuickItemCommand_2());

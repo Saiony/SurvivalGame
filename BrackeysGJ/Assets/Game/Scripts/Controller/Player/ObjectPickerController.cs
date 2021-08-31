@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 using Game.Scripts.Controller.Itens;
 using Game.Scripts.Controller.Player;
 using UnityEngine;

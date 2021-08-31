@@ -10,7 +10,7 @@ namespace Game.Scripts.Controller.Player
 
         public override void Execute()
         {
-            PlayerController.Instance.SelectQuickItem(1);
+            PlayerController.Instance.UseQuickItem(1);
         }
     }
 
@@ -20,7 +20,7 @@ namespace Game.Scripts.Controller.Player
 
         public override void Execute()
         {
-            PlayerController.Instance.SelectQuickItem(2);
+            PlayerController.Instance.UseQuickItem(2);
         }
     }
 
@@ -30,7 +30,7 @@ namespace Game.Scripts.Controller.Player
 
         public override void Execute()
         {
-            PlayerController.Instance.SelectQuickItem(3);
+            PlayerController.Instance.UseQuickItem(3);
         }
     }
 
@@ -40,7 +40,7 @@ namespace Game.Scripts.Controller.Player
 
         public override void Execute()
         {
-            PlayerController.Instance.SelectQuickItem(4);
+            PlayerController.Instance.UseQuickItem(4);
         }
     }
 
@@ -50,7 +50,7 @@ namespace Game.Scripts.Controller.Player
 
         public override void Execute()
         {
-            PlayerController.Instance.SelectQuickItem(5);
+            PlayerController.Instance.UseQuickItem(5);
         }
     }
 }
