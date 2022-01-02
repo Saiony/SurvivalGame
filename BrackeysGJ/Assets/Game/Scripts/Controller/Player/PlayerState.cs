@@ -30,8 +30,6 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Player
 
             InputHandler.Instance.DisableInput();
             player.Animator.SetTrigger("Attacking_Trigger");
-
-            player.Animator.SetTrigger("Attacking");
         }
 
         public void EnableAttack()

@@ -54,7 +54,7 @@ namespace Game.Scripts.Controller.Player
             Button_Esc = new PlayerInput("button_esc", KeyCode.Escape, new OpenSettingsCommand());
             Button_I = new PlayerInput("button_i", KeyCode.I, new OpenInventoryCommand());
 
-            Button_Mouse_Left = new PlayerInput("button_mouse_left", KeyCode.Mouse0, new MoveUpCommand());
+            Button_Mouse_Left = new PlayerInput("button_mouse_left", KeyCode.Mouse0, new RightArmCommand());
 
             Button_1 = new PlayerInput("button_1", KeyCode.Alpha1, new SelectQuickItemCommand_1());
             Button_2 = new PlayerInput("button_2", KeyCode.Alpha2, new SelectQuickItemCommand_2());
@@ -90,7 +90,7 @@ namespace Game.Scripts.Controller.Player
 
             if (InputBlocked)
                 return Inputs;
-            if (Input.GetKey(Button_Mouse_Left.ButtonCode))
+            if (Input.GetKeyDown(Button_Mouse_Left.ButtonCode))
                 Inputs.Add(Button_Mouse_Left.Command);
             else if (Input.GetKey(Button_W.ButtonCode))
                 Inputs.Add(Button_W.Command);

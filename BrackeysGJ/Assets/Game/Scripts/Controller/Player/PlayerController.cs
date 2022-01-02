@@ -108,6 +108,17 @@ namespace Game.Scripts.Controller.Player
             Animator.SetFloat("Speed", RgdBody.velocity.magnitude);
         }
 
+        public void UseRightArmItem()
+        {
+            var item = Items.EquippedItems.Equipments[EquipmentSlot.Right_Hand];
+            if(item == null)
+            {
+                Debug.Log("No item equipped");
+                return;
+            }
+            item.Use();
+        }
+
         public void Attack(Attack attack)
         {
             State = new PlayerAttackState();
