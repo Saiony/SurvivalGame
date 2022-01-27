@@ -142,7 +142,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
         private void Hide()
         {
             Showing = false;
-            PlayerItems.EquippedItems.Unsubscribe();
+            PlayerItems.EquippedItems.Unsubscribe(this);
             PlayerItems.Inventory.Unsubscribe();
             InputHandler.Instance.EnableInput();
 

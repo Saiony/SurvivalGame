@@ -15,7 +15,7 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 namespace Game.Scripts.Controller.Player
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerController : MonoBehaviour, IObjectPickerListener
+    public class PlayerController : MonoBehaviour, IObjectPickerListener, IEquipmentListener
     {
         [SerializeField]
         private float _speed = 0;
@@ -67,6 +67,7 @@ namespace Game.Scripts.Controller.Player
             State = new PlayerIdleState();
             Items = new PlayerItems(new Inventory(), new EquippedItems());
             ObjectPicker.Init(this);
+            Items.EquippedItems.Subscribe(this);
             InitialItens.ForEach(item =>
             {
                 switch (item)
@@ -86,7 +87,7 @@ namespace Game.Scripts.Controller.Player
                     case WeaponSO _:
                         var attack = new Attack((item as WeaponSO).DamagesType, (item as WeaponSO).DamagesValue);
                         var weapon = new Weapon((item as WeaponSO).Id, (item as WeaponSO).Name, (item as WeaponSO).Description, (item as WeaponSO).Image,
-                                                (item as WeaponSO).Command, attack, (item as WeaponSO).Slot);
+                                                (item as WeaponSO).Command, attack, (item as WeaponSO).Slot, (item as WeaponSO).Prefab);
                         Items.Inventory.AddItem(weapon);
                         break;
                     default:
@@ -261,6 +262,12 @@ namespace Game.Scripts.Controller.Player
         public void UseQuickItem(int index)
         {
             Items.Inventory.UseQuickItem(index);
+        }
+
+        public void OnEquipmentChanged(Dictionary<EquipmentSlot, IEquipment> PlayerEquips)
+        {
+            var weapon = PlayerEquips[EquipmentSlot.Right_Hand];
+            HandController.EquipItem(weapon);
         }
     }
 

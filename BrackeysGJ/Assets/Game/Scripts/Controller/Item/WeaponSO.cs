@@ -12,6 +12,8 @@ namespace Game.Scripts.ScriptableObjects
 
         public WeaponActions Command;
 
+        public GameObject Prefab;
+
         [HideInInspector]
         public List<DamageType> DamagesType;
 

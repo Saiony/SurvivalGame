@@ -10,10 +10,12 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems
     public class EquippedItems : IEquippedItems
     {
         public Dictionary<EquipmentSlot, IEquipment> Equipments { get; private set; }
-        private IEquipmentListener Listener { get; set; }
+        private List<IEquipmentListener> Listeners { get; set; }
 
         public EquippedItems()
         {
+            Listeners = new List<IEquipmentListener>();
+            
             Equipments = new Dictionary<EquipmentSlot, IEquipment>();
             Equipments.Add(EquipmentSlot.Head, null);
             Equipments.Add(EquipmentSlot.Torso, null);
@@ -43,17 +45,17 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems
                 throw new InvalidOperationException("gandhi disse que nao pode");
 
             Equipments[slot] = equipment;
-            Listener?.OnEquipmentChanged(Equipments);
+            Listeners.ForEach(x => x.OnEquipmentChanged(Equipments));
         }
 
         public void Subscribe(IEquipmentListener listener)
         {
-            Listener = listener;
+            Listeners.Add(listener);
         }
 
-        public void Unsubscribe()
+        public void Unsubscribe(IEquipmentListener listener)
         {
-            Listener = null;
+            Listeners.Remove(listener);
         }
     }
 }

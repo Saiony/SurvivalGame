@@ -7,7 +7,7 @@ public interface IEquippedItems
 
     void AddEquipment(EquipmentSlot slot, IEquipment equipment);
     void Subscribe(IEquipmentListener listener);
-    void Unsubscribe();
+    void Unsubscribe(IEquipmentListener listener);
 }
 
 public interface IEquipmentListener

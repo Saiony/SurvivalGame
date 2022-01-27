@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
 
 public class HandController : MonoBehaviour
@@ -9,6 +10,11 @@ public class HandController : MonoBehaviour
     [SerializeField]
     private Collider _contactArea = null;
     private Collider ContactArea => _contactArea;
+
+    [SerializeField]
+    private Transform _handPosition = null;
+    private Transform HandPosition => _handPosition;
+    private GameObject InstantiatedObject = null;
 
     private IDetectionListener Listener { get; set; }
 
@@ -50,6 +56,26 @@ public class HandController : MonoBehaviour
     public void EndAction()
     {
         ContactArea.enabled = false;
+    }
+
+    public void EquipItem(IEquipment equipment)
+    {
+        if(equipment == null)
+        {
+            UnequipItem();
+            return;
+        }
+            
+        InstantiatedObject = Instantiate(equipment.Prefab, HandPosition.position, HandPosition.rotation, transform);
+    }
+
+    public void UnequipItem()
+    {
+        if(InstantiatedObject == null)
+            return;
+
+        Destroy(InstantiatedObject);
+        InstantiatedObject = null;
     }
 }
 
