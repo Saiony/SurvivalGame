@@ -45,10 +45,10 @@ namespace Game.Scripts.Controller.Player
             Inputs = new List<Command>();
             InputBlocked = false;
 
-            Button_W = new PlayerInput("button_w", KeyCode.W, new MoveUpCommand());
-            Button_A = new PlayerInput("button_a", KeyCode.A, new MoveLeftCommand());
-            Button_S = new PlayerInput("button_s", KeyCode.S, new MoveDownCommand());
-            Button_D = new PlayerInput("button_d", KeyCode.D, new MoveRightCommand());
+            Button_W = new PlayerInput("button_w", KeyCode.W, new MoveCommand());
+            Button_A = new PlayerInput("button_a", KeyCode.A, new MoveCommand());
+            Button_S = new PlayerInput("button_s", KeyCode.S, new MoveCommand());
+            Button_D = new PlayerInput("button_d", KeyCode.D, new MoveCommand());
 
             Button_Space = new PlayerInput("button_space", KeyCode.Space, new InteractCommand());
             Button_Esc = new PlayerInput("button_esc", KeyCode.Escape, new OpenSettingsCommand());
@@ -92,14 +92,9 @@ namespace Game.Scripts.Controller.Player
                 return Inputs;
             if (Input.GetKeyDown(Button_Mouse_Left.ButtonCode))
                 Inputs.Add(Button_Mouse_Left.Command);
-            else if (Input.GetKey(Button_W.ButtonCode))
+            else if (Input.GetKey(Button_W.ButtonCode) || Input.GetKey(Button_A.ButtonCode) 
+                     || Input.GetKey(Button_S.ButtonCode) || Input.GetKey(Button_D.ButtonCode))
                 Inputs.Add(Button_W.Command);
-            else if (Input.GetKey(Button_A.ButtonCode))
-                Inputs.Add(Button_A.Command);
-            else if (Input.GetKey(Button_S.ButtonCode))
-                Inputs.Add(Button_S.Command);
-            else if (Input.GetKey(Button_D.ButtonCode))
-                Inputs.Add(Button_D.Command);
 
             //Quick Inventory
             if (Input.GetKeyDown(Button_1.ButtonCode))

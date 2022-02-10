@@ -53,6 +53,10 @@ namespace Game.Scripts.Controller.Player
         private Rigidbody _rgdBody = null;
         private Rigidbody RgdBody => _rgdBody;
 
+        [SerializeField]
+        private CharacterController CharacterController;
+
+
         public IPlayerState State { get; private set; }
         public static PlayerController Instance = null;
         public IPlayerItems Items { get; private set; }
@@ -131,58 +135,20 @@ namespace Game.Scripts.Controller.Player
             return null;
         }
 
-        #region Movement
-        public void Move_Left()
+        public void Move()
         {
-            Move(Direction.Left);
+            var horizontal = Input.GetAxisRaw("Horizontal");
+            var vertical = Input.GetAxisRaw("Vertical");
+
+            var direction = new Vector3(horizontal, 0, vertical).normalized;
+            if(direction.magnitude <= 0.1f)
+                return;
+
+            
+            var targetAngle  = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+            CharacterController.Move(direction * Speed * UnityEngine.Time.deltaTime);
         }
-
-        public void Move_Right()
-        {
-            Move(Direction.Right);
-        }
-
-        public void Move_Up()
-        {
-            Move(Direction.Up);
-        }
-
-        public void Move_Down()
-        {
-            Move(Direction.Down);
-        }
-
-        private void Move(Direction direction)
-        {
-            RgdBody.velocity = Vector3.zero;
-            Vector3 dir = new Vector3();
-
-            if (direction == Direction.Right) //Right
-            {
-                dir = Vector3.right;
-                transform.DOLocalRotate(new Vector3(0, 90, 0), RotationSpeed);
-            }
-            else if (direction == Direction.Left) //Left
-            {
-                dir = Vector3.left;
-                gameObject.transform.DOLocalRotate(new Vector3(0, -90, 0), RotationSpeed);
-            }
-            else if (direction == Direction.Up) //Up
-            {
-                dir = Vector3.forward;
-                gameObject.transform.DOLocalRotate(new Vector3(0, 0, 0), RotationSpeed);
-            }
-            else if (direction == Direction.Down) //Down
-            {
-                dir = Vector3.back;
-                gameObject.transform.DOLocalRotate(new Vector3(0, 180, 0), RotationSpeed);
-            }
-            else
-                throw new Exception($"Movement direction {direction}");
-
-            RgdBody.velocity = dir * Speed;
-        }
-        #endregion Movement
 
         public List<T> GetInteractablesOnRange<T>() where T : IBaseInteractable
         {

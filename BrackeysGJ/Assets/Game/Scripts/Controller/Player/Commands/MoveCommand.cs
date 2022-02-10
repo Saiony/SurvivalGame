@@ -1,12 +1,12 @@
 namespace Game.Scripts.Controller.Player
 {
-    public class MoveUpCommand : Command
+    public class MoveCommand : Command
     {
         public override string Name { get; set; } = "Move Up";
 
         public override void Execute()
         {
-            PlayerController.Instance.Move_Up();
+            PlayerController.Instance.Move();
         }
     }
 }
