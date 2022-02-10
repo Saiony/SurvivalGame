@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
-    private void Update()
+    void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

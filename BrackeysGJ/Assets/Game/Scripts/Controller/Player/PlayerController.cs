@@ -56,10 +56,14 @@ namespace Game.Scripts.Controller.Player
         [SerializeField]
         private CharacterController CharacterController;
 
+        [SerializeField]
+        private Transform CameraTransform;
 
         public IPlayerState State { get; private set; }
         public static PlayerController Instance = null;
         public IPlayerItems Items { get; private set; }
+
+        private float TurnSmoothTime = 0.1f;
 
         void Awake()
         {
@@ -144,10 +148,12 @@ namespace Game.Scripts.Controller.Player
             if(direction.magnitude <= 0.1f)
                 return;
 
-            
-            var targetAngle  = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, targetAngle, 0);
-            CharacterController.Move(direction * Speed * UnityEngine.Time.deltaTime);
+            var targetAngle  = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + CameraTransform.eulerAngles.y;
+            var smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref TurnSmoothTime, 0.1f);
+            transform.rotation = Quaternion.Euler(0, smoothedAngle, 0);
+            var moveDir = (Quaternion.Euler(0, targetAngle, 0) * Vector3.forward).normalized;
+
+            CharacterController.Move(moveDir * Speed * UnityEngine.Time.deltaTime);
         }
 
         public List<T> GetInteractablesOnRange<T>() where T : IBaseInteractable
