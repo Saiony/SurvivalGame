@@ -5,8 +5,21 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject ThirdPersonCamera;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void DisableThirdPersonCamera()
+    {
+
+    }
+
+    public void EnableThirdPersonCamera()
+    {
+
     }
 }

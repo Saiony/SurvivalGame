@@ -111,10 +111,7 @@ namespace Game.Scripts.Controller.Player
             if (commands.Count > 0)
                 commands.ForEach(x => x.Execute());
             else
-                RgdBody.velocity = Vector3.zero;
-
-            //TODO: colocar Speed numa var
-            Animator.SetFloat("Speed", RgdBody.velocity.magnitude);
+                Animator.SetFloat("Speed", 0f);
         }
 
         public void UseRightArmItem()
@@ -145,8 +142,6 @@ namespace Game.Scripts.Controller.Player
             var vertical = Input.GetAxisRaw("Vertical");
 
             var direction = new Vector3(horizontal, 0, vertical).normalized;
-            if(direction.magnitude <= 0.1f)
-                return;
 
             var targetAngle  = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + CameraTransform.eulerAngles.y;
             var smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref TurnSmoothTime, 0.1f);
@@ -154,6 +149,8 @@ namespace Game.Scripts.Controller.Player
             var moveDir = (Quaternion.Euler(0, targetAngle, 0) * Vector3.forward).normalized;
 
             CharacterController.Move(moveDir * Speed * UnityEngine.Time.deltaTime);
+
+            Animator.SetFloat("Speed", direction.magnitude);
         }
 
         public List<T> GetInteractablesOnRange<T>() where T : IBaseInteractable

@@ -124,6 +124,8 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
 
         private void Show()
         {
+            Cursor.lockState = CursorLockMode.None;
+
             TimeController.Instance.PauseTime();
             InputHandler.Instance.DisableInput();
 
@@ -141,6 +143,8 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
 
         private void Hide()
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            
             Showing = false;
             PlayerItems.EquippedItems.Unsubscribe(this);
             PlayerItems.Inventory.Unsubscribe();
