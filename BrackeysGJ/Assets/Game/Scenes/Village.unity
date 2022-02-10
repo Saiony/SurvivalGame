@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0060103377, g: 0.0069483807, b: 0.017968988, a: 1}
+  m_IndirectSpecularColor: {r: 0.0060110046, g: 0.00694995, b: 0.017969284, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -329,7 +329,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60013903}
-  m_LocalRotation: {x: 0.018148148, y: 0.05634901, z: -0.0010244275, w: 0.99824566}
+  m_LocalRotation: {x: 0.018136581, y: 0.06666053, z: -0.0012118903, w: 0.99761015}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1838,7 +1838,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401070672}
-  m_LocalRotation: {x: -0.050738573, y: 0.022112116, z: 0.0011236601, w: 0.99846655}
+  m_LocalRotation: {x: -0.05073355, y: 0.026200986, z: 0.0013314426, w: 0.9983676}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2185,7 +2185,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698393351}
-  m_LocalRotation: {x: -0.045100424, y: 0.05630079, z: 0.0025458303, w: 0.99739146}
+  m_LocalRotation: {x: -0.04507173, y: 0.066603504, z: 0.0030117033, w: 0.9967565}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3545,7 +3545,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846847125}
-  m_LocalRotation: {x: -0.04784361, y: 0.039898433, z: 0.0018178717, w: 0.99805605}
+  m_LocalRotation: {x: -0.04784085, y: 0.047222644, z: 0.0021515766, w: 0.9977358}
   m_LocalPosition: {x: -7.924, y: 1.3351722, z: 5.1977353}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3564,6 +3564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f69fd8d23156c7478dc66069d132ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ThirdPersonCamera: {fileID: 78250069}
 --- !u!1 &1872840887
 GameObject:
   m_ObjectHideFlags: 0
