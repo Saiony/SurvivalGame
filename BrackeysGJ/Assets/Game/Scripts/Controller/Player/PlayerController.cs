@@ -11,11 +11,14 @@ using BrackeysGJ.Assets.Game.Scripts.Controller.Player;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Player;
+using BrackeysGJ.Assets.Game.Scripts.Manager;
+using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
 
 namespace Game.Scripts.Controller.Player
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerController : MonoBehaviour, IObjectPickerListener, IEquipmentListener
+    public class PlayerController : MonoBehaviour, IObjectPickerListener, IEquipmentListener, IDamageable
     {
         [SerializeField]
         private float _speed = 0;
@@ -62,6 +65,12 @@ namespace Game.Scripts.Controller.Player
         public IPlayerState State { get; private set; }
         public static PlayerController Instance = null;
         public IPlayerItems Items { get; private set; }
+        private IPlayerStats Stats { get; set; }
+        private IMessageManager MessageMenager { get; set; }
+
+        public int Life => throw new NotImplementedException();
+
+        public Collider DetectionCollider => throw new NotImplementedException();
 
         private float TurnSmoothTime = 0.1f;
 
@@ -71,37 +80,14 @@ namespace Game.Scripts.Controller.Player
                 Instance = this;
             else
                 Destroy(gameObject);
+        }
 
+        private void Start() 
+        {
             State = new PlayerIdleState();
-            Items = new PlayerItems(new Inventory(), new EquippedItems());
-            ObjectPicker.Init(this);
-            Items.EquippedItems.Subscribe(this);
-            InitialItens.ForEach(item =>
-            {
-                switch (item)
-                {
-                    case ToolSO _:
-                        var tool = new Tool((item as ToolSO).Id, (item as ToolSO).Name, (item as ToolSO).Description, (item as ToolSO).Image, (item as ToolSO).Command);
-                        Items.Inventory.AddItem(tool);
-                        break;
-                    case ConsumableSO _:
-                        var consumable = new Consumable((item as ConsumableSO).Id, (item as ConsumableSO).Name, (item as ConsumableSO).Description, (item as ConsumableSO).Image, (item as ConsumableSO).Command);
-                        Items.Inventory.AddItem(consumable);
-                        break;
-                    case MiscSO _:
-                        var misc = new Misc((item as MiscSO).Id, (item as MiscSO).Name, (item as MiscSO).Description, (item as MiscSO).Image);
-                        Items.Inventory.AddItem(misc);
-                        break;
-                    case WeaponSO _:
-                        var attack = new Attack((item as WeaponSO).DamagesType, (item as WeaponSO).DamagesValue);
-                        var weapon = new Weapon((item as WeaponSO).Id, (item as WeaponSO).Name, (item as WeaponSO).Description, (item as WeaponSO).Image,
-                                                (item as WeaponSO).Command, attack, (item as WeaponSO).Slot, (item as WeaponSO).Prefab);
-                        Items.Inventory.AddItem(weapon);
-                        break;
-                    default:
-                        throw new InvalidOperationException("Invalid item type");
-                }
-            });
+            SetInitialItems();    
+
+            MessageMenager = ManagerProvider.Instance.Get<IMessageManager>();
         }
 
         private void Update()
@@ -237,6 +223,45 @@ namespace Game.Scripts.Controller.Player
         {
             var weapon = PlayerEquips[EquipmentSlot.Right_Hand];
             HandController.EquipItem(weapon);
+        }
+
+        private void SetInitialItems()
+        {
+            Items = new PlayerItems(new Inventory(), new EquippedItems());
+            ObjectPicker.Init(this);
+            Items.EquippedItems.Subscribe(this);
+            InitialItens.ForEach(item =>
+            {
+                switch (item)
+                {
+                    case ToolSO _:
+                        var tool = new Tool((item as ToolSO).Id, (item as ToolSO).Name, (item as ToolSO).Description, (item as ToolSO).Image, (item as ToolSO).Command);
+                        Items.Inventory.AddItem(tool);
+                        break;
+                    case ConsumableSO _:
+                        var consumable = new Consumable((item as ConsumableSO).Id, (item as ConsumableSO).Name, (item as ConsumableSO).Description, (item as ConsumableSO).Image, (item as ConsumableSO).Command);
+                        Items.Inventory.AddItem(consumable);
+                        break;
+                    case MiscSO _:
+                        var misc = new Misc((item as MiscSO).Id, (item as MiscSO).Name, (item as MiscSO).Description, (item as MiscSO).Image);
+                        Items.Inventory.AddItem(misc);
+                        break;
+                    case WeaponSO _:
+                        var attack = new Attack((item as WeaponSO).DamagesType, (item as WeaponSO).DamagesValue);
+                        var weapon = new Weapon((item as WeaponSO).Id, (item as WeaponSO).Name, (item as WeaponSO).Description, (item as WeaponSO).Image,
+                                                (item as WeaponSO).Command, attack, (item as WeaponSO).Slot, (item as WeaponSO).Prefab);
+                        Items.Inventory.AddItem(weapon);
+                        break;
+                    default:
+                        throw new InvalidOperationException("Invalid item type");
+                }
+            });
+        }
+
+        public void ReceiveAttack(Attack attack)
+        {
+            Stats.DecreaseLife(10);
+            MessageManager.subs
         }
     }
 
