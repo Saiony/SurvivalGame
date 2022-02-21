@@ -11,7 +11,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager
 
         private IList<IBaseManager> Managers;
         
-        public void Init(IList<IBaseManager> managers)
+        public ManagerProvider(IList<IBaseManager> managers)
         {
             Instance = this;
             Managers = managers.ToList();
@@ -19,7 +19,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager
 
         public T Get<T>() where T : IBaseManager
         {
-            var manager = Managers.First(x => x.GetType() == typeof(T));
+            var manager = Managers.FirstOrDefault(x => x.GetType() == typeof(T));
             if(manager == null)
                 throw new InvalidOperationException("Null manager");
 

@@ -31,8 +31,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager
             var managers = new List<IBaseManager>();
             managers.Add(new MessageManager());
 
-            ManagerProvider = new ManagerProvider();
-            ManagerProvider.Init(managers);
+            ManagerProvider = new ManagerProvider(managers);
         }
 
         private void SetInitialScene()

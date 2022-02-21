@@ -14,6 +14,8 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Player;
 using BrackeysGJ.Assets.Game.Scripts.Manager;
 using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Message;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -261,7 +263,7 @@ namespace Game.Scripts.Controller.Player
         public void ReceiveAttack(Attack attack)
         {
             Stats.DecreaseLife(10);
-            MessageManager.subs
+            MessageMenager.Broadcast<IHpMessage>(new HpMessage(10));
         }
     }
 
