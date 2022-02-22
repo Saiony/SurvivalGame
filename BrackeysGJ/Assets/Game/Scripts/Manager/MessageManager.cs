@@ -9,13 +9,13 @@ using System;
 namespace BrackeysGJ.Assets.Game.Scripts.Manager{
     public class MessageManager : IMessageManager
     {
-        private IDictionary<IMessage, IList<IMessageListener<IMessage>>> Messages { get; set; }
+        private IDictionary<IMessage, IList<IMessageListenerWithOut<IMessage>>> Messages { get; set; }
 
         public MessageManager()
         {
-            Messages = new Dictionary<IMessage, IList<IMessageListener<IMessage>>>();
-            Messages.Add(new HpMessage(10), new List<IMessageListener<IMessage>>());
-            Messages.Add(new StaminaMessage(10), new List<IMessageListener<IMessage>>());
+            Messages = new Dictionary<IMessage, IList<IMessageListenerWithOut<IMessage>>>();
+            Messages.Add(new HpMessage(10), new List<IMessageListenerWithOut<IMessage>>());
+            Messages.Add(new StaminaMessage(10), new List<IMessageListenerWithOut<IMessage>>());
         }
 
         public void Subscribe<T>(IMessageListener<T> listener) where T : IMessage
@@ -24,7 +24,9 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager{
             if(messageKeyValue.Key == null)
                 throw new InvalidOperationException("Message not registered");
 
-            messageKeyValue.Value.Add((IMessageListener<IMessage>) listener);
+
+            var listenerConverted = (IMessageListenerWithOut<IMessage>) listener;
+            messageKeyValue.Value.Add(listenerConverted);
         }
 
         public void Broadcast<T>(T message) where T : IMessage
@@ -33,7 +35,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager{
             if(messageKeyValue.Key == null)
                 throw new InvalidOperationException("Message not registered");
             
-            messageKeyValue.Value.ToList().ForEach(x => x.OnMessageReceived(message));
+            messageKeyValue.Value.ToList().ForEach(x => ((IMessageListener<IMessage>) x).OnMessageReceived(message));
         }
     }
 }
