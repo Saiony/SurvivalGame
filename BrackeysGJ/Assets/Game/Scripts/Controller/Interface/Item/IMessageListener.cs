@@ -1,17 +1,19 @@
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
+
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Interface
 {
-    public interface IMessageListener
+    public interface IMessageListener<T> where T : IMessage
     {
-
+        void OnMessageReceived(T message);
     }
 
-    public interface IHpListener : IMessageListener
+    public interface IHpListener<IHpMessage> : IMessageListener<IHpMessage>
     {
-         
+    
     }
 
-    public interface IStaminaListener : IMessageListener
-    {
+    // public interface IStaminaListener<IStaminaMessage> : IMessageListener<IStaminaMessage>
+    // {
         
-    }
+    // }
 }

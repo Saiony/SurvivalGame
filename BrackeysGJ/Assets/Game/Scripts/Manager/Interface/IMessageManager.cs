@@ -5,7 +5,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager.Interface
 {
     public interface IMessageManager : IBaseManager
     {
-        void Subscribe<T>(IMessageListener listener) where T : IMessage;    
+        void Subscribe<T>(IMessageListener<T> listener) where T : IMessage;    
         void Broadcast<T>(T message) where T : IMessage;
     }
 }

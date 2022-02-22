@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
+using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Manager
 {
@@ -19,7 +20,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager
 
         public T Get<T>() where T : IBaseManager
         {
-            var manager = Managers.FirstOrDefault(x => x.GetType() == typeof(T));
+            var manager = Managers.FirstOrDefault(x => x is T);
             if(manager == null)
                 throw new InvalidOperationException("Null manager");
 

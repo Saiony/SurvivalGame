@@ -20,18 +20,18 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager
             FinishBoot();
         }
 
-        private void FinishBoot()
-        {
-            Debug.Log("Finished Booting");
-            SceneManager.LoadScene("Game");
-        }
-
         private void BootManagers()
         {
             var managers = new List<IBaseManager>();
             managers.Add(new MessageManager());
 
             ManagerProvider = new ManagerProvider(managers);
+        }
+
+        private void FinishBoot()
+        {
+            Debug.Log("Finished Booting");
+            SceneManager.LoadScene("Game");
         }
 
         private void SetInitialScene()
