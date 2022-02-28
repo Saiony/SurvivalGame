@@ -94,6 +94,9 @@ namespace Game.Scripts.Controller.Player
 
         private void Update()
         {
+            if(Input.GetKeyDown(KeyCode.P))
+                MessageMenager.Broadcast<IHpMessage>(new HpMessage(10));
+
             var commands = InputHandler.Instance.HandleInput();
 
             if (commands.Count > 0)

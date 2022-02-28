@@ -9,33 +9,32 @@ using System;
 namespace BrackeysGJ.Assets.Game.Scripts.Manager{
     public class MessageManager : IMessageManager
     {
-        private IDictionary<IMessage, IList<IMessageListenerWithOut<IMessage>>> Messages { get; set; }
+        private IDictionary<IMessage, IList<IBaseMessageListener<IMessage>>> Listeners { get; set; }
+        private List<IBaseMessageListener<IMessage>> doce { get; set; }
 
         public MessageManager()
         {
-            Messages = new Dictionary<IMessage, IList<IMessageListenerWithOut<IMessage>>>();
-            Messages.Add(new HpMessage(10), new List<IMessageListenerWithOut<IMessage>>());
-            Messages.Add(new StaminaMessage(10), new List<IMessageListenerWithOut<IMessage>>());
+            Listeners = new Dictionary<IMessage, IList<IBaseMessageListener<IMessage>>>();
+            Listeners.Add(new HpMessage(0), new List<IBaseMessageListener<IMessage>>());
+            Listeners.Add(new StaminaMessage(0), new List<IBaseMessageListener<IMessage>>());
         }
 
         public void Subscribe<T>(IMessageListener<T> listener) where T : IMessage
         {
-            var messageKeyValue = Messages.FirstOrDefault(x => x.Key is T);
+            var messageKeyValue = Listeners.FirstOrDefault(x => x.Key is T);
             if(messageKeyValue.Key == null)
                 throw new InvalidOperationException("Message not registered");
 
-
-            var listenerConverted = (IMessageListenerWithOut<IMessage>) listener;
-            messageKeyValue.Value.Add(listenerConverted);
+            messageKeyValue.Value.Add((IBaseMessageListener<IMessage>) listener);     
         }
 
         public void Broadcast<T>(T message) where T : IMessage
         {
-            var messageKeyValue = Messages.FirstOrDefault(x => x.Key is T);
+            var messageKeyValue = Listeners.FirstOrDefault(x => x.Key is T);
             if(messageKeyValue.Key == null)
                 throw new InvalidOperationException("Message not registered");
             
-            messageKeyValue.Value.ToList().ForEach(x => ((IMessageListener<IMessage>) x).OnMessageReceived(message));
+            messageKeyValue.Value.ToList().ForEach(x => ((IMessageListener<T>) x).OnMessageReceived(message));
         }
     }
 }

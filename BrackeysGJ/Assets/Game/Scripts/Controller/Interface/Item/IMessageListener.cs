@@ -3,22 +3,20 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Interface
 {
-    public interface IMessageListenerWithOut<out T> where T : IMessage
+    public interface IBaseMessageListener<out T> where T : IMessage
     {
     }
 
-    public interface IMessageListener<T> : IMessageListenerWithOut<T> where T : IMessage
+    public interface IMessageListener<T> : IBaseMessageListener<T> where T : IMessage
     {
         void OnMessageReceived(T message);
     }
-
-    public interface IHpListener<T> : IMessageListener<T> where T : IHpMessage
-    {
     
+    public interface IHpListener : IMessageListener<IHpMessage>
+    {
     }
 
-    public interface IStaminaListener<T> : IMessageListener<T> where T : IStaminaMessage
-    {
-        
+    public interface IStaminaListener : IMessageListener<IStaminaMessage>
+    {   
     }
 }

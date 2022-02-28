@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
 {
-    public class HpStaminaUIController : MonoBehaviour, IHpListener<IHpMessage>, IStaminaListener<IStaminaMessage>
+    public class HpStaminaUIController : MonoBehaviour, IHpListener, IStaminaListener
     {
         [SerializeField]
         private FillBarController HpBar;
@@ -27,17 +27,12 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
 
         public void OnMessageReceived(IStaminaMessage message)
         {
-            throw new System.NotImplementedException();
-        }
+            Debug.Log("Stamina changed");
 
+        }
         public void OnMessageReceived(IHpMessage message)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void OnMessageReceived(IEquipment message)
-        {
-            throw new System.NotImplementedException();
+            Debug.Log("HP changed");
         }
     }
 }
