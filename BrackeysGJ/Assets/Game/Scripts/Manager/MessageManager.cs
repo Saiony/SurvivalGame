@@ -5,6 +5,7 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Message;
 using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
 using System.Linq;
 using System;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Manager{
     public class MessageManager : IMessageManager
@@ -15,8 +16,8 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager{
         public MessageManager()
         {
             Listeners = new Dictionary<IMessage, IList<IBaseMessageListener<IMessage>>>();
-            Listeners.Add(new HpMessage(0), new List<IBaseMessageListener<IMessage>>());
-            Listeners.Add(new StaminaMessage(0), new List<IBaseMessageListener<IMessage>>());
+            Listeners.Add(new HpMessage(new Hp(0, 1)), new List<IBaseMessageListener<IMessage>>());
+            Listeners.Add(new StaminaMessage(new Stamina(0, 0)), new List<IBaseMessageListener<IMessage>>());
         }
 
         public void Subscribe<T>(IMessageListener<T> listener) where T : IMessage

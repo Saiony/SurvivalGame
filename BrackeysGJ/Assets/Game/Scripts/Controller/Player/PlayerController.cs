@@ -16,6 +16,8 @@ using BrackeysGJ.Assets.Game.Scripts.Manager;
 using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Message;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
+using UnityEngine.SceneManagement;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -64,11 +66,14 @@ namespace Game.Scripts.Controller.Player
         [SerializeField]
         private Transform CameraTransform;
 
+        [SerializeField]
+        private Transform RespawnPoint;
+
         public IPlayerState State { get; private set; }
         public static PlayerController Instance = null;
         public IPlayerItems Items { get; private set; }
-        private IPlayerStats Stats { get; set; }
-        private IMessageManager MessageMenager { get; set; }
+        public IPlayerStats Stats { get; private set; }
+        private IMessageManager MessageManager { get; set; }
 
         public int Life => throw new NotImplementedException();
 
@@ -82,6 +87,8 @@ namespace Game.Scripts.Controller.Player
                 Instance = this;
             else
                 Destroy(gameObject);
+
+            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30));
         }
 
         private void Start() 
@@ -89,13 +96,15 @@ namespace Game.Scripts.Controller.Player
             State = new PlayerIdleState();
             SetInitialItems();    
 
-            MessageMenager = ManagerProvider.Instance.Get<IMessageManager>();
+            MessageManager = ManagerProvider.Instance.Get<IMessageManager>();
+            MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
+            MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
         }
 
         private void Update()
         {
             if(Input.GetKeyDown(KeyCode.P))
-                MessageMenager.Broadcast<IHpMessage>(new HpMessage(10));
+               DebugReceiveAttack();
 
             var commands = InputHandler.Instance.HandleInput();
 
@@ -265,9 +274,29 @@ namespace Game.Scripts.Controller.Player
 
         public void ReceiveAttack(Attack attack)
         {
-            Stats.DecreaseLife(10);
-            MessageMenager.Broadcast<IHpMessage>(new HpMessage(10));
         }
+
+        public void DebugReceiveAttack()
+        {
+            Stats.Hp.Decrease(2);
+            MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
+
+            if(Stats.Hp.Current <= 0 && !Stats.Dead)
+            {
+                Stats.Dead = true;
+                SceneManager.LoadScene("YouDied", LoadSceneMode.Additive);
+            }
+        }
+
+        public void Respawn()
+        {
+            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30));
+            MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
+            MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
+
+            transform.position = RespawnPoint.position;
+            transform.rotation = RespawnPoint.rotation;
+        }   
     }
 
     public enum Direction

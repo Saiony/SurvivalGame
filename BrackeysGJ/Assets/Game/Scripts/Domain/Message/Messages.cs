@@ -1,12 +1,13 @@
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Domain.Message
 {
     public class HpMessage : IHpMessage
     {
-        public int Hp { get; private set; }
+        public Hp Hp { get; private set; }
 
-        public HpMessage(int hp)
+        public HpMessage(Hp hp)
         {
             Hp = hp;
         }
@@ -14,9 +15,9 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Message
 
     public class StaminaMessage : IStaminaMessage
     {
-        public int Stamina { get; private set; }
+        public Stamina Stamina { get; private set; }
 
-        public StaminaMessage(int stamina)
+        public StaminaMessage(Stamina stamina)
         {
             Stamina = stamina;
         }

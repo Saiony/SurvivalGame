@@ -3,6 +3,7 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
 using BrackeysGJ.Assets.Game.Scripts.Manager;
 using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
+using Game.Scripts.Controller.Player;
 using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
@@ -17,8 +18,9 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
 
         public void Init()
         {
-            HpBar.Init(100);
-            StaminaBar.Init(50);
+            var playerStats = PlayerController.Instance.Stats;
+            HpBar.Init(playerStats.Hp.Current, playerStats.Hp.Max);
+            StaminaBar.Init(playerStats.Stamina.Current, playerStats.Stamina.Max);
 
             var messageManager = ManagerProvider.Instance.Get<IMessageManager>();
             messageManager.Subscribe<IHpMessage>(this);
@@ -28,11 +30,12 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
         public void OnMessageReceived(IStaminaMessage message)
         {
             Debug.Log("Stamina changed");
-
+            StaminaBar.UpdateValue(message.Stamina.Current);
         }
         public void OnMessageReceived(IHpMessage message)
         {
             Debug.Log("HP changed");
+            HpBar.UpdateValue(message.Hp.Current);
         }
     }
 }

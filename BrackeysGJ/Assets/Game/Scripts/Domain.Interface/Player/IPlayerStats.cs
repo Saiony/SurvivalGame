@@ -1,10 +1,11 @@
+using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
+
 namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Player
 {
     public interface IPlayerStats
     {
-        int Life { get; }
-        int Stamina { get; }
-
-        void DecreaseLife(int value);
+        bool Dead { get; set; }
+        Hp Hp { get; }
+        Stamina Stamina { get; }
     }
 }

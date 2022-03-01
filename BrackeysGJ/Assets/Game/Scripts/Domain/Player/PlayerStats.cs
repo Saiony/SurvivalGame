@@ -5,40 +5,37 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Player
 {
     public class PlayerStats : IPlayerStats
     {
-        public int Life { get; private set; }
-        public int Stamina { get; private set; }
+        public bool Dead { get; set; }
+        public Hp Hp { get; private set; }
+        public Stamina Stamina { get; private set; }
 
         private PlayerStats()
         {
-            Life = 0;
-            Stamina = 0;
+            Dead = false;
+            Hp = null;
+            Stamina = null;
         }
 
-        public PlayerStats(int life, int stamina) : this()
+        public PlayerStats(Hp life, Stamina stamina) : this()
         {
             SetLife(life);
             SetStamina(stamina);
         }
 
-        private void SetLife(int life)
+        private void SetLife(Hp life)
         {
-            if(life < 0)
-                throw new InvalidOperationException("Life can't be negative");
+            if(life == null)
+                throw new InvalidOperationException("Life can't be null");
             
-            Life = life;
+            Hp = life;
         }
 
-        private void SetStamina(int stamina)
+        private void SetStamina(Stamina stamina)
         {
-            if(Stamina < 0)
-                throw new InvalidOperationException("Stamina can't be negative");
+            if(stamina == null)
+                throw new InvalidOperationException("Stamin can't be null");
             
             Stamina = stamina;
-        }
-
-        public void DecreaseLife(int value)
-        {
-            Life -= value;
         }
     }
 }

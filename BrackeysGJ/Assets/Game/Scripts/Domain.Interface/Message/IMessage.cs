@@ -1,3 +1,5 @@
+using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
+
 namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message
 {
     public interface IMessage
@@ -7,11 +9,11 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message
 
     public interface IHpMessage : IMessage
     {
-        int Hp { get; }
+        Hp Hp { get; }
     }
 
     public interface IStaminaMessage : IMessage
     {
-        int Stamina { get; }
+        Stamina Stamina { get; }
     }
 }
