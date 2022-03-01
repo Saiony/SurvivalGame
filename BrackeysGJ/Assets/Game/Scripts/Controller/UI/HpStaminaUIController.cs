@@ -29,12 +29,10 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
 
         public void OnMessageReceived(IStaminaMessage message)
         {
-            Debug.Log("Stamina changed");
             StaminaBar.UpdateValue(message.Stamina.Current);
         }
         public void OnMessageReceived(IHpMessage message)
         {
-            Debug.Log("HP changed");
             HpBar.UpdateValue(message.Hp.Current);
         }
     }

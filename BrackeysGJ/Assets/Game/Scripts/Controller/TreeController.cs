@@ -42,20 +42,35 @@ public class TreeController : MonoBehaviour, IDamageable
     private TreeSO _treeSO = null;
     private TreeSO TreeSO => _treeSO;
 
+    [SerializeField]
+    private Rigidbody _rigidBody = null;
+    private Rigidbody Rigidbody => _rigidBody;
+
     public int Life { get; private set; }
     private Dictionary<DamageType, int> Resistances { get; set; }
-    private bool Alive = true;
+    private bool Alive = false;
+    private Attack Attack;
 
     private void Awake()
     {
         SetLife();
         SetResistances();
+        Attack = new Attack(TreeSO.FallDamagesType, TreeSO.FallDamages);
+        StartCoroutine(SetAlive());
+    }
+
+    private IEnumerator SetAlive()
+    {
+        yield return new WaitForSeconds(1);
+        Alive = true;
     }
 
     public void ReceiveAttack(Attack attack)
     {
         if (!Alive)
             return;
+
+        Debug.Log("Damage Taken");
 
         foreach (var damage in attack.Damages)
         {
@@ -131,18 +146,34 @@ public class TreeController : MonoBehaviour, IDamageable
     private void SetResistances()
     {
         Resistances = new Dictionary<DamageType, int>();
-        if (TreeSO.DamagesType.Count != TreeSO.DamageMultiplier.Count)
+        if (TreeSO.DamagesTakenType.Count != TreeSO.DamagesTakenMultiplier.Count)
             throw new InvalidOperationException("Both lists must have the same length");
 
-        for (int i = 0; i < TreeSO.DamagesType.Count; i++)
+        for (int i = 0; i < TreeSO.DamagesTakenType.Count; i++)
         {
-            if (TreeSO.DamageMultiplier[i] <= 0)
-                throw new InvalidOperationException("Invalid damage: " + TreeSO.DamageMultiplier[i]);
-            if (TreeSO.DamagesType[i] == DamageType.Unknown)
-                throw new InvalidOperationException("Invalid type: " + TreeSO.DamagesType[i]);
+            if (TreeSO.DamagesTakenMultiplier[i] <= 0)
+                throw new InvalidOperationException("Invalid damage: " + TreeSO.DamagesTakenMultiplier[i]);
+            if (TreeSO.DamagesTakenType[i] == DamageType.Unknown)
+                throw new InvalidOperationException("Invalid type: " + TreeSO.DamagesTakenType[i]);
 
-            Resistances.Add(TreeSO.DamagesType[i], TreeSO.DamageMultiplier[i]);
+            Resistances.Add(TreeSO.DamagesTakenType[i], TreeSO.DamagesTakenMultiplier[i]);
         }
+    }
+
+    private void OnCollisionEnter(Collision col) 
+    {
+        if(Rigidbody == null)
+            return;
+        
+        if(Rigidbody.velocity.magnitude < 0.1f)
+            return;
+        
+        var damageable = col.gameObject.GetComponent<IDamageable>();
+        if(damageable == null)
+            return;
+        
+        Debug.Log("DANO NELE");
+        damageable.ReceiveAttack(Attack);
     }
 
     private enum TreeState

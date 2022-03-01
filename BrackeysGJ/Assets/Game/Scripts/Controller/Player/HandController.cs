@@ -35,7 +35,7 @@ public class HandController : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         var damageable = col.gameObject.GetComponent<IDamageable>();
-        if (damageable == null)
+        if (damageable == null || col.tag == "Player")
             return;
 
         Listener?.OnDetect(damageable);

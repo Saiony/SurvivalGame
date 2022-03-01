@@ -36,6 +36,7 @@ public class Attack
 public enum DamageType
 {
     Unknown = 0,
-    Slash = 1,
-    Chop = 2
+    Normal = 1,
+    Slash = 2,
+    Chop = 3,
 }

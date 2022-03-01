@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e142b94100fd294f8315f376a65d599, type: 3}
   m_Name: Tree
   m_EditorClassIdentifier: 
-  DamagesType: 02000000
-  DamageMultiplier: 02000000
+  DamagesTakenType: 02000000
+  DamagesTakenMultiplier: 0f000000
   TreeLife: 80
   StumpLife: 60
   LogLife: 60
   LogInHalfLife: 80
+  FallDamages: 02000000
+  FallDamagesType: 01000000

@@ -69,7 +69,6 @@ namespace Game.Scripts.Controller.Player
         public static PlayerController Instance = null;
         public IPlayerItems Items { get; private set; }
         public IPlayerStats Stats { get; private set; }
-        public int Life => throw new NotImplementedException();
         public Collider DetectionCollider => throw new NotImplementedException();
 
         private float TurnSmoothTime = 0.1f;
@@ -270,6 +269,24 @@ namespace Game.Scripts.Controller.Player
 
         public void ReceiveAttack(Attack attack)
         {
+            if (Stats.Dead)
+                return;
+            
+            foreach (var damage in attack.Damages)
+            {
+                Stats.Hp.Decrease(damage.Value);
+                MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
+            }
+
+            Sequence seq = DOTween.Sequence();
+            seq.Append(transform.DOPunchScale(Vector3.one * 0.03f, 0.3f, 7, 5));
+            seq.Play();
+
+            if(Stats.Hp.Current <= 0 && !Stats.Dead)
+            {
+                Stats.Dead = true;
+                SceneManager.LoadScene("YouDied", LoadSceneMode.Additive);
+            }
         }
 
         public void DebugReceiveAttack()

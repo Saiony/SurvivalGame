@@ -13,10 +13,10 @@ namespace Game.Scriptables.Items.Weapons.Editor
         {
             base.OnInspectorGUI();
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Damage");
+            EditorGUILayout.LabelField("Damages Taken");
 
-            var damagesType = serializedObject.FindProperty("DamagesType");
-            var damagesValue = serializedObject.FindProperty("DamageMultiplier");
+            var damagesType = serializedObject.FindProperty("DamagesTakenType");
+            var damagesValue = serializedObject.FindProperty("DamagesTakenMultiplier");
 
             if (damagesType == null || damagesValue == null)
                 throw new InvalidOperationException("Property names changed and we don't know how to do change automatically :(");

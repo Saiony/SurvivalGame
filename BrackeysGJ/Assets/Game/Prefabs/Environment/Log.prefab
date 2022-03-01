@@ -51,7 +51,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -170,3 +169,4 @@ MonoBehaviour:
   _state: 2
   _detectionCollider: {fileID: 916014368839809910}
   _treeSO: {fileID: 11400000, guid: be37efa803b7996438e295021c59ba0d, type: 2}
+  _rigidBody: {fileID: 1353427442169465007}

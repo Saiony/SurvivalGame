@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects.Environment
@@ -10,5 +11,9 @@ namespace Game.Scripts.ScriptableObjects.Environment
         public int StumpLife;
         public int LogLife;
         public int LogInHalfLife;
+
+        [Header("Damage when falling")]
+        public List<int> FallDamages;
+        public List<DamageType> FallDamagesType;
     }
 }

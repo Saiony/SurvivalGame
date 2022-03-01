@@ -6,27 +6,27 @@ namespace Game.Scripts.ScriptableObjects
     public class DamageableSO : ScriptableObject
     {
         [HideInInspector]
-        public List<DamageType> DamagesType;
+        public List<DamageType> DamagesTakenType;
 
         [HideInInspector]
-        public List<int> DamageMultiplier;
+        public List<int> DamagesTakenMultiplier;
 
         public DamageableSO()
         {
-            DamagesType = new List<DamageType>();
-            DamageMultiplier = new List<int>();
+            DamagesTakenType = new List<DamageType>();
+            DamagesTakenMultiplier = new List<int>();
         }
 
         public void AddResistance()
         {
-            DamagesType.Add(DamageType.Unknown);
-            DamageMultiplier.Add(0);
+            DamagesTakenType.Add(DamageType.Unknown);
+            DamagesTakenMultiplier.Add(0);
         }
 
         public void RemoveResistance()
         {
-            DamagesType.RemoveAt(DamagesType.Count - 1);
-            DamageMultiplier.RemoveAt(DamageMultiplier.Count - 1);
+            DamagesTakenType.RemoveAt(DamagesTakenType.Count - 1);
+            DamagesTakenMultiplier.RemoveAt(DamagesTakenMultiplier.Count - 1);
         }
     }
 }
