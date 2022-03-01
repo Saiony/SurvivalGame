@@ -21,6 +21,8 @@ namespace Game.Scripts.Controller.Player
         private PlayerInput Button_I;
 
         private PlayerInput Button_Mouse_Left;
+        private PlayerInput Button_Left_Shift;
+        private PlayerInput Button_Left_Shift_Released;
 
         private PlayerInput Button_1;
         private PlayerInput Button_2;
@@ -55,6 +57,8 @@ namespace Game.Scripts.Controller.Player
             Button_I = new PlayerInput("button_i", KeyCode.I, new OpenInventoryCommand());
 
             Button_Mouse_Left = new PlayerInput("button_mouse_left", KeyCode.Mouse0, new RightArmCommand());
+            Button_Left_Shift = new PlayerInput("button_left_shift", KeyCode.LeftShift, new RunCommand());
+            Button_Left_Shift_Released = new PlayerInput("button_left_shift_released", KeyCode.LeftShift, new StopRunningCommand());
 
             Button_1 = new PlayerInput("button_1", KeyCode.Alpha1, new SelectQuickItemCommand_1());
             Button_2 = new PlayerInput("button_2", KeyCode.Alpha2, new SelectQuickItemCommand_2());
@@ -95,6 +99,12 @@ namespace Game.Scripts.Controller.Player
             else if (Input.GetKey(Button_W.ButtonCode) || Input.GetKey(Button_A.ButtonCode) 
                      || Input.GetKey(Button_S.ButtonCode) || Input.GetKey(Button_D.ButtonCode))
                 Inputs.Add(Button_W.Command);
+
+            //Run
+            if(Input.GetKeyDown(Button_Left_Shift.ButtonCode))
+                Inputs.Add(Button_Left_Shift.Command);
+            else if(Input.GetKeyUp(Button_Left_Shift_Released.ButtonCode))
+                Inputs.Add(Button_Left_Shift_Released.Command);
 
             //Quick Inventory
             if (Input.GetKeyDown(Button_1.ButtonCode))

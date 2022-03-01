@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using Game.Scripts.Controller.Dialog;
@@ -24,10 +24,6 @@ namespace Game.Scripts.Controller.Player
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : MonoBehaviour, IObjectPickerListener, IEquipmentListener, IDamageable
     {
-        [SerializeField]
-        private float _speed = 0;
-        private float Speed => _speed;
-
         [SerializeField]
         private float _rotationSpeed = 0;
         private float RotationSpeed => _rotationSpeed;
@@ -73,13 +69,12 @@ namespace Game.Scripts.Controller.Player
         public static PlayerController Instance = null;
         public IPlayerItems Items { get; private set; }
         public IPlayerStats Stats { get; private set; }
-        private IMessageManager MessageManager { get; set; }
-
         public int Life => throw new NotImplementedException();
-
         public Collider DetectionCollider => throw new NotImplementedException();
 
         private float TurnSmoothTime = 0.1f;
+        private IMessageManager MessageManager { get; set; }
+        private Coroutine RunCoroutine;
 
         void Awake()
         {
@@ -88,15 +83,16 @@ namespace Game.Scripts.Controller.Player
             else
                 Destroy(gameObject);
 
-            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30));
+            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), 4);
+            MessageManager = ManagerProvider.Instance.Get<IMessageManager>();
         }
 
         private void Start() 
         {
             State = new PlayerIdleState();
             SetInitialItems();    
+            StartCoroutine(GainStaminaPerSec());
 
-            MessageManager = ManagerProvider.Instance.Get<IMessageManager>();
             MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
             MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
         }
@@ -148,7 +144,7 @@ namespace Game.Scripts.Controller.Player
             transform.rotation = Quaternion.Euler(0, smoothedAngle, 0);
             var moveDir = (Quaternion.Euler(0, targetAngle, 0) * Vector3.forward).normalized;
 
-            CharacterController.Move(moveDir * Speed * UnityEngine.Time.deltaTime);
+            CharacterController.Move(moveDir * Stats.Speed * UnityEngine.Time.deltaTime);
 
             Animator.SetFloat("Speed", direction.magnitude);
         }
@@ -290,21 +286,55 @@ namespace Game.Scripts.Controller.Player
 
         public void Respawn()
         {
-            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30));
+            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), 4);
             MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
             MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
 
             transform.position = RespawnPoint.position;
             transform.rotation = RespawnPoint.rotation;
         }   
-    }
 
-    public enum Direction
-    {
-        Unknown,
-        Left,
-        Right,
-        Up,
-        Down
+        public void StartRunning()
+        {
+            Stats.Running = true;
+            Stats.SetSpeed(8);
+            RunCoroutine = StartCoroutine(Run());
+        }
+
+        public void StopRunning()
+        {
+            Stats.Running = false;
+            Stats.SetSpeed(4);
+            StopCoroutine(RunCoroutine);
+            RunCoroutine = null;
+        }
+
+        private IEnumerator Run()
+        {
+            var waitTime = new WaitForSeconds(0.25f);
+            do
+            {
+                yield return waitTime;
+                Debug.Log("Decreasing Stamina: " +Stats.Stamina.Current);
+                Stats.Stamina.Decrease(1);
+                MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
+            } while (Stats.Stamina.Current > 0);
+
+            StopRunning();
+        }
+
+        private IEnumerator GainStaminaPerSec()
+        {
+            var waitTime = new WaitForSeconds(1f);
+            do
+            {
+                yield return waitTime;
+                if(Stats.Running)
+                   continue;
+
+                Stats.Stamina.Increase(1);
+                MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
+            } while (true);
+        }
     }
 }
