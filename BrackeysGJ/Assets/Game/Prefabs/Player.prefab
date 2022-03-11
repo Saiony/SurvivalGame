@@ -126,6 +126,7 @@ MonoBehaviour:
   CharacterController: {fileID: 603930354471396351}
   CameraTransform: {fileID: 0}
   RespawnPoint: {fileID: 0}
+  PlayerConfig: {fileID: 11400000, guid: 2a3cb79122f9da74eb333f0455b3fc31, type: 2}
 --- !u!143 &603930354471396351
 CharacterController:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager{
             Listeners = new Dictionary<IMessage, IList<IBaseMessageListener<IMessage>>>();
             Listeners.Add(new HpMessage(new Hp(0, 1)), new List<IBaseMessageListener<IMessage>>());
             Listeners.Add(new StaminaMessage(new Stamina(0, 0)), new List<IBaseMessageListener<IMessage>>());
+            Listeners.Add(new FoodLevelMessage(new FoodLevel(0, 1, new ScriptableObjects.Player.FoodLevelSO())), new List<IBaseMessageListener<IMessage>>());
         }
 
         public void Subscribe<T>(IMessageListener<T> listener) where T : IMessage
@@ -33,7 +34,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager{
         {
             var messageKeyValue = Listeners.FirstOrDefault(x => x.Key is T);
             if(messageKeyValue.Key == null)
-                throw new InvalidOperationException("Message not registered");
+                return;
             
             messageKeyValue.Value.ToList().ForEach(x => ((IMessageListener<T>) x).OnMessageReceived(message));
         }

@@ -59,7 +59,12 @@ public abstract class BaseItemDisplayController : MonoBehaviour, IPointerEnterHa
     public void SetItem(IItem item)
     {
         ItemDisplayed = item;
-        OnItemSetted(item);
+        OnItemAdded(item);
+    }
+
+    public void Consume()
+    {
+        OnItemConsumed(ItemDisplayed);
     }
 
     public void Clear()
@@ -96,7 +101,12 @@ public abstract class BaseItemDisplayController : MonoBehaviour, IPointerEnterHa
         Listener?.OnItemDisplayHovered(this);
     }
 
-    public abstract void OnItemSetted(IItem item);
+    public abstract void OnItemAdded(IItem item);
+
+    public virtual void OnItemConsumed(IItem item)
+    {
+    }
+
     protected virtual void OnItemCleared()
     {
     }

@@ -26,7 +26,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
             BaseInit(listener);
         }
 
-        public override void OnItemSetted(IItem item)
+        public override void OnItemAdded(IItem item)
         {
             PlayerItems.EquippedItems.AddEquipment(Slot, item as IEquipment);
         }

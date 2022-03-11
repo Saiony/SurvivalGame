@@ -19,4 +19,8 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Interface
     public interface IStaminaListener : IMessageListener<IStaminaMessage>
     {   
     }
+
+    public interface IFoodLevelListener : IMessageListener<IFoodLevelMessage>
+    {
+    }
 }

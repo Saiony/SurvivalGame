@@ -18,6 +18,7 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Message;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
 using UnityEngine.SceneManagement;
+using BrackeysGJ.Assets.Game.Scripts.ScriptableObjects.Player;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -65,6 +66,9 @@ namespace Game.Scripts.Controller.Player
         [SerializeField]
         private Transform RespawnPoint;
 
+        [SerializeField]
+        private PlayerConfigSO PlayerConfig;
+
         public IPlayerState State { get; private set; }
         public static PlayerController Instance = null;
         public IPlayerItems Items { get; private set; }
@@ -82,7 +86,7 @@ namespace Game.Scripts.Controller.Player
             else
                 Destroy(gameObject);
 
-            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), 4);
+            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), new FoodLevel(50, 50, PlayerConfig.FoodLevel), new Speed(4));
             MessageManager = ManagerProvider.Instance.Get<IMessageManager>();
         }
 
@@ -91,6 +95,7 @@ namespace Game.Scripts.Controller.Player
             State = new PlayerIdleState();
             SetInitialItems();    
             StartCoroutine(GainStaminaPerSec());
+            StartCoroutine(DecreaseFoodLevelPerSec());
 
             MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
             MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
@@ -143,7 +148,7 @@ namespace Game.Scripts.Controller.Player
             transform.rotation = Quaternion.Euler(0, smoothedAngle, 0);
             var moveDir = (Quaternion.Euler(0, targetAngle, 0) * Vector3.forward).normalized;
 
-            CharacterController.Move(moveDir * Stats.Speed * UnityEngine.Time.deltaTime);
+            CharacterController.Move(moveDir * Stats.Speed.Value * UnityEngine.Time.deltaTime);
 
             Animator.SetFloat("Speed", direction.magnitude);
         }
@@ -243,22 +248,22 @@ namespace Game.Scripts.Controller.Player
             {
                 switch (item)
                 {
-                    case ToolSO _:
-                        var tool = new Tool((item as ToolSO).Id, (item as ToolSO).Name, (item as ToolSO).Description, (item as ToolSO).Image, (item as ToolSO).Command);
+                    case ToolSO t:
+                        var tool = new Tool(t.Id, t.Name, t.Description, t.Image, t.Command);
                         Items.Inventory.AddItem(tool);
                         break;
-                    case ConsumableSO _:
-                        var consumable = new Consumable((item as ConsumableSO).Id, (item as ConsumableSO).Name, (item as ConsumableSO).Description, (item as ConsumableSO).Image, (item as ConsumableSO).Command);
+                    case ConsumableSO c:
+                        var consumable = new Consumable(c.Id, c.Name, c.Description, c.Image, c.Command, c.HungerSatisfied, c.HealthGiven);
                         Items.Inventory.AddItem(consumable);
                         break;
-                    case MiscSO _:
-                        var misc = new Misc((item as MiscSO).Id, (item as MiscSO).Name, (item as MiscSO).Description, (item as MiscSO).Image);
+                    case MiscSO m:
+                        var misc = new Misc(m.Id, m.Name, m.Description, m.Image);
                         Items.Inventory.AddItem(misc);
                         break;
-                    case WeaponSO _:
-                        var attack = new Attack((item as WeaponSO).DamagesType, (item as WeaponSO).DamagesValue);
-                        var weapon = new Weapon((item as WeaponSO).Id, (item as WeaponSO).Name, (item as WeaponSO).Description, (item as WeaponSO).Image,
-                                                (item as WeaponSO).Command, attack, (item as WeaponSO).Slot, (item as WeaponSO).Prefab);
+                    case WeaponSO w:
+                        var attack = new Attack(w.DamagesType, w.DamagesValue);
+                        var weapon = new Weapon(w.Id, w.Name, w.Description, w.Image,
+                                                w.Command, attack, w.Slot, w.Prefab);
                         Items.Inventory.AddItem(weapon);
                         break;
                     default:
@@ -279,7 +284,7 @@ namespace Game.Scripts.Controller.Player
             }
 
             Sequence seq = DOTween.Sequence();
-            seq.Append(transform.DOPunchScale(Vector3.one * 0.03f, 0.3f, 7, 5));
+            seq.Append(transform.DOPunchScale(Vector3.one * 0.05f, 0.3f, 7, 5));
             seq.Play();
 
             if(Stats.Hp.Current <= 0 && !Stats.Dead)
@@ -303,7 +308,7 @@ namespace Game.Scripts.Controller.Player
 
         public void Respawn()
         {
-            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), 4);
+            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), new FoodLevel(50, 50, PlayerConfig.FoodLevel), new Speed(4));
             MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
             MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
 
@@ -311,17 +316,18 @@ namespace Game.Scripts.Controller.Player
             transform.rotation = RespawnPoint.rotation;
         }   
 
+        #region Run
         public void StartRunning()
         {
             Stats.Running = true;
-            Stats.SetSpeed(8);
+            Stats.Speed.Increase(4);
             RunCoroutine = StartCoroutine(Run());
         }
 
         public void StopRunning()
         {
             Stats.Running = false;
-            Stats.SetSpeed(4);
+            Stats.Speed.Decrease(4);
             StopCoroutine(RunCoroutine);
             RunCoroutine = null;
         }
@@ -333,12 +339,13 @@ namespace Game.Scripts.Controller.Player
             {
                 yield return waitTime;
                 Debug.Log("Decreasing Stamina: " +Stats.Stamina.Current);
-                Stats.Stamina.Decrease(1);
+                Stats.Stamina.DecreaseCurrent(1);
                 MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
             } while (Stats.Stamina.Current > 0);
 
             StopRunning();
         }
+        #endregion
 
         private IEnumerator GainStaminaPerSec()
         {
@@ -349,9 +356,83 @@ namespace Game.Scripts.Controller.Player
                 if(Stats.Running)
                    continue;
 
-                Stats.Stamina.Increase(1);
+                Stats.Stamina.IncreaseCurrent(1);
                 MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
             } while (true);
         }
+
+        #region FoodLevel
+
+        public void Eat(IConsumable consumable)
+        {
+            Stats.Hp.Increase(consumable.HealthGiven);
+            Stats.FoodLevel.Increase(consumable.HungerSatisfied);
+
+            MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
+            MessageManager.Broadcast<IFoodLevelMessage>(new FoodLevelMessage(Stats.FoodLevel));
+            
+            Debug.Log($"Eating: {consumable.Name} \nHealthGiven: {consumable.HealthGiven} \nHungerSatisfied: {consumable.HungerSatisfied}");
+        }
+
+        private IEnumerator DecreaseFoodLevelPerSec()
+        {
+            var waitTime = new WaitForSeconds(3);
+            do
+            {
+                yield return waitTime;
+
+                var previousState = Stats.FoodLevel.Status;
+                Stats.FoodLevel.Decrease(5);
+                ApplyFoodLevelStatus(previousState);
+
+                MessageManager.Broadcast<IFoodLevelMessage>(new FoodLevelMessage(Stats.FoodLevel));
+            } while (true);
+        }
+int i = 0;
+        private void ApplyFoodLevelStatus(HungerStatus previousState)
+        {
+            Debug.Log("Hunger Status: " +Stats.FoodLevel.Status.ToString() +" - " +Stats.FoodLevel.Current);
+            switch (Stats.FoodLevel.Status)
+            {
+                case HungerStatus.Satisfied:
+                    ApplySatisfiedEffects();
+                    break;
+                case HungerStatus.Normal:
+                    break;
+                case HungerStatus.Hungry:
+                    ApplyHungerEffects(previousState);
+                    break;
+                case HungerStatus.Starving:
+                    ApplyStarvingEffects(previousState);
+                    break;
+                default:
+                    throw new InvalidCastException("Invalid FoodLevel status: " +Stats.FoodLevel.Status.ToString());
+            }
+        }
+
+        private void ApplySatisfiedEffects()
+        {
+            Stats.Hp.Increase(Stats.FoodLevel.Config.HpRestoredPerTick);   
+            MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));       
+        }
+
+        private void ApplyHungerEffects(HungerStatus previousState)
+        {
+            if(previousState == HungerStatus.Hungry || previousState == HungerStatus.Starving)
+                return;
+
+            Stats.Speed.Decrease(Stats.FoodLevel.Config.MovSpeedDebuff);
+            Stats.Stamina.DecreaseMax(Stats.FoodLevel.Config.StaminaDebuff);
+            MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
+        }
+
+        private void ApplyStarvingEffects(HungerStatus previousState)
+        {
+            ApplyHungerEffects(previousState);
+            Stats.Hp.Decrease(Stats.FoodLevel.Config.HpDecreasedPerTick);
+            MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
+        }
+
+        #endregion FoodLevel
     }
 }

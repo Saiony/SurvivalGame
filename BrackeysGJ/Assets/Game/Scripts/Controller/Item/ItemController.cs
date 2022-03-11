@@ -14,16 +14,23 @@ namespace Game.Scripts.Controller.Itens
         private ItemSO _itemSO = null;
         private ItemSO ItemSO => _itemSO;
 
-        [SerializeField]
-        private Collider _detectionCollider = null;
-        public Collider DetectionCollider => _detectionCollider;
-
         public string Id => ItemSO.name;
         public Item Item { get; private set; }
 
         private void Awake()
         {
-            Item = new Misc(ItemSO.Id, ItemSO.Name, ItemSO.Description, ItemSO.Image, 1);
+            switch (ItemSO)
+            {
+                case MiscSO misc:
+                    Item = new Misc(ItemSO.Id, ItemSO.Name, ItemSO.Description, ItemSO.Image, 1);
+                    break;
+                case ConsumableSO consumableSO:
+                    Item = new Consumable(consumableSO.Id, consumableSO.name, consumableSO.Description, consumableSO.Image, 
+                                          consumableSO.Command, consumableSO.HungerSatisfied, consumableSO.HealthGiven);
+                    break;
+                default:
+                    throw new InvalidOperationException("Invalid ItemSO type: " +typeof(ItemSO));
+            }
         }
 
         public void DestroyItself()
@@ -36,8 +43,6 @@ namespace Game.Scripts.Controller.Itens
         private Sequence Shrink(GameObject go, bool animate = true)
         {
             Sequence seq = DOTween.Sequence();
-            // bool animate diz se o Shrink vai ter um tempo pra diminuir
-            // Todo: @Mike
 
             return seq;
         }
@@ -45,7 +50,6 @@ namespace Game.Scripts.Controller.Itens
         private IEnumerator Expand(GameObject go, bool animate = true)
         {
             yield return null;
-            // Todo: @Mike
         }
 
         public bool Equals(ItemController other)

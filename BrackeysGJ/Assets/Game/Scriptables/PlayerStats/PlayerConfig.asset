@@ -9,14 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e142b94100fd294f8315f376a65d599, type: 3}
-  m_Name: Tree
+  m_Script: {fileID: 11500000, guid: 951768da38fce424eb7768b2bf48c29f, type: 3}
+  m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  DamagesTakenType: 02000000
-  DamagesTakenMultiplier: 02000000
-  TreeLife: 80
-  StumpLife: 60
-  LogLife: 60
-  LogInHalfLife: 80
-  FallDamages: 02000000
-  FallDamagesType: 01000000
+  FoodLevel: {fileID: 11400000, guid: 7dbd9f2ed623b6f468cb54409fb2015b, type: 2}

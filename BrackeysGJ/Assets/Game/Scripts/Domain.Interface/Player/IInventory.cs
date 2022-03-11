@@ -7,7 +7,7 @@ public interface IInventory
 
     void AddItem(IItem item);
     void AddItem(IItem item, int pos);
-    void RemoveItem(IItem item);
+    void ConsumeItem(IItem item, int pos);
     void UseQuickItem(int index);
     void MoveItem(int posFrom, int posTo);
 

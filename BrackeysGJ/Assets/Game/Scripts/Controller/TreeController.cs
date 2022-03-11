@@ -70,8 +70,6 @@ public class TreeController : MonoBehaviour, IDamageable
         if (!Alive)
             return;
 
-        Debug.Log("Damage Taken");
-
         foreach (var damage in attack.Damages)
         {
             var multiplier = 1;

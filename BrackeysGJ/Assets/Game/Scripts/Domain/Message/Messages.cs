@@ -22,4 +22,14 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Message
             Stamina = stamina;
         }
     }
+
+    public class FoodLevelMessage : IFoodLevelMessage
+    {
+        public FoodLevel FoodLevel { get; private set; }
+
+        public FoodLevelMessage(FoodLevel foodLevel)
+        {
+            FoodLevel = foodLevel;
+        }
+    }
 }

@@ -58,15 +58,13 @@ public class Inventory : IInventory
         Listener?.OnInventoryChanged(Items.ToList());
     }
 
-    public void RemoveItem(IItem item)
+    public void ConsumeItem(IItem item, int pos)
     {
-        //Check if already has item
-        var repeatedItem = Items.FirstOrDefault(x => item.Equals(x));
-        if (repeatedItem == null)
+        if(Items[pos] == null)
             return;
 
-        if (!repeatedItem.DecrementQuantity(1))
-            Items[Items.IndexOf(repeatedItem)] = null;
+        if (!item.DecrementQuantity(1))
+            Items[Items.IndexOf(item)] = null;
 
         Listener?.OnInventoryChanged(Items.ToList());
     }

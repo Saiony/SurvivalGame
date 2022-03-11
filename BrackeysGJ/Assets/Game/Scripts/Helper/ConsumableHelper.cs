@@ -1,15 +1,17 @@
 using System;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using Game.Scripts.Controller.Player;
-using UnityEngine;
 
 public static class ConsumableHelper
 {
-    public static Command NewCommand(ConsumableActions actionEnum)
+    public static Command NewCommand(ConsumableActions actionEnum, IConsumable consumable)
     {
         switch (actionEnum)
         {
             case ConsumableActions.Plant:
                 return new PlantCommand();
+            case ConsumableActions.Eat:
+                return new EatCommand(consumable);
             default:
                 throw new InvalidOperationException("Invalid Consumable Action");
         }
@@ -19,6 +21,7 @@ public static class ConsumableHelper
 public enum ConsumableActions
 {
     Unknown = 0,
-    Plant = 1
+    Plant,
+    Eat,
 }
 

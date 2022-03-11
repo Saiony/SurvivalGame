@@ -9,8 +9,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Player
         
         Hp Hp { get; }
         Stamina Stamina { get; }
-        int Speed { get; }
-
-        void SetSpeed(int speed);
+        FoodLevel FoodLevel { get; }
+        Speed Speed { get; }
     }
 }

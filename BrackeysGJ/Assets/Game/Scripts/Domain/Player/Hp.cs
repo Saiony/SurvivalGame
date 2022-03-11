@@ -42,5 +42,13 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Player
             if(Current < 0)
                 Current = 0;
         }
+
+        public void Increase(int value)
+        {
+            Current += value;
+
+            if(Current > Max)
+                Current = Max;
+        }
     }
 }

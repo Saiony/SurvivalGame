@@ -1,15 +1,25 @@
+using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using Game.Scripts.Controller.Player;
 using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
 {
-    public class Consumable : Item
+    public class Consumable : Item, IConsumable
     {
-        public Consumable(string id, string name, string description, Sprite image, ConsumableActions commandEnum, int quantity = 1) : base(id, name, description, image, quantity)
+        public int HungerSatisfied { get; private set; }
+        public int HealthGiven { get; private set; }
+
+        public Consumable(string id, string name, string description, Sprite image, ConsumableActions commandEnum,
+                          int hungerSatisfied, int healthGiven, int quantity = 1) 
+                          : base(id, name, description, image, quantity)
         {
-            var command = ConsumableHelper.NewCommand(commandEnum);
+            HungerSatisfied = hungerSatisfied;
+            HealthGiven = healthGiven;
+            
+            var command = ConsumableHelper.NewCommand(commandEnum, this);
             SetCommand(command);
         }
+
     }
 }

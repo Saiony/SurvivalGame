@@ -107,12 +107,12 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
 
         public void OnItemDisplayClickedRight(BaseItemDisplayController itemDisplay)
         {
-            throw new InvalidOperationException("not implemented");
-            // var item = itemDisplay.Item;
-            // if (!(item is IEquipment))
-            //     return;
 
-            // PlayerController.Instance.Items.Equip(item as IEquipment);
+            var item = itemDisplay.ItemDisplayed;
+            item.Use();
+
+            if(item is IConsumable)
+                itemDisplay.Consume();
         }
 
         public void OnItemDisplayHovered(BaseItemDisplayController itemDisplay)

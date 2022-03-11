@@ -16,4 +16,9 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message
     {
         Stamina Stamina { get; }
     }
+
+    public interface IFoodLevelMessage : IMessage
+    {
+        FoodLevel FoodLevel { get; }
+    }
 }

@@ -8,21 +8,24 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Player
         public bool Dead { get; set; }
         public Hp Hp { get; private set; }
         public Stamina Stamina { get; private set; }
-        public int Speed { get; private set; }
+        public FoodLevel FoodLevel {get; private set; }
+        public Speed Speed { get; private set; }
         public bool Running { get; set; }
+
 
         private PlayerStats()
         {
             Dead = false;
             Hp = null;
             Stamina = null;
-            Speed = 0;
+            Speed = null;
         }
 
-        public PlayerStats(Hp life, Stamina stamina, int speed) : this()
+        public PlayerStats(Hp life, Stamina stamina, FoodLevel hunger, Speed speed) : this()
         {
             SetLife(life);
             SetStamina(stamina);
+            SetHunger(hunger);
             SetSpeed(speed);
         }
 
@@ -42,11 +45,19 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Player
             Stamina = stamina;
         }
 
-        public void SetSpeed(int speed)
+        private void SetHunger(FoodLevel hunger)
         {
-            if(speed <= 0)
-                throw new InvalidOperationException("Speed must be a positive value");
+            if(hunger == null)
+                throw new InvalidOperationException("Hunger can't be null");
 
+            FoodLevel = hunger;
+        }
+
+        private void SetSpeed(Speed speed)
+        {
+            if(speed == null)
+                throw new InvalidOperationException("Speed can't be null");
+            
             Speed = speed;
         }
     }

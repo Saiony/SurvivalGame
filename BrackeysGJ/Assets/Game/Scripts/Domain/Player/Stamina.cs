@@ -35,7 +35,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Player
             Current = current;
         }
 
-        public void Decrease(int value)
+        public void DecreaseCurrent(int value)
         {
             Current -= value;
             
@@ -43,12 +43,24 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Player
                 Current = 0;
         }
 
-        public void Increase(int value)
+        public void IncreaseCurrent(int value)
         {
             Current += value;
 
             if(Current > Max)
                 Current = Max;
+        }
+
+        public void DecreaseMax(int ammount)
+        {
+            SetMax(Max - ammount);
+            if(Current > Max)
+                SetCurrent(Max);
+        }
+
+        public void IncreaseMax(int ammount)
+        {
+            SetMax(Max + ammount);
         }
     }
 }

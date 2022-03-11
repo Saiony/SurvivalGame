@@ -9,11 +9,11 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
     public class HudController : MonoBehaviour
     {
         [SerializeField]
-        private HpStaminaUIController HpStamina;
+        private PlayerStatsUIController PlayerStats;
 
         private void Start()
         {
-            HpStamina.Init();
+            PlayerStats.Init();
         }
     }
 }
