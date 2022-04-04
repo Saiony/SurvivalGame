@@ -18,7 +18,7 @@ namespace Game.Scripts.Controller.Player
 
         private PlayerInput Button_Space;
         private PlayerInput Button_Esc;
-        private PlayerInput Button_I;
+        private PlayerInput Button_Tab;
 
         private PlayerInput Button_Mouse_Left;
         private PlayerInput Button_Left_Shift;
@@ -54,7 +54,7 @@ namespace Game.Scripts.Controller.Player
 
             Button_Space = new PlayerInput("button_space", KeyCode.Space, new InteractCommand());
             Button_Esc = new PlayerInput("button_esc", KeyCode.Escape, new OpenSettingsCommand());
-            Button_I = new PlayerInput("button_i", KeyCode.I, new OpenInventoryCommand());
+            Button_Tab = new PlayerInput("button_tab", KeyCode.Tab, new OpenInventoryCommand());
 
             Button_Mouse_Left = new PlayerInput("button_mouse_left", KeyCode.Mouse0, new RightArmCommand());
             Button_Left_Shift = new PlayerInput("button_left_shift", KeyCode.LeftShift, new RunCommand());
@@ -75,7 +75,7 @@ namespace Game.Scripts.Controller.Player
 
             PlayerInputs.Add(Button_Space);
             PlayerInputs.Add(Button_Esc);
-            PlayerInputs.Add(Button_I);
+            PlayerInputs.Add(Button_Tab);
 
             PlayerInputs.Add(Button_Mouse_Left);
         }
@@ -89,8 +89,8 @@ namespace Game.Scripts.Controller.Player
                 Inputs.Add(Button_Esc.Command);
             else if (Input.GetKeyDown(Button_Space.ButtonCode))
                 Inputs.Add(Button_Space.Command);
-            else if (Input.GetKeyDown(Button_I.ButtonCode))
-                Inputs.Add(Button_I.Command);
+            else if (Input.GetKeyDown(Button_Tab.ButtonCode))
+                Inputs.Add(Button_Tab.Command);
 
             if (InputBlocked)
                 return Inputs;

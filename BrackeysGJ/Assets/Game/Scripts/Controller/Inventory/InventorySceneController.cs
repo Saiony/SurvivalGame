@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using BrackeysGJ.Assets.Game.Scripts.Controller.Crafting;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems;
 using DG.Tweening;
@@ -25,6 +26,10 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
         [SerializeField]
         private InventoryInfoController _itemInfo = null;
         private InventoryInfoController ItemInfo => _itemInfo;
+
+        [SerializeField]
+        private CraftingController _craftingController = null;
+        private CraftingController CraftingController => _craftingController;
 
         [SerializeField]
         private CanvasGroup _modal = null;

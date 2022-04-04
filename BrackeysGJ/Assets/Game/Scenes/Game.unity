@@ -491,7 +491,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60013903}
-  m_LocalRotation: {x: 0.018148115, y: 0.056360085, z: -0.0010246277, w: 0.99824506}
+  m_LocalRotation: {x: 0.018148124, y: 0.056360085, z: -0.0010246282, w: 0.99824506}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6633,7 +6633,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401070672}
-  m_LocalRotation: {x: -0.050738566, y: 0.022116499, z: 0.001123883, w: 0.99846643}
+  m_LocalRotation: {x: -0.050738573, y: 0.022116499, z: 0.0011238832, w: 0.99846643}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9091,6 +9091,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 980847999298989475, guid: 6bcd91261d7694947bc41a51da7f616d,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 980847999298989486, guid: 6bcd91261d7694947bc41a51da7f616d,
         type: 3}
       propertyPath: m_Name
@@ -10289,7 +10294,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846847125}
-  m_LocalRotation: {x: -0.047843628, y: 0.039906252, z: 0.0018177512, w: 0.99805576}
+  m_LocalRotation: {x: -0.047843628, y: 0.039906252, z: 0.0018177526, w: 0.99805576}
   m_LocalPosition: {x: -7.924, y: 1.3351722, z: 5.1977353}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
