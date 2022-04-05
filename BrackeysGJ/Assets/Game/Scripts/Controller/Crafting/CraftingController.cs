@@ -1,3 +1,4 @@
+using Game.Scripts.ScriptableObjects.Crafting;
 using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
@@ -21,8 +22,6 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
         public void Show()
         {
             Content.gameObject.SetActive(true);
-
-            
         }
 
         public void Hide()

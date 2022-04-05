@@ -1,6 +1,7 @@
 ﻿using System;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using Game.Scripts.Controller.Player;
+using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
@@ -32,7 +33,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
             SetImage(image);
             SetQuantity(quantity);
         }
-
+        
         private void SetId(string id)
         {
             Id = new Guid(id);
