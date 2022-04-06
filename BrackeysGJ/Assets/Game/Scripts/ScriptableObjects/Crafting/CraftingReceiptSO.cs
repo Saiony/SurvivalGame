@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects.Crafting
 {
-    [CreateAssetMenu(fileName = "CraftingReceipt", menuName = "ScriptableObjects/CraftingReceipt", order = 1)]
+    [CreateAssetMenu(fileName = "CraftingReceipt", menuName = "ScriptableObjects/Crafting/Receipt", order = 1)]
     public class CraftingReceiptSO : ScriptableObject
     {
         public ItemSO Item;
