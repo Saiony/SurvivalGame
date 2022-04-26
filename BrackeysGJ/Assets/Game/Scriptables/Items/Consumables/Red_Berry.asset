@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0927f9e7-2a14-4565-89f6-277b47f0e6a8
   Name: Red Berry
-  Description: Frutinha vermelha yummy yummy
+  Description: yummy yummy
   Image: {fileID: 21300000, guid: e6ab6db5300f82f4ca1df453b1351af8, type: 3}
   HungerSatisfied: 10
   HealthGiven: 2

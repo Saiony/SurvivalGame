@@ -6,6 +6,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items
 {
     public interface IItem
     {
+        Guid Id { get; }
         string Name { get; }
         string Description { get; }
         Sprite Image { get; }

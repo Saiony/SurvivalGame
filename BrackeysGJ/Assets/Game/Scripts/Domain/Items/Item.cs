@@ -8,7 +8,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
 {
     public abstract class Item : IItem
     {
-        private Guid Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
         public Sprite Image { get; private set; }
@@ -17,7 +17,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
 
         public Item()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.Empty;
             Name = string.Empty;
             Description = string.Empty;
             Image = null;

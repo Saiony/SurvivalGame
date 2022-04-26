@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324045557cd3a4aa884f18af9df333e5, type: 3}
   m_Name: HammerReceipt
   m_EditorClassIdentifier: 
-  Item: {fileID: 0}
+  Item: {fileID: 11400000, guid: bb35b0cb23b4dde4799835be76d9ff80, type: 2}
   Materials:
   - {fileID: 11400000, guid: 2cc8b02978dd6994aa468e6ba0aa1cc3, type: 2}
   MaterialsQuantity: 02000000
-  Description: The worst enemy of creativity is self-doubt

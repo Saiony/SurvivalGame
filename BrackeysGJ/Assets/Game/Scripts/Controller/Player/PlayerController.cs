@@ -19,6 +19,7 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
 using UnityEngine.SceneManagement;
 using BrackeysGJ.Assets.Game.Scripts.ScriptableObjects.Player;
+using Game.Scripts.Service;
 
 namespace Game.Scripts.Controller.Player
 {

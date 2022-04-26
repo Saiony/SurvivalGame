@@ -4,17 +4,21 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
+using Game.Scripts.Service;
+using Game.Scripts.Service.Interface;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Manager
 {
     public class GameManager : MonoBehaviour
     {
         private ManagerProvider ManagerProvider;
+        private ServiceProvider ServiceProvider;
 
         private void Awake() 
         {
             Debug.Log("Booting...");
             SetInitialScene();
+            BootServices();
             BootManagers();
 
             FinishBoot();
@@ -26,6 +30,14 @@ namespace BrackeysGJ.Assets.Game.Scripts.Manager
             managers.Add(new MessageManager());
 
             ManagerProvider = new ManagerProvider(managers);
+        }
+
+        private void BootServices()
+        {
+            var services = new List<IBaseService>();
+            services.Add(new CraftingService());
+            
+            ServiceProvider = new ServiceProvider(services);
         }
 
         private void FinishBoot()

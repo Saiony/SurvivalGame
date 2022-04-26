@@ -10,8 +10,5 @@ namespace Game.Scripts.ScriptableObjects.Crafting
         public ItemSO Item;
         public List<ItemSO> Materials;
         public List<int> MaterialsQuantity;
-
-        [TextArea(1, 3)]
-        public string Description;
     }
 }

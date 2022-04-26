@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   Id: 6b62ed3c-7f79-4ae3-8aea-8b713cdeb204
-  Name: "Ax\xE9 \xE9 m\xFAsica?"
-  Description: "N\xE3o"
+  Name: Stone Axe
+  Description: Useful to hit trees... or people
   Image: {fileID: 21300000, guid: 6098fcbe6d1f4b84293dee309ac910e6, type: 3}
   Slot: 5
   Command: 1

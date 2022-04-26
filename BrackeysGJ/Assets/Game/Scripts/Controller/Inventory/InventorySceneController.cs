@@ -58,6 +58,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
             PlayerItems = PlayerController.Instance.Items;
             BagController.Init(this);
             EquipmentController.Init(this);
+            CraftingController.Init();
             ItemInfo.Init();
         }
 
@@ -138,6 +139,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
             PlayerItems.Inventory.Subscribe(this);
             BagController.Display(PlayerItems.Inventory.Items);
             EquipmentController.Display(PlayerItems.EquippedItems.Equipments);
+            CraftingController.Show();
             Showing = true;
 
             Sequence seq = DOTween.Sequence();

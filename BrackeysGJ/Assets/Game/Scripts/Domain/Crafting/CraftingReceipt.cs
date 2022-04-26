@@ -10,13 +10,11 @@ namespace Game.Scripts.Domain.Crafting
     {
         public ItemSO Item { get; private set; }
         public List<CraftingMaterial> Materials { get; private set; }
-        public string Description { get; private set; }
 
         public CraftingReceipt(CraftingReceiptSO so)
         {
             SetItem(so.Item);
             SetMaterials(so.Materials, so.MaterialsQuantity);
-            SetDescription(so.Description);
         }
 
         private void SetItem(ItemSO item)
@@ -42,14 +40,6 @@ namespace Game.Scripts.Domain.Crafting
                 var material = new CraftingMaterial(itemMaterials[i], quantity[i]);
                 Materials.Add(material);
             }
-        }
-
-        private void SetDescription(string description)
-        {
-            if(description == null)
-                throw new InvalidOperationException("Description can't be null");
-            
-            Description = description;
         }
     }
 }
