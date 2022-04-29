@@ -308,8 +308,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.3610561, y: 0.23883851, z: 1.1461957}
-  m_Center: {x: 0.11947457, y: -0.031058235, z: 0.47690436}
+  m_Size: {x: 0.5, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.42420384}
 --- !u!114 &3765306577255847850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1214,7 +1214,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c5c6dab85e9ffd448a7676263d4e7aa8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
     are already bound by a Humanoid avatar. These transforms can only be changed
