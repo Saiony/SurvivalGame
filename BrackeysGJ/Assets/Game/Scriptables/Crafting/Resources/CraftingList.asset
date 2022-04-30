@@ -14,4 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Receipts:
   - {fileID: 11400000, guid: a9d35fe1cec3d47b2aa2787e526eb0a8, type: 2}
-  - {fileID: 11400000, guid: e1cd9cbfe3b394561892e66a51868a7c, type: 2}

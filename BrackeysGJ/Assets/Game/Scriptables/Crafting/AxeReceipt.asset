@@ -15,5 +15,5 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: 8f220d7f8d232034f99dba22829f8974, type: 2}
   Materials:
   - {fileID: 11400000, guid: 2cc8b02978dd6994aa468e6ba0aa1cc3, type: 2}
-  MaterialsQuantity: 03000000
-  Description: Great for chopping things down!
+  - {fileID: 11400000, guid: 67d484a7e2ed84e06958d266660033e9, type: 2}
+  MaterialsQuantity: 0300000002000000
