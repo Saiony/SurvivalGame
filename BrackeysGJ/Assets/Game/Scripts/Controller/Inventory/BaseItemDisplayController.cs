@@ -69,6 +69,7 @@ public abstract class BaseItemDisplayController : MonoBehaviour, IPointerEnterHa
 
     public void Clear()
     {
+        ItemDisplayed = null;
         Sequence seq = DOTween.Sequence();
         seq.Append(DisplayImage.DOFade(0, 0));
         seq.Append(stack.Clear());

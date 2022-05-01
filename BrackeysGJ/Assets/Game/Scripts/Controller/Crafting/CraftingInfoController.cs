@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Game.Scripts.Controller.Player;
 using System.Linq;
 using Game.Scripts.ScriptableObjects;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
 {
@@ -69,14 +70,14 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
             Modal.gameObject.SetActive(false);
         }
 
-        private string CreateItemStatsText(ItemSO item)
+        private string CreateItemStatsText(Item item)
         {
             var stats = string.Empty;
             switch (item)
             {
-                case WeaponSO weapon:
-                    for (int i = 0; i < weapon.DamagesType.Count; i++)
-                        stats += $"{weapon.DamagesType[i].ToString()} - {weapon.DamagesValue[i].ToString()} \n";
+                case Weapon weapon:
+                    foreach(KeyValuePair<DamageType, int> damage in weapon.Attack.Damages)
+                        stats += $"{damage.Key.ToString()} - {damage.Value.ToString()} \n";
                     break;
                 default:
                     break;

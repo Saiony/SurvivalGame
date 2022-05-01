@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 
 public class Inventory : IInventory
 {
@@ -32,7 +33,7 @@ public class Inventory : IInventory
     {
         //Check if already has item
         var repeatedItem = Items.FirstOrDefault(x => item.Equals(x));
-        if (repeatedItem != null)
+        if (repeatedItem != null && !(item is Weapon) && !(item is Tool))
         {
             repeatedItem.IncrementQuantity(item.Quantity);
             return;
@@ -55,6 +56,21 @@ public class Inventory : IInventory
         }
 
         Items[pos] = item;
+        Listener?.OnInventoryChanged(Items.ToList());
+    }
+
+    public void RemoveItem(IItem item, int quantity)
+    {
+        int remainingQuantity = quantity;
+        Items.Where(x => x?.Id == item.Id).ToList().ForEach(inventoryItem => 
+        {
+            if(!inventoryItem.DecrementQuantity(remainingQuantity))
+            {
+                Items[Items.IndexOf(item)] = null;
+                remainingQuantity -= inventoryItem.Quantity;
+            }
+        });
+
         Listener?.OnInventoryChanged(Items.ToList());
     }
 

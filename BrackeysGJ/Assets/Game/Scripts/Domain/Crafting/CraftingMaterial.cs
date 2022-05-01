@@ -10,18 +10,18 @@ namespace Game.Scripts.Domain.Crafting
         public Item Item { get; private set; }
         public int Quantity { get; private set; }
 
-        public CraftingMaterial(ItemSO itemSO, int quantity)
+        public CraftingMaterial(Item item, int quantity)
         {
-            SetItem(itemSO);
+            SetItem(item);
             SetQuantity(quantity);
         }
 
-        private void SetItem(ItemSO itemSO)
+        private void SetItem(Item item)
         {
-            if(itemSO == null)
+            if(item == null)
                 throw new InvalidOperationException("Item can't be null");
             
-            Item = ItemsHelper.CreateItem(itemSO);
+            Item = item;
         }
 
         private void SetQuantity(int quantity)

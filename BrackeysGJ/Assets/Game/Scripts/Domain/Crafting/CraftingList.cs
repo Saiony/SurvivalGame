@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 using Game.Scripts.Helper;
 using Game.Scripts.ScriptableObjects.Crafting;
 
@@ -23,7 +24,11 @@ namespace Game.Scripts.Domain.Crafting
             Receipts = new List<CraftingReceipt>();
             craftingListSO.Receipts.ForEach(craftingItemSO => 
             {
-                var craftingReceipt = new CraftingReceipt(craftingItemSO);
+                var item = ItemsHelper.CreateItem(craftingItemSO.Item);
+                var materials = new List<Item>();
+                craftingItemSO.Materials.ForEach(x => materials.Add(ItemsHelper.CreateItem(x)));
+                
+                var craftingReceipt = new CraftingReceipt(item, materials, craftingItemSO.MaterialsQuantity);
                 Receipts.Add(craftingReceipt);
             });
         }

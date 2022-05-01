@@ -20,6 +20,7 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
 using UnityEngine.SceneManagement;
 using BrackeysGJ.Assets.Game.Scripts.ScriptableObjects.Player;
 using Game.Scripts.Service;
+using Game.Scripts.Domain.Crafting;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -214,6 +215,41 @@ namespace Game.Scripts.Controller.Player
             Animator.SetTrigger("Planting_Trigger");
         }
 
+
+#region Crafting
+        public void PlayCraftingAnimation()
+        {
+            Animator.SetTrigger("Start_Crafting_Trigger");
+        }
+
+        public void StopCraftingAnimation()
+        {
+            Animator.SetTrigger("Stop_Crafting_Trigger");
+        }
+
+        public bool CanCraft(CraftingReceipt receipt)
+        {
+            for (int i = 0; i < receipt.Materials.Count; i++)
+            {
+                var material = receipt.Materials[i];
+                var playerQuantity = Items.Inventory.Items.Where(x => x?.Id == material?.Item.Id).Select(x => x.Quantity).Sum();
+                if(playerQuantity < material.Quantity)
+                    return false;
+            }
+            return true;
+        }
+
+        public void Craft(CraftingReceipt receipt)
+        {
+            if(!CanCraft(receipt))
+                throw new InvalidOperationException("Can't craft");
+            
+            var inventory = Items.Inventory;
+            receipt.Materials.ForEach(material => inventory.RemoveItem(material.Item, material.Quantity));
+            inventory.AddItem(receipt.Item);
+        }
+
+#endregion Crafting
         public void DoTheActualPlantThing()
         {
             //TODO: regras de negócio de Plant
@@ -392,7 +428,7 @@ namespace Game.Scripts.Controller.Player
 int i = 0;
         private void ApplyFoodLevelStatus(HungerStatus previousState)
         {
-            Debug.Log("Hunger Status: " +Stats.FoodLevel.Status.ToString() +" - " +Stats.FoodLevel.Current);
+            //Debug.Log("Hunger Status: " +Stats.FoodLevel.Status.ToString() +" - " +Stats.FoodLevel.Current);
             switch (Stats.FoodLevel.Status)
             {
                 case HungerStatus.Satisfied:

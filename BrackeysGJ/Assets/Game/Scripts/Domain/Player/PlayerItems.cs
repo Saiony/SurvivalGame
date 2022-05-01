@@ -35,23 +35,5 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems
 
             EquippedItems = equippedItems;
         }
-
-        // public void Equip(IEquipment equipment)
-        // {
-        //     if (!Inventory.Items.Contains(equipment))
-        //         throw new InvalidOperationException("Inventory doesn't have requested item");
-
-        //     Inventory.RemoveItem(equipment);
-        //     var returnedEquipment = EquippedItems.AddEquipment(equipment);
-
-        //     if (returnedEquipment != null)
-        //         Inventory.AddItem(equipment);
-        // }
-
-        // public void Unequip(EquipmentSlot equipmentPosition)
-        // {
-        //     var returnedEquipment = EquippedItems.RemoveEquipment(equipmentPosition);
-        //     Inventory.AddItem(returnedEquipment);
-        // }
     }
 }

@@ -161,9 +161,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
             seq.Append(Modal.DOFade(0, 0.3f));
             seq.AppendCallback(() =>
             {
-                BagController.Clear();
-                EquipmentController.Clear();
-
+               
                 Modal.gameObject.SetActive(false);
                 InputHandler.Instance.EnableInput();
                 TimeController.Instance.ResumeTime();

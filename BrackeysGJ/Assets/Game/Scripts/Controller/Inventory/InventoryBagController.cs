@@ -23,16 +23,9 @@ public class InventoryBagController : MonoBehaviour
 
     public void Display(IList<IItem> playerItems)
     {
-        // Clear();
-
         for (int i = 0; i < playerItems.Count; i++)
         {
             Items[i].DisplayItem(playerItems[i]);
         }
-    }
-
-    public void Clear()
-    {
-        Items.ForEach(item => item.Clear());
     }
 }

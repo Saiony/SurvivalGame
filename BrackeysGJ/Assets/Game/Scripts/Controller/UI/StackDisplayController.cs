@@ -21,10 +21,11 @@ public class StackDisplayController : MonoBehaviour
         QuantityCanvas.DOFade(0, 0).Play();
     }
 
-    public Tween Clear()
+    public Tween Clear(bool withFade = false)
     {
+        var duration = withFade ? 0.15f : 0f;
         Sequence seq = DOTween.Sequence();
-        seq.Append(QuantityCanvas.DOFade(0, 0));
+        seq.Append(QuantityCanvas.DOFade(0, duration));
         return seq;
     }
 
@@ -32,7 +33,7 @@ public class StackDisplayController : MonoBehaviour
     {
         if (item is Tool || item is Weapon)
         {
-            Clear().Play();
+            Clear(true).Play();
             return;
         }
 

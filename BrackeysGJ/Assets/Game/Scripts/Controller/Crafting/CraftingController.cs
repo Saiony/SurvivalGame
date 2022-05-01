@@ -52,13 +52,11 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
 
         public void OnCellPointerEnter(CraftingCellController cell)
         {
-            Debug.Log("caue - enter");
             CraftingInfo.Show(cell.Receipt, cell.transform.position);
         }
 
         public void OnCellPointerExit()
         {
-            Debug.Log("caue - exit");
             CraftingInfo.Hide();
         }
     }

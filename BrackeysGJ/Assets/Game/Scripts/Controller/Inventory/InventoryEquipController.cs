@@ -56,7 +56,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
 
         public void Display(Dictionary<EquipmentSlot, IEquipment> PlayerEquips)
         {
-            Clear();
+            // Clear();
 
             var playerEquips = PlayerController.Instance.Items.EquippedItems.Equipments;
             playerEquips.ToList().ForEach(playerEquip =>

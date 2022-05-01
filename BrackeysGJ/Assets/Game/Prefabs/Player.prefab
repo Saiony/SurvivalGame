@@ -120,7 +120,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5628bfac24e487d44a6fa70661491f78, type: 2}
   - {fileID: 11400000, guid: 5628bfac24e487d44a6fa70661491f78, type: 2}
   - {fileID: 11400000, guid: 64dffb433f5d9c3439e0ad1cc1fb0f7a, type: 2}
-  - {fileID: 11400000, guid: 8f220d7f8d232034f99dba22829f8974, type: 2}
   _handController: {fileID: 3765306577255847850}
   _rgdBody: {fileID: 584455122}
   CharacterController: {fileID: 603930354471396351}
@@ -790,6 +789,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -15.106759
+      objectReference: {fileID: 0}
+    - target: {fileID: 751176136059791188, guid: 05f8310696aad334484ca6ecc7839986,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 05f8310696aad334484ca6ecc7839986,
         type: 3}
