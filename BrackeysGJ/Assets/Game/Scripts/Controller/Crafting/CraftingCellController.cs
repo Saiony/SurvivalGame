@@ -18,6 +18,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
         private ICraftingCellListener Listener;
         private IInventory PlayerInventory;
         private WaitForSeconds CraftingTime;
+        private bool Crafting = false;
         
 
         public void Init(CraftingReceipt receipt, ICraftingCellListener listener)
@@ -39,7 +40,8 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
         {
             if(eventData.button != PointerEventData.InputButton.Right)
                 return;
-
+            if(Crafting)
+                return;
             if(!PlayerController.Instance.CanCraft(Receipt))
                 return;
             
@@ -65,6 +67,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
 
         private IEnumerator StartCraftingAnimation(Action callback)
         {
+            Crafting = true;
             PlayerController.Instance.PlayCraftingAnimation();
             yield return CraftingTime;
             PlayerController.Instance.StopCraftingAnimation();
@@ -75,6 +78,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
         {
             Debug.Log("caue - Craft!!");
             PlayerController.Instance.Craft(Receipt);
+            Crafting = false;
         }
     }
 }
