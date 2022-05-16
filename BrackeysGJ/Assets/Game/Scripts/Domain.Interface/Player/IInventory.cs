@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Interface.Items;
 
 public interface IInventory
 {

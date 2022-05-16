@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 using Game.Scripts.Controller.Itens;
-using Game.Scripts.Controller.Player;
+using Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Items;
 using UnityEngine;
 
 public class ObjectPickerController : MonoBehaviour
@@ -31,5 +29,5 @@ public class ObjectPickerController : MonoBehaviour
 
 public interface IObjectPickerListener
 {
-    void OnObjectPicked(Item item);
+    void OnObjectPicked(IItem item);
 }

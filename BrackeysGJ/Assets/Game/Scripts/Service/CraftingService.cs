@@ -7,12 +7,16 @@ namespace Game.Scripts.Service
 {
     public class CraftingService : ICraftingService
     {
-        public CraftingList CraftingList { get; private set; }
+        public CraftingList TabCraftingList { get; private set; }
+        public CraftingList ConstructionCraftingList { get; private set; }
 
         public CraftingService()
         {
             var craftingListSO = Resources.Load("CraftingList") as CraftingListSO;
-            CraftingList = new CraftingList(craftingListSO);
+            TabCraftingList = new CraftingList(craftingListSO);
+
+            var constructionCraftingListSO = Resources.Load("ConstructionList") as CraftingListSO;
+            ConstructionCraftingList = new CraftingList(constructionCraftingListSO);
         }
     }
 }

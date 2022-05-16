@@ -1,69 +1,53 @@
-using System.Collections.Generic;
+using System;
+using System.Collections;
+using Game.Scripts.Controller.Player;
 using Game.Scripts.Domain.Crafting;
-using Game.Scripts.ScriptableObjects.Crafting;
-using Game.Scripts.Service;
-using Game.Scripts.Service.Interface;
 using UnityEngine;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
+namespace Game.Scripts.Controller.Crafting
 {
-    public class CraftingController : MonoBehaviour, ICraftingCellListener
+    public class CraftingController : BaseCraftingController
     {
-        [SerializeField]
-        private CanvasGroup Content;
+        private IInventory PlayerInventory;
+        private WaitForSeconds CraftingTime;
+        private bool Crafting = false;
 
-        [SerializeField]
-        private CraftingCellController CellPrefab;
-
-        [SerializeField]
-        private CraftingInfoController CraftingInfo;
-
-        private ICraftingService CraftingService;
-        private List<CraftingCellController> CraftingCells;
-
-        public void Init() 
+        protected override void OnInit()
         {
-            CraftingInfo.Init();
-            CraftingService = ServiceProvider.Instance.Get<ICraftingService>();
-            LoadList();
+            PlayerInventory = PlayerController.Instance.Items.Inventory;
+            CraftingTime = new WaitForSeconds(2);
+        }
+        
+        protected override CraftingList GetCraftingList()
+        {
+            return CraftingService.TabCraftingList;
         }
 
-        public void Show()
+        protected override void OnCraftingCellRightClick(CraftingRecipe recipe)
         {
-            Content.gameObject.SetActive(true);
-            CraftingCells.ForEach(x => x.Update());
+            if(Crafting)
+                return;
+            if(!PlayerController.Instance.CanCraft(recipe))
+                return;
+            
+            Debug.Log("caue - crafting started");
+            StartCoroutine(StartCraftingAnimation(() => Craft(recipe)));
+        }
+        
+        private void Craft(CraftingRecipe recipe)
+        {
+            Debug.Log("caue - Craft!!");
+            PlayerController.Instance.Craft(recipe);
+            Crafting = false;
         }
 
-        public void Hide()
+        private IEnumerator StartCraftingAnimation(Action callback)
         {
-            Content.gameObject.SetActive(false);
+            Crafting = true;
+            PlayerController.Instance.PlayCraftingAnimation();
+            yield return CraftingTime;
+            PlayerController.Instance.StopCraftingAnimation();
+            callback();
         }
-
-        private void LoadList()
-        {
-            CraftingCells = new List<CraftingCellController>();
-            CraftingService.CraftingList.Receipts.ForEach(receipt => 
-            {
-                var cell = Instantiate(CellPrefab, Content.transform);
-                cell.Init(receipt, this);
-                CraftingCells.Add(cell);
-            });
-        }
-
-        public void OnCellPointerEnter(CraftingCellController cell)
-        {
-            CraftingInfo.Show(cell.Receipt, cell.transform.position);
-        }
-
-        public void OnCellPointerExit()
-        {
-            CraftingInfo.Hide();
-        }
-    }
-
-    public interface ICraftingCellListener
-    {
-        void OnCellPointerEnter(CraftingCellController cell);
-        void OnCellPointerExit();
     }
 }

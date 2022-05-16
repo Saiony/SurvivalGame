@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Game.Scripts.Controller.Player;
-using System.Linq;
 using System.Collections;
+using Game.Scripts.Controller.Crafting;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
 {
@@ -14,20 +14,18 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
         [SerializeField]
         private Image Icon;
 
-        public CraftingReceipt Receipt;
+        [SerializeField]
+        private Image SelectedImage;
+
+        public CraftingRecipe Recipe;
         private ICraftingCellListener Listener;
-        private IInventory PlayerInventory;
-        private WaitForSeconds CraftingTime;
-        private bool Crafting = false;
         
 
-        public void Init(CraftingReceipt receipt, ICraftingCellListener listener)
+        public void Init(CraftingRecipe receipt, ICraftingCellListener listener)
         {
-            Receipt = receipt;
-            Icon.sprite = Receipt.Item.Image;
+            Recipe = receipt;
+            Icon.sprite = Recipe.Item.Image;
             Listener = listener;
-            PlayerInventory = PlayerController.Instance.Items.Inventory;
-            CraftingTime = new WaitForSeconds(2);
             UpdateSillhouette();
         }
 
@@ -38,15 +36,10 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if(eventData.button != PointerEventData.InputButton.Right)
-                return;
-            if(Crafting)
-                return;
-            if(!PlayerController.Instance.CanCraft(Receipt))
-                return;
-            
-            Debug.Log("caue - crafting started");
-            StartCoroutine(StartCraftingAnimation(Craft));
+            if(eventData.button == PointerEventData.InputButton.Left)
+                Listener.OnCellLeftClick(this);
+            if(eventData.button == PointerEventData.InputButton.Right)
+                Listener.OnCellRightClick(Recipe);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -61,24 +54,26 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
 
         private void UpdateSillhouette()
         {
-            var canCraft = PlayerController.Instance.CanCraft(Receipt);
+            var canCraft = PlayerController.Instance.CanCraft(Recipe);
             Icon.color = canCraft ? Color.white : Color.black;
         }
 
-        private IEnumerator StartCraftingAnimation(Action callback)
+        public void Select()
         {
-            Crafting = true;
-            PlayerController.Instance.PlayCraftingAnimation();
-            yield return CraftingTime;
-            PlayerController.Instance.StopCraftingAnimation();
-            callback();
+            SelectedImage.gameObject.SetActive(true);
         }
 
-        private void Craft()
+        public void Unselect()
         {
-            Debug.Log("caue - Craft!!");
-            PlayerController.Instance.Craft(Receipt);
-            Crafting = false;
+            SelectedImage.gameObject.SetActive(false);
         }
+    }
+    
+    public interface ICraftingCellListener
+    {
+        void OnCellPointerEnter(CraftingCellController cell);
+        void OnCellPointerExit();
+        void OnCellLeftClick(CraftingCellController cell);
+        void OnCellRightClick(CraftingRecipe recipe);
     }
 }

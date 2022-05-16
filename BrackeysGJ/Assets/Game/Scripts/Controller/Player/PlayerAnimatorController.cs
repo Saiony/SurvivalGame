@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BrackeysGJ.Assets.Game.Scripts.Controller.Player;
 using Game.Scripts.Controller.Player;
+using Game.Scripts.Controller.Player.Commands;
 using UnityEngine;
 
 public class PlayerAnimatorController : MonoBehaviour

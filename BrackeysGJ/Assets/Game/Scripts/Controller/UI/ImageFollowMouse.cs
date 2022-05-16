@@ -1,37 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageFollowMouse : MonoBehaviour
+namespace Game.Scripts.Controller.UI
 {
-    [SerializeField]
-    private Image _image = null;
-    private Image Image => _image;
-
-    private Vector3 Offset { get; set; }
-    private Camera MainCamera { get; set; }
-
-    private void Start()
+    public class ImageFollowMouse : MonoBehaviour
     {
-        MainCamera = Camera.main;
-        Offset = new Vector3(20, -20, 0);
-    }
+        [SerializeField]
+        private Image _image = null;
+        private Image Image => _image;
 
-    void Update()
-    {
-        transform.position = Input.mousePosition + Offset;
-    }
+        private Vector3 Offset { get; set; }
+        private Camera MainCamera { get; set; }
 
-    public void Show(Sprite sprite)
-    {
-        Image.sprite = sprite;
-        gameObject.SetActive(true);
-    }
+        private void Start()
+        {
+            MainCamera = Camera.main;
+            Offset = new Vector3(20, -20, 0);
+        }
 
-    public void Hide()
-    {
-        gameObject.SetActive(false);
+        void Update()
+        {
+            transform.position = Input.mousePosition + Offset;
+        }
+
+        public void Show(Sprite sprite)
+        {
+            Image.sprite = sprite;
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
 

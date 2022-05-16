@@ -1,10 +1,8 @@
-
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
-namespace Game.Scripts.Controller.Player
+namespace Game.Scripts.Controller.Player.Commands
 {
     public class InputHandler : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using System;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Interface.Items;
 
-namespace Game.Scripts.Controller.Player
+namespace Game.Scripts.Controller.Player.Commands
 {
     public class EatCommand : Command
     {

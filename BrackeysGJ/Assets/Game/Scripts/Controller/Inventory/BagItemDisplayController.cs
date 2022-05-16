@@ -1,5 +1,4 @@
-
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Interface.Items;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
 {

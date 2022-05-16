@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Game.Scripts.Controller.Player;
+using Game.Scripts.Controller.Player.Commands;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

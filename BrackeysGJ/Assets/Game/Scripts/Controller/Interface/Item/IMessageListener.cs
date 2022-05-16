@@ -1,4 +1,3 @@
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Interface

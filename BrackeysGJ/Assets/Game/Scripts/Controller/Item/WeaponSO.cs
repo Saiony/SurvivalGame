@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Scripts.Helper;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects
@@ -11,8 +12,6 @@ namespace Game.Scripts.ScriptableObjects
         public EquipmentSlot Slot;
 
         public WeaponActions Command;
-
-        public GameObject Prefab;
 
         [HideInInspector]
         public List<DamageType> DamagesType;

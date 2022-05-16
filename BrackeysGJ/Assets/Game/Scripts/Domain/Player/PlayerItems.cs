@@ -1,5 +1,4 @@
 using System;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems
 {

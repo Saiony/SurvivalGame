@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
 using Game.Helper;
+using Game.Scripts.Domain.Items;
 using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 

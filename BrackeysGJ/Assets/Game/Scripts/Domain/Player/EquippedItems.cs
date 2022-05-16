@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using System.Linq;
-using UnityEngine;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
+using Game.Scripts.Domain.Interface.Items;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems
 {
@@ -44,8 +41,14 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems
             if (equipment != null && slot != equipment.Slot)
                 throw new InvalidOperationException("gandhi disse que nao pode");
 
+            if(Equipments[slot] != null && Equipments[slot] is ITool previousTool)
+                previousTool.ToolUnequipAction.Execute();
+                
             Equipments[slot] = equipment;
             Listeners.ForEach(x => x.OnEquipmentChanged(Equipments));
+            
+            if(equipment is ITool tool)
+                tool.ToolEquipAction.Execute();
         }
 
         public void Subscribe(IEquipmentListener listener)

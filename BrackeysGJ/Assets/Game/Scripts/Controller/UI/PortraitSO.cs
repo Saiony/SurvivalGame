@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Game.ScriptableObjects
+namespace Game.Scripts.Controller.UI
 {
     [CreateAssetMenu(fileName = "Portrait", menuName = "ScriptableObjects/Portrait", order = 1)]
     public class PortraitSO : ScriptableObject

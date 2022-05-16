@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
 using System.Linq;
+using DG.Tweening;
 using Game.Scripts.Controller.Player;
 using UnityEngine;
+using DG.Tweening;
+using Game.Scripts.Controller.Player.Commands;
+using UnityEditor.SceneTemplate;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Player
 {
@@ -11,6 +15,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Player
         void End();
     }
 
+    
     public class PlayerIdleState : IPlayerState
     {
         public void End()

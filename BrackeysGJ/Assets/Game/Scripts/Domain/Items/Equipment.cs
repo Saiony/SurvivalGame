@@ -1,8 +1,8 @@
 using System;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
+namespace Game.Scripts.Domain.Items
 {
     public abstract class Equipment : Item, IEquipment
     {

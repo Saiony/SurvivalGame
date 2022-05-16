@@ -1,8 +1,9 @@
 using System;
 using Game.Scripts.Controller.Player;
+using Game.Scripts.Controller.Player.Commands;
 using UnityEngine;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items
+namespace Game.Scripts.Domain.Interface.Items
 {
     public interface IItem
     {

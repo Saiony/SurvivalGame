@@ -1,28 +1,72 @@
 using System;
 using Game.Scripts.Controller.Player;
-using UnityEngine;
+using Game.Scripts.Controller.Player.Commands;
 
-public static class ToolsHelper
+namespace Game.Scripts.Helper
 {
-    public static Command NewCommand(ToolActions actionEnum)
+    public static class ToolsHelper
     {
-        switch (actionEnum)
+        public static Command NewCommand(ToolActions action)
         {
-            case ToolActions.Plow:
-                return new PlowCommand();
-            case ToolActions.Water:
-                return new WaterCommand();
-            default:
-                throw new InvalidOperationException("Invalid Tool Action");
+            switch (action)
+            {
+                case ToolActions.None:
+                    return new EmptyCommand();
+                case ToolActions.Plow:
+                    return new PlowCommand();
+                case ToolActions.Water:
+                    return new WaterCommand();
+                default:
+                    throw new InvalidOperationException("Invalid Tool Action");
+            }
+        }
+
+        public static Command NewCommand(ToolEquipActions equipAction)
+        {
+            switch (equipAction)
+            {
+                case ToolEquipActions.None:
+                    return new EmptyCommand();
+                case ToolEquipActions.StartConstructionMode:
+                    return new ConstructionModeCommand();
+                default:
+                    throw new InvalidOperationException("Invalid Tool Equip Action");
+            }
+        }
+
+        public static Command NewCommand(ToolUnequipActions unequipAction)
+        {
+            switch (unequipAction)
+            {
+                case ToolUnequipActions.None:
+                    return new EmptyCommand();
+                case ToolUnequipActions.StopConstructionMode:
+                    return new StopConstructionModeCommand();
+                default:
+                    throw new InvalidOperationException("Invalid Tool Unequip Action");
+            }
         }
     }
-}
 
-public enum ToolActions
-{
-    Unknown = 0,
-    Plow = 1,
-    Water = 2,
-    Attack = 3
-}
+    public enum ToolActions
+    {
+        Unknown = 0,
+        None = 1,
+        Plow = 2,
+        Water = 3,
+    }
 
+    public enum ToolEquipActions
+    {
+        Unknown = 0,
+        None = 1,
+        StartConstructionMode = 2,
+    }
+
+    public enum ToolUnequipActions
+    {
+        Unknown = 0,
+        None = 1,
+        StopConstructionMode = 2,
+    }
+}

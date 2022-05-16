@@ -4,8 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using Game.Scripts.Controller.Player;
 using System.Linq;
-using Game.Scripts.ScriptableObjects;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
+using Game.Scripts.Domain.Items;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
 {
@@ -37,15 +36,15 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
             MaterialsController = new List<CraftingMaterialController>();
         }
 
-        public void Show(CraftingReceipt receipt, Vector3 pos)
+        public void Show(CraftingRecipe recipe, Vector3 pos)
         {
-            ItemName.text = receipt.Item.Name;
-            ItemDescription.text = receipt.Item.Description;
-            ItemStats.text = CreateItemStatsText(receipt.Item);
+            ItemName.text = recipe.Item.Name;
+            ItemDescription.text = recipe.Item.Description;
+            ItemStats.text = CreateItemStatsText(recipe.Item);
             var playerInventory = PlayerController.Instance.Items.Inventory;
-            transform.position = new Vector3(transform.position.x, pos.y, transform.position.z);
+            transform.position = pos;
 
-            for (int i = 0; i < receipt.Materials.Count; i++)
+            for (int i = 0; i < recipe.Materials.Count; i++)
             {
                 if(i > MaterialsController.Count - 1)
                 {
@@ -54,12 +53,12 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Crafting
                     MaterialsController.Add(materialController);
                 }
 
-                var playerItems = playerInventory.Items.Where(x => x?.Id == receipt.Materials[i]?.Item.Id);
+                var playerItems = playerInventory.Items.Where(x => x?.Id == recipe.Materials[i]?.Item.Id);
                 var playerQuantity = playerItems == null ? 0 : playerItems.Select(x => x.Quantity).Sum();
-                MaterialsController[i].Show(receipt.Materials[i], playerQuantity);
+                MaterialsController[i].Show(recipe.Materials[i], playerQuantity);
             }
 
-            for (int i = receipt.Materials.Count; i < MaterialsController.Count; i++)
+            for (int i = recipe.Materials.Count; i < MaterialsController.Count; i++)
                 MaterialsController[i].Hide();
                             
             Modal.gameObject.SetActive(true);

@@ -1,8 +1,4 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
 
 public class HandController : MonoBehaviour

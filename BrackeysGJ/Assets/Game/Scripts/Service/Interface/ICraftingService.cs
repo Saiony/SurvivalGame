@@ -8,6 +8,7 @@ namespace Game.Scripts.Service.Interface
 {
     public interface ICraftingService : IBaseService
     {
-        CraftingList CraftingList { get; }
+        CraftingList TabCraftingList { get; }
+        CraftingList ConstructionCraftingList { get; }
     }
 }

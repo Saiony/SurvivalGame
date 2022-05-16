@@ -1,6 +1,6 @@
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using Game.Scripts.Controller.Player;
-using Game.Scripts.ScriptableObjects;
+using Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Items;
+using Game.Scripts.Helper;
 using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items

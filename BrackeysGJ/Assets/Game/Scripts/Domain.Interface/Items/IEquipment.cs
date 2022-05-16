@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items
+namespace Game.Scripts.Domain.Interface.Items
 {
     public interface IEquipment : IItem
     {

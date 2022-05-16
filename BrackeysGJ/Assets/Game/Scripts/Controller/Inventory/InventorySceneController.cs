@@ -1,15 +1,13 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using BrackeysGJ.Assets.Game.Scripts.Controller.Crafting;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems;
 using DG.Tweening;
+using Game.Scripts.Controller.Crafting;
 using Game.Scripts.Controller.Player;
+using Game.Scripts.Controller.Player.Commands;
 using Game.Scripts.Controller.Time;
+using Game.Scripts.Controller.UI;
+using Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
 {

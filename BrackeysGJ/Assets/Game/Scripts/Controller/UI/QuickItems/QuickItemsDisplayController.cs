@@ -1,46 +1,46 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Controller.Player;
 using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
 
-public class QuickItemsDisplayController : MonoBehaviour
+namespace Game.Scripts.Controller.UI.QuickItems
 {
-    [SerializeField]
-    private List<QuickItemDisplayController> _quickItems = null;
-    private List<QuickItemDisplayController> QuickItems => _quickItems;
-
-    public QuickItemDisplayController SelectedItem { get; set; }
-
-    void Start()
+    public class QuickItemsDisplayController : MonoBehaviour
     {
-        Refresh();
-        SelectItem(1);
-    }
+        [SerializeField]
+        private List<QuickItemDisplayController> _quickItems = null;
+        private List<QuickItemDisplayController> QuickItems => _quickItems;
 
-    private void Refresh()
-    {
-        for (int i = 0; i < QuickItems.Count; i++)
+        public QuickItemDisplayController SelectedItem { get; set; }
+
+        void Start()
         {
-            QuickItems[i].SetItem(PlayerController.Instance.Items.Inventory.Items[i]);
+            Refresh();
+            SelectItem(1);
         }
-    }
 
-    public void OnInventoryChanged()
-    {
-        Refresh();
-    }
+        private void Refresh()
+        {
+            for (int i = 0; i < QuickItems.Count; i++)
+            {
+                QuickItems[i].SetItem(PlayerController.Instance.Items.Inventory.Items[i]);
+            }
+        }
 
-    public void SelectItem(int index)
-    {
-        index--;
-        if (index < 0 || index > QuickItems.Count)
-            throw new InvalidOperationException("Invalid index: " + index);
+        public void OnInventoryChanged()
+        {
+            Refresh();
+        }
 
-        SelectedItem?.Deselect();
-        SelectedItem = QuickItems[index];
-        SelectedItem.Select();
+        public void SelectItem(int index)
+        {
+            index--;
+            if (index < 0 || index > QuickItems.Count)
+                throw new InvalidOperationException("Invalid index: " + index);
+
+            SelectedItem?.Deselect();
+            SelectedItem = QuickItems[index];
+            SelectedItem.Select();
+        }
     }
 }

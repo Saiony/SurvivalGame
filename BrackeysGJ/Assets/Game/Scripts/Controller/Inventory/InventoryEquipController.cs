@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 using Game.Scripts.Controller.Player;
+using Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
@@ -56,8 +54,6 @@ namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory
 
         public void Display(Dictionary<EquipmentSlot, IEquipment> PlayerEquips)
         {
-            // Clear();
-
             var playerEquips = PlayerController.Instance.Items.EquippedItems.Equipments;
             playerEquips.ToList().ForEach(playerEquip =>
             {

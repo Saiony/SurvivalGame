@@ -1,4 +1,5 @@
 ﻿using Game.ScriptableObjects;
+using Game.Scripts.Controller.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Controller.Dialog

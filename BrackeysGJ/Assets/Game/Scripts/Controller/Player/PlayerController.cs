@@ -3,12 +3,10 @@ using System.Collections;
 using UnityEngine;
 using Game.Scripts.Controller.Dialog;
 using System;
-using Game.Scripts.Controller.Itens;
 using System.Linq;
 using System.Collections.Generic;
 using Game.Scripts.ScriptableObjects;
 using BrackeysGJ.Assets.Game.Scripts.Controller.Player;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Player;
@@ -19,8 +17,11 @@ using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Player;
 using UnityEngine.SceneManagement;
 using BrackeysGJ.Assets.Game.Scripts.ScriptableObjects.Player;
-using Game.Scripts.Service;
+using Game.Scripts.Controller.Player.Commands;
 using Game.Scripts.Domain.Crafting;
+using Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Items;
+using Game.Scripts.Helper;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -227,11 +228,11 @@ namespace Game.Scripts.Controller.Player
             Animator.SetTrigger("Stop_Crafting_Trigger");
         }
 
-        public bool CanCraft(CraftingReceipt receipt)
+        public bool CanCraft(CraftingRecipe recipe)
         {
-            for (int i = 0; i < receipt.Materials.Count; i++)
+            for (int i = 0; i < recipe.Materials.Count; i++)
             {
-                var material = receipt.Materials[i];
+                var material = recipe.Materials[i];
                 var playerQuantity = Items.Inventory.Items.Where(x => x?.Id == material?.Item.Id).Select(x => x.Quantity).Sum();
                 if(playerQuantity < material.Quantity)
                     return false;
@@ -239,14 +240,14 @@ namespace Game.Scripts.Controller.Player
             return true;
         }
 
-        public void Craft(CraftingReceipt receipt)
+        public void Craft(CraftingRecipe recipe)
         {
-            if(!CanCraft(receipt))
+            if(!CanCraft(recipe))
                 throw new InvalidOperationException("Can't craft");
             
             var inventory = Items.Inventory;
-            receipt.Materials.ForEach(material => inventory.RemoveItem(material.Item, material.Quantity));
-            inventory.AddItem(receipt.Item);
+            recipe.Materials.ForEach(material => inventory.RemoveItem(material.Item, material.Quantity));
+            inventory.AddItem(recipe.Item);
         }
 
 #endregion Crafting
@@ -260,7 +261,7 @@ namespace Game.Scripts.Controller.Player
             interactable.OnPlant(transform.position + transform.forward);
         }
 
-        public void OnObjectPicked(Item item)
+        public void OnObjectPicked(IItem item)
         {
             Items.Inventory.AddItem(item);
         }
@@ -283,29 +284,7 @@ namespace Game.Scripts.Controller.Player
             Items.EquippedItems.Subscribe(this);
             InitialItens.ForEach(item =>
             {
-                switch (item)
-                {
-                    case ToolSO t:
-                        var tool = new Tool(t.Id, t.Name, t.Description, t.Image, t.Command);
-                        Items.Inventory.AddItem(tool);
-                        break;
-                    case ConsumableSO c:
-                        var consumable = new Consumable(c.Id, c.Name, c.Description, c.Image, c.Command, c.HungerSatisfied, c.HealthGiven);
-                        Items.Inventory.AddItem(consumable);
-                        break;
-                    case MiscSO m:
-                        var misc = new Misc(m.Id, m.Name, m.Description, m.Image);
-                        Items.Inventory.AddItem(misc);
-                        break;
-                    case WeaponSO w:
-                        var attack = new Attack(w.DamagesType, w.DamagesValue);
-                        var weapon = new Weapon(w.Id, w.Name, w.Description, w.Image,
-                                                w.Command, attack, w.Slot, w.Prefab);
-                        Items.Inventory.AddItem(weapon);
-                        break;
-                    default:
-                        throw new InvalidOperationException("Invalid item type");
-                }
+                Items.Inventory.AddItem(ItemsHelper.CreateItem((item)));
             });
         }
 

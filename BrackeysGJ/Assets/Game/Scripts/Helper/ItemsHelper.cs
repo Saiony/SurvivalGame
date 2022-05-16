@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
+using Game.Scripts.Controller.Item;
+using Game.Scripts.Domain.Items;
 using Game.Scripts.ScriptableObjects;
 
 namespace Game.Scripts.Helper
@@ -14,7 +16,7 @@ namespace Game.Scripts.Helper
             switch (itemSO)
             {
                 case ToolSO t:
-                    var tool = new Tool(t.Id, t.Name, t.Description, t.Image, t.Command);
+                    var tool = new Tool(t.Id, t.Name, t.Description, t.Image, t.Command, t.EquipCommand, t.UnequipCommand, t.Prefab);
                     return tool;
                 case ConsumableSO c:
                     var consumable = new Consumable(c.Id, c.Name, c.Description, c.Image, c.Command, c.HungerSatisfied, c.HealthGiven);
@@ -27,6 +29,9 @@ namespace Game.Scripts.Helper
                     var weapon = new Weapon(w.Id, w.Name, w.Description, w.Image,
                                             w.Command, attack, w.Slot, w.Prefab);
                     return weapon;
+                case ConstructionStructureSO c:
+                    var constructionStructure = new ConstructionStructure(c.Id, c.name, c.Description, c.Image, prefab: c.Prefab);
+                    return constructionStructure;
                 default:
                     throw new InvalidOperationException("Invalid item type");
             }

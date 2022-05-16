@@ -1,4 +1,4 @@
-namespace Game.Scripts.Controller.Player
+namespace Game.Scripts.Controller.Player.Commands
 {
     public class StopRunningCommand : Command
     {

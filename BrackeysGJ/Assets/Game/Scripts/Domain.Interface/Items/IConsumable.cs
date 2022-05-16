@@ -1,6 +1,6 @@
 using System;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items
+namespace Game.Scripts.Domain.Interface.Items
 {
     public interface IConsumable : IItem
     {

@@ -1,10 +1,10 @@
 ﻿using System;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using Game.Scripts.Controller.Player;
-using Game.Scripts.ScriptableObjects;
+using Game.Scripts.Controller.Player.Commands;
+using Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
+namespace Game.Scripts.Domain.Items
 {
     public abstract class Item : IItem
     {
@@ -14,6 +14,7 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
         public Sprite Image { get; private set; }
         public Command Command { get; private set; }
         public int Quantity { get; private set; }
+        public GameObject Prefab { get; private set; }
 
         public Item()
         {
@@ -25,13 +26,14 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
             Quantity = 0;
         }
 
-        public Item(string id, string name, string description, Sprite image, int quantity) : this()
+        public Item(string id, string name, string description, Sprite image, int quantity, GameObject prefab = null) : this()
         {
             SetId(id);
             SetName(name);
             SetDescription(description);
             SetImage(image);
             SetQuantity(quantity);
+            SetPrefab(prefab);
         }
         
         private void SetId(string id)
@@ -70,6 +72,11 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
                 throw new InvalidOperationException("Quantity must be a positive value");
 
             Quantity = quantity;
+        }
+
+        private void SetPrefab(GameObject prefab)
+        {
+            Prefab = prefab;
         }
 
         public void IncrementQuantity(int quantity)

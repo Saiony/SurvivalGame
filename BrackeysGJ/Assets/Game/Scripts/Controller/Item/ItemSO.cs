@@ -7,7 +7,9 @@ namespace Game.Scripts.ScriptableObjects
     {
         public string Id;
         public string Name;
+        [TextArea]
         public string Description;
         public Sprite Image;
+        public GameObject Prefab;
     }
 }

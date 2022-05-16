@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Game.Scripts.Controller.UI;
-using UnityEngine;
-namespace Game.Scripts.Controller.Player
+namespace Game.Scripts.Controller.Player.Commands
 {
     public class SelectQuickItemCommand_1 : Command
     {

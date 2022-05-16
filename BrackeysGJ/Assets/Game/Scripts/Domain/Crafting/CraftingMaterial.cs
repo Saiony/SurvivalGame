@@ -1,13 +1,12 @@
 using System;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
-using Game.Scripts.Helper;
-using Game.Scripts.ScriptableObjects;
+using Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Items;
 
 namespace Game.Scripts.Domain.Crafting
 {
     public class CraftingMaterial
     {
-        public Item Item { get; private set; }
+        public IItem Item { get; private set; }
         public int Quantity { get; private set; }
 
         public CraftingMaterial(Item item, int quantity)

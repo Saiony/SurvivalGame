@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using TMPro;
 using UnityEngine.EventSystems;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using BrackeysGJ.Assets.Game.Scripts.Controller.UI;
 using Game.Scripts.Controller.Player;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
+using Game.Scripts.Controller.UI;
+using Game.Scripts.Domain.Interface.Items;
 
 public abstract class BaseItemDisplayController : MonoBehaviour, IPointerEnterHandler
 {

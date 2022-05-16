@@ -1,9 +1,5 @@
-using System;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
-using BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems;
 using DG.Tweening;
-using Microsoft.Unity.VisualStudio.Editor;
+using Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
 
 namespace BrackeysGJ.Assets.Game.Scripts.Controller.Inventory

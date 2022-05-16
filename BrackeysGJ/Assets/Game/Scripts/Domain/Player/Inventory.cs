@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
+using Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Items;
 
 public class Inventory : IInventory
 {

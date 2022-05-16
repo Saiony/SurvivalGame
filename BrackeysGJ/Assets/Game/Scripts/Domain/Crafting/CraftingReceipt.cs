@@ -1,19 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
+using Game.Scripts.Domain.Items;
 using Game.Scripts.Helper;
-using Game.Scripts.ScriptableObjects;
-using Game.Scripts.ScriptableObjects.Crafting;
 
 namespace Game.Scripts.Domain.Crafting
 {
-    public class CraftingReceipt
+    public class CraftingRecipe
     {
         public Item Item { get; private set; }
         public List<CraftingMaterial> Materials { get; private set; }
 
-        public CraftingReceipt(Item item, List<Item> materials, List<int> materialsQuantity)
+        public CraftingRecipe(Item item, List<Item> materials, List<int> materialsQuantity)
         {
             SetItem(item);
             SetMaterials(materials.ToList(), materialsQuantity.ToList());

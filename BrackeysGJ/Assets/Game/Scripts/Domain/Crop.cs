@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Helper;
 using UnityEngine;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
+using Game.Scripts.Domain.Items;
 
 public class Crop
 {

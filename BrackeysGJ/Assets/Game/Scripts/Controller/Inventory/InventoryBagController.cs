@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using BrackeysGJ.Assets.Game.Scripts.Controller.Inventory;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using DG.Tweening;
-using Game.Scripts.Controller.Player;
-using Game.Scripts.Controller.Time;
+using Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
 
 public class InventoryBagController : MonoBehaviour

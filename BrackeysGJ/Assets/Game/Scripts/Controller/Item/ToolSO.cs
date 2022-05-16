@@ -1,4 +1,5 @@
 using System;
+using Game.Scripts.Helper;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects
@@ -7,5 +8,7 @@ namespace Game.Scripts.ScriptableObjects
     public class ToolSO : ItemSO
     {
         public ToolActions Command;
+        public ToolEquipActions EquipCommand = ToolEquipActions.None;
+        public ToolUnequipActions UnequipCommand = ToolUnequipActions.None;
     }
 }

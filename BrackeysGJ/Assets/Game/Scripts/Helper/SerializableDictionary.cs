@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 
-namespace Game.Helper
+namespace Game.Scripts.Helper
 {
     [Serializable, DebuggerDisplay("Count = {Count}")]
     public class SerializableDictionary<TKey, TValue> : IDictionary<TKey, TValue>

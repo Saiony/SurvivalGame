@@ -1,12 +1,11 @@
 using BrackeysGJ.Assets.Game.Scripts.Controller.Interface;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Message;
 using BrackeysGJ.Assets.Game.Scripts.Manager;
 using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
 using Game.Scripts.Controller.Player;
 using UnityEngine;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
+namespace Game.Scripts.Controller.UI
 {
     public class PlayerStatsUIController : MonoBehaviour, IHpListener, IStaminaListener, IFoodLevelListener
     {

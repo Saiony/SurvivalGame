@@ -1,25 +1,28 @@
 using System;
 using System.Collections.Generic;
 using Game.Scripts.Controller.Player;
+using Game.Scripts.Controller.Player.Commands;
 using UnityEngine;
 
-public static class WeaponHelper
+namespace Game.Scripts.Helper
 {
-    public static Command NewCommand(WeaponActions actionEnum, Attack attack)
+    public static class WeaponHelper
     {
-        switch (actionEnum)
+        public static Command NewCommand(WeaponActions actionEnum, Attack attack)
         {
-            case WeaponActions.Attack:
-                return new AttackCommand(attack);
-            default:
-                throw new InvalidOperationException("Invalid Tool Action");
+            switch (actionEnum)
+            {
+                case WeaponActions.Attack:
+                    return new AttackCommand(attack);
+                default:
+                    throw new InvalidOperationException("Invalid Tool Action");
+            }
         }
     }
-}
 
-public enum WeaponActions
-{
-    Unknown = 0,
-    Attack = 1
+    public enum WeaponActions
+    {
+        Unknown = 0,
+        Attack = 1
+    }
 }
-

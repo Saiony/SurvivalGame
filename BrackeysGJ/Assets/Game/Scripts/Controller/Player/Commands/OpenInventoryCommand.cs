@@ -1,6 +1,6 @@
 using BrackeysGJ.Assets.Game.Scripts.Controller.Inventory;
-using UnityEngine;
-namespace Game.Scripts.Controller.Player
+
+namespace Game.Scripts.Controller.Player.Commands
 {
     public class OpenInventoryCommand : Command
     {

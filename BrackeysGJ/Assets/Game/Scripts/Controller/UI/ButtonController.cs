@@ -1,8 +1,7 @@
-using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Controller.UI
+namespace Game.Scripts.Controller.UI
 {
     public class ButtonController : Button
     {

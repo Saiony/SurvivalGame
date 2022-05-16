@@ -1,8 +1,9 @@
 using System;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Helper;
 using UnityEngine;
 
-namespace BrackeysGJ.Assets.Game.Scripts.Domain.Items
+namespace Game.Scripts.Domain.Items
 {
     public class Weapon : Equipment, IWeapon
     {

@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
+using Game.Scripts.Domain.Interface.Items;
 
 public class InventoryInfoController : MonoBehaviour
 {

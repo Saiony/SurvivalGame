@@ -1,68 +1,68 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Items;
-using DG.Tweening;
-using TMPro;
+﻿using DG.Tweening;
+using Game.Scripts.Domain.Interface.Items;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuickItemDisplayController : MonoBehaviour
+namespace Game.Scripts.Controller.UI.QuickItems
 {
-    [SerializeField]
-    private Image _displayImage = null;
-    private Image DisplayImage => _displayImage;
-
-    [SerializeField]
-    private Transform _itemSelector = null;
-    private Transform ItemSelector => _itemSelector;
-
-    [SerializeField]
-    private StackDisplayController _stack = null;
-    private StackDisplayController stack => _stack;
-
-    public IItem Item { get; private set; }
-
-    private void Awake()
+    public class QuickItemDisplayController : MonoBehaviour
     {
-        ItemSelector.gameObject.SetActive(false);
-        ItemSelector.localScale = Vector3.zero;
-    }
+        [SerializeField]
+        private Image _displayImage = null;
+        private Image DisplayImage => _displayImage;
 
-    public void SetItem(IItem item)
-    {
-        Item = item;
-        if (Item == null)
+        [SerializeField]
+        private Transform _itemSelector = null;
+        private Transform ItemSelector => _itemSelector;
+
+        [SerializeField]
+        private StackDisplayController _stack = null;
+        private StackDisplayController stack => _stack;
+
+        public IItem Item { get; private set; }
+
+        private void Awake()
         {
-            Clear();
-            return;
+            ItemSelector.gameObject.SetActive(false);
+            ItemSelector.localScale = Vector3.zero;
         }
 
-        DisplayImage.sprite = Item.Image;
-        DisplayImage.DOFade(1, 0).Play();
-        stack.DisplayQuantity(item);
-    }
+        public void SetItem(IItem item)
+        {
+            Item = item;
+            if (Item == null)
+            {
+                Clear();
+                return;
+            }
 
-    private void Clear()
-    {
-        Sequence seq = DOTween.Sequence();
-        seq.Append(DisplayImage.DOFade(0, 0));
-        seq.Append(stack.Clear());
-        seq.Play();
-    }
+            DisplayImage.sprite = Item.Image;
+            DisplayImage.DOFade(1, 0).Play();
+            stack.DisplayQuantity(item);
+        }
 
-    public void Select()
-    {
-        Sequence seq = DOTween.Sequence();
-        seq.Insert(0, ItemSelector.DOScale(Vector3.one, 0.15f));
-        seq.InsertCallback(0.07f, () => ItemSelector.gameObject.SetActive(true));
-        seq.Play();
-    }
+        private void Clear()
+        {
+            Sequence seq = DOTween.Sequence();
+            seq.Append(DisplayImage.DOFade(0, 0));
+            seq.Append(stack.Clear());
+            seq.Play();
+        }
 
-    public void Deselect()
-    {
-        Sequence seq = DOTween.Sequence();
-        seq.Insert(0, ItemSelector.DOScale(Vector3.one * 0.7f, 0.15f));
-        seq.InsertCallback(0.07f, () => ItemSelector.gameObject.SetActive(false));
-        seq.Play();
+        public void Select()
+        {
+            Sequence seq = DOTween.Sequence();
+            seq.Insert(0, ItemSelector.DOScale(Vector3.one, 0.15f));
+            seq.InsertCallback(0.07f, () => ItemSelector.gameObject.SetActive(true));
+            seq.Play();
+        }
+
+        public void Deselect()
+        {
+            Sequence seq = DOTween.Sequence();
+            seq.Insert(0, ItemSelector.DOScale(Vector3.one * 0.7f, 0.15f));
+            seq.InsertCallback(0.07f, () => ItemSelector.gameObject.SetActive(false));
+            seq.Play();
+        }
     }
 }
