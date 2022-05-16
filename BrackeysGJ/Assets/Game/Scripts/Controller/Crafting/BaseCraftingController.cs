@@ -39,6 +39,7 @@ namespace Game.Scripts.Controller.Crafting
         public void Hide()
         {
             Content.gameObject.SetActive(false);
+            OnHide();
         }
 
         private void LoadList()
@@ -75,6 +76,7 @@ namespace Game.Scripts.Controller.Crafting
         protected abstract CraftingList GetCraftingList();
         protected virtual void OnInit(){}
         protected virtual void OnShow(){}
+        protected virtual void OnHide(){}
         protected virtual void OnCraftingCellLeftClick(CraftingCellController cell){}
         protected virtual void OnCraftingCellRightClick(CraftingRecipe recipe){}
     }

@@ -1,3 +1,4 @@
+using System;
 using BrackeysGJ.Assets.Game.Scripts.Controller.Crafting;
 using Game.Scripts.Controller.Crafting;
 using Game.Scripts.Domain.Crafting;
@@ -19,6 +20,13 @@ namespace Game.Scripts.Controller.Construction
         protected override void OnShow()
         {
             SelectRecipe(CraftingCells[0]);
+        }
+
+        protected override void OnHide()
+        {
+            Destroy(StructurePlaceholder);
+            StructurePlaceholder = null;
+            SelectedCell = null;
         }
         
         protected override void OnCraftingCellLeftClick(CraftingCellController cell)
@@ -45,12 +53,17 @@ namespace Game.Scripts.Controller.Construction
                 
             if(Physics.Raycast(CamChild.position, CamChild.forward, out RaycastHit, 6f))
             {
-                var finalPos = RaycastHit.point + (Vector3.up * StructurePlaceholder.transform.localScale.y);
+                var finalPos =  RaycastHit.point + (Vector3.up * StructurePlaceholder.transform.localScale.y);
+                finalPos = new Vector3(Mathf.Round(finalPos.x), finalPos.y, Mathf.Round(finalPos.z));
                 StructurePlaceholder.transform.position = finalPos;
             }
 
             if(Input.GetKeyDown(KeyCode.F))
-                Instantiate(SelectedCell.Recipe.Item.Prefab, StructurePlaceholder.transform.position, Quaternion.identity);
+                Instantiate(SelectedCell.Recipe.Item.Prefab, StructurePlaceholder.transform.position, StructurePlaceholder.transform.rotation);
+
+            var scrollInput = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollInput != 0)
+                StructurePlaceholder.transform.Rotate(Vector3.up * (Mathf.Sign(scrollInput) * 45), Space.Self);
         }
     }
 }
