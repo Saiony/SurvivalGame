@@ -73,7 +73,8 @@ namespace Game.Scripts.Controller.Player
         private PlayerConfigSO PlayerConfig;
 
         public IPlayerState State { get; private set; }
-        public static PlayerController Instance = null;
+        public static PlayerController 
+        Instance = null;
         public IPlayerItems Items { get; private set; }
         public IPlayerStats Stats { get; private set; }
         public Collider DetectionCollider => throw new NotImplementedException();
@@ -84,10 +85,7 @@ namespace Game.Scripts.Controller.Player
 
         void Awake()
         {
-            if (!Instance)
-                Instance = this;
-            else
-                Destroy(gameObject);
+            Instance ??= this;
 
             Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), new FoodLevel(50, 50, PlayerConfig.FoodLevel), new Speed(4));
             MessageManager = ManagerProvider.Instance.Get<IMessageManager>();

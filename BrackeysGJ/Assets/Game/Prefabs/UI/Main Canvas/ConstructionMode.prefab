@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b5b82958d0b42eca14bb396eea11b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constructionController: {fileID: 0}
+  _constructionController: {fileID: 1308695332704007965}
 --- !u!1 &3759508650742567506
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2664283706465765733
 RectTransform:
   m_ObjectHideFlags: 0
@@ -236,6 +236,8 @@ MonoBehaviour:
     type: 3}
   CraftingInfo: {fileID: 8159368154149960190}
   CamChild: {fileID: 0}
+  StructPlaceholderPrefab: {fileID: 2791733161669667867, guid: 664cdf7d240860745bb7d6c03399c1a7,
+    type: 3}
 --- !u!1001 &8064859095920321463
 PrefabInstance:
   m_ObjectHideFlags: 0
