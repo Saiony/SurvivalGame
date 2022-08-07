@@ -60,7 +60,7 @@ namespace Game.Scripts.Controller.Construction
             if (StructurePlaceholder == null)
                 return;
 
-            if (Physics.Raycast(CamChild.position, CamChild.forward, out RaycastHit, 6f))
+            if (Physics.Raycast(CamChild.position, CamChild.forward, out RaycastHit, 10f))
             {
                 var finalPos = RaycastHit.point + (Vector3.up * StructurePlaceholder.MeshFilter.sharedMesh.bounds.size.y * StructurePlaceholder.transform.localScale.y/2);
                 finalPos = new Vector3(Mathf.Round(finalPos.x), finalPos.y, Mathf.Round(finalPos.z));

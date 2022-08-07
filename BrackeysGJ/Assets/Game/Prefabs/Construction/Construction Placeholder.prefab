@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6666148758096370863}
   - component: {fileID: 3060846651902114035}
   - component: {fileID: 6741701592617595227}
-  - component: {fileID: 6437049529821401992}
   m_Layer: 2
   m_Name: Mesh
   m_TagString: Untagged
@@ -87,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6437049529821401992
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770224061003427145}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8461837061094408947
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,3 +136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _meshFilter: {fileID: 3060846651902114035}
+  _defaultColor: {r: 0.19824673, g: 0.9339623, b: 0.8733514, a: 1}
+  _blockedColor: {r: 0.7264151, g: 0.09221849, b: 0.07195621, a: 1}
+  _renderer: {fileID: 6741701592617595227}
