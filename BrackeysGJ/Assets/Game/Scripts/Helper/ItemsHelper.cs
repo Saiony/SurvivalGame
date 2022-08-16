@@ -30,7 +30,7 @@ namespace Game.Scripts.Helper
                                             w.Command, attack, w.Slot, w.Prefab);
                     return weapon;
                 case ConstructionStructureSO c:
-                    var constructionStructure = new ConstructionStructure(c.Id, c.name, c.Description, c.Image, prefab: c.Prefab);
+                    var constructionStructure = new ConstructionStructure(c.Id, c.name, c.Description, c.Image, c.Prefab, c.Size);
                     return constructionStructure;
                 default:
                     throw new InvalidOperationException("Invalid item type");

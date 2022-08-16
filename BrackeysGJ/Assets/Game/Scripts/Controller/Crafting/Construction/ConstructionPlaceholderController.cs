@@ -1,3 +1,4 @@
+using Game.Scripts.Domain.Items;
 using UnityEngine;
 
 namespace Game.Scripts.Controller.Crafting.Construction
@@ -17,20 +18,57 @@ namespace Game.Scripts.Controller.Crafting.Construction
         [SerializeField]
         Renderer _renderer;
 
-        public void SetMesh(Mesh mesh)
+        BoxCollider _collider;
+        public ConstructionStructure Structure { get; private set; }
+
+        public void Init(MeshFilter meshFilter, ConstructionStructure structure)
         {
-            _meshFilter.mesh = mesh;
+            Structure = structure;
+            SetCollider(Structure.Size);
+
+            _meshFilter.mesh = meshFilter.sharedMesh;
             _renderer.material.color = _defaultColor;
+            transform.rotation = Quaternion.identity;
+
+            var meshTransform = meshFilter.gameObject.transform;
+            MeshFilter.transform.rotation = meshTransform.rotation;
+            MeshFilter.transform.localScale = meshTransform.localScale;
+            MeshFilter.transform.localPosition = meshTransform.localPosition;
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void Rotate(float scrollInput)
         {
-            _renderer.material.color = _blockedColor;
+            transform.Rotate(Vector3.up * (Mathf.Sign(scrollInput) * 45), Space.Self);
         }
 
-        private void OnTriggerExit(Collider other)
+        void Update()
         {
-            _renderer.material.color = _defaultColor;
+            var overlapSize = Structure.Size / 4;
+            var collisions = Physics.OverlapBox(MeshFilter.transform.position, overlapSize);
+
+            if (collisions.Length > 1)
+                _renderer.material.color = _blockedColor;
+            else
+                _renderer.material.color = _defaultColor;
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(MeshFilter.transform.position, Structure.Size / 4);
+        }
+
+        void SetCollider(Vector3 size)
+        {
+            if (_collider != null)
+            {
+                Destroy(_collider);
+                _collider = null;
+            }
+
+            _collider = gameObject.AddComponent<BoxCollider>();
+            _collider.size = size;
+            _collider.isTrigger = true;
         }
     }
 }

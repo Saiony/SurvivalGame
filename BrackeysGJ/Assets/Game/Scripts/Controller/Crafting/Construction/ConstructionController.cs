@@ -3,6 +3,7 @@ using BrackeysGJ.Assets.Game.Scripts.Controller.Crafting;
 using Game.Scripts.Controller.Crafting;
 using Game.Scripts.Controller.Crafting.Construction;
 using Game.Scripts.Domain.Crafting;
+using Game.Scripts.Domain.Items;
 using UnityEngine;
 
 namespace Game.Scripts.Controller.Construction
@@ -47,23 +48,46 @@ namespace Game.Scripts.Controller.Construction
             SelectedCell?.Unselect();
             SelectedCell = cell;
             cell.Select();
-            
-            var meshFilter = SelectedCell.Recipe.Item.Prefab.GetComponent<BuildingController>().MeshFilter;
-            StructurePlaceholder.SetMesh(meshFilter.sharedMesh);
-            var meshTransform = meshFilter.gameObject.transform;
-            StructurePlaceholder.transform.localScale = meshTransform.localScale;
-            StructurePlaceholder.transform.rotation = meshTransform.rotation;
+
+            var structure = SelectedCell.Recipe.Item;
+            var meshFilter = structure.Prefab.GetComponent<BuildingController>().MeshFilter;
+            StructurePlaceholder.Init(meshFilter, (ConstructionStructure)structure);
         }
+
+        public GameObject raycastHit;
 
         private void Update()
         {
             if (StructurePlaceholder == null)
                 return;
 
-            if (Physics.Raycast(CamChild.position, CamChild.forward, out RaycastHit, 10f))
+            Debug.DrawRay(CamChild.position + (CamChild.forward * 3), CamChild.forward, Color.green);
+            if (Physics.Raycast(CamChild.position + (CamChild.forward * 3), CamChild.forward, out RaycastHit, 10f))
             {
-                var finalPos = RaycastHit.point + (Vector3.up * StructurePlaceholder.MeshFilter.sharedMesh.bounds.size.y * StructurePlaceholder.transform.localScale.y/2);
-                finalPos = new Vector3(Mathf.Round(finalPos.x), finalPos.y, Mathf.Round(finalPos.z));
+                raycastHit = RaycastHit.collider.gameObject;
+                var finalPos = RaycastHit.point;
+                finalPos = new Vector3(
+                                        Mathf.Round(finalPos.x),
+                                        Mathf.Round(finalPos.y),
+                                        Mathf.Round(finalPos.z)
+                                      );
+
+                //offsets position closer to player
+                var diffX = CamChild.position.x - finalPos.x;
+                var diffZ = CamChild.position.z - finalPos.z;
+                if (Mathf.Abs(diffX) > Mathf.Abs(diffZ)) //modifica valor em x
+                {
+                    var dirX = diffX < 0 ? -1 : 1;
+                    var offset = (StructurePlaceholder.Structure.Size.z * ((float)dirX / 2));
+                    finalPos.x += (int)offset;
+                }
+                else //modifica valor em z
+                {
+                    var dirZ = diffZ < 0 ? -1 : 1;
+                    var offset = (StructurePlaceholder.Structure.Size.z * ((float)dirZ / 2));
+                    finalPos.z += (int)offset;
+                }
+
                 StructurePlaceholder.transform.position = finalPos;
             }
 
@@ -72,7 +96,7 @@ namespace Game.Scripts.Controller.Construction
 
             var scrollInput = Input.GetAxis("Mouse ScrollWheel");
             if (scrollInput != 0)
-                StructurePlaceholder.transform.Rotate(Vector3.up * (Mathf.Sign(scrollInput) * 45), Space.Self);
+                StructurePlaceholder.Rotate(scrollInput);
         }
     }
 }
