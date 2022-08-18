@@ -1,3 +1,4 @@
+using Game.Scripts.Controller.Crafting.Construction;
 using UnityEngine;
 
 namespace Game.Scripts.Controller.Crafting
@@ -5,7 +6,7 @@ namespace Game.Scripts.Controller.Crafting
     public class BuildingController : MonoBehaviour
     {
         [SerializeField]
-        MeshFilter _meshFilter;
-        public MeshFilter MeshFilter => _meshFilter;
+        MeshesHolderController _meshesHolder;
+        public MeshesHolderController MeshesHolder => _meshesHolder;
     }
 }

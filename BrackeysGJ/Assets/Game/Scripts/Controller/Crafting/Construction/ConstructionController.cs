@@ -19,19 +19,19 @@ namespace Game.Scripts.Controller.Construction
 
         private RaycastHit RaycastHit;
         private CraftingCellController SelectedCell;
-        private ConstructionPlaceholderController StructurePlaceholder;
+        private ConstructionPlaceholderController ConstructionPlaceholder;
 
         protected override CraftingList GetCraftingList() => CraftingService.ConstructionCraftingList;
 
         protected override void OnShow()
         {
-            StructurePlaceholder = Instantiate(StructPlaceholderPrefab);
+            ConstructionPlaceholder = Instantiate(StructPlaceholderPrefab);
             SelectRecipe(CraftingCells[0]);
         }
 
         protected override void OnHide()
         {
-            Destroy(StructurePlaceholder.gameObject);
+            Destroy(ConstructionPlaceholder.gameObject);
             SelectedCell = null;
         }
 
@@ -50,15 +50,15 @@ namespace Game.Scripts.Controller.Construction
             cell.Select();
 
             var structure = SelectedCell.Recipe.Item;
-            var meshFilter = structure.Prefab.GetComponent<BuildingController>().MeshFilter;
-            StructurePlaceholder.Init(meshFilter, (ConstructionStructure)structure);
+            var meshesHolder = structure.Prefab.GetComponent<BuildingController>().MeshesHolder;
+            ConstructionPlaceholder.Init(meshesHolder, (ConstructionStructure)structure);
         }
 
         public GameObject raycastHit;
 
         private void Update()
         {
-            if (StructurePlaceholder == null)
+            if (ConstructionPlaceholder == null)
                 return;
 
             Debug.DrawRay(CamChild.position + (CamChild.forward * 3), CamChild.forward, Color.green);
@@ -78,25 +78,25 @@ namespace Game.Scripts.Controller.Construction
                 if (Mathf.Abs(diffX) > Mathf.Abs(diffZ)) //modifica valor em x
                 {
                     var dirX = diffX < 0 ? -1 : 1;
-                    var offset = (StructurePlaceholder.Structure.Size.z * ((float)dirX / 2));
+                    var offset = (ConstructionPlaceholder.Structure.Size.z * ((float)dirX / 2));
                     finalPos.x += (int)offset;
                 }
                 else //modifica valor em z
                 {
                     var dirZ = diffZ < 0 ? -1 : 1;
-                    var offset = (StructurePlaceholder.Structure.Size.z * ((float)dirZ / 2));
+                    var offset = (ConstructionPlaceholder.Structure.Size.z * ((float)dirZ / 2));
                     finalPos.z += (int)offset;
                 }
 
-                StructurePlaceholder.transform.position = finalPos;
+                ConstructionPlaceholder.transform.position = finalPos;
             }
 
             if (Input.GetKeyDown(KeyCode.F))
-                Instantiate(SelectedCell.Recipe.Item.Prefab, StructurePlaceholder.transform.position, StructurePlaceholder.transform.rotation);
+                Instantiate(SelectedCell.Recipe.Item.Prefab, ConstructionPlaceholder.transform.position, ConstructionPlaceholder.MeshesHolder.transform.rotation);
 
             var scrollInput = Input.GetAxis("Mouse ScrollWheel");
             if (scrollInput != 0)
-                StructurePlaceholder.Rotate(scrollInput);
+                ConstructionPlaceholder.Rotate(scrollInput);
         }
     }
 }
