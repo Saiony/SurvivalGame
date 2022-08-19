@@ -15,3 +15,5 @@ MonoBehaviour:
   Receipts:
   - {fileID: 11400000, guid: 6352020b562cc45d8a33e7e3bd2e0c93, type: 2}
   - {fileID: 11400000, guid: 5ed3ccf6e516944209d1144f2900e338, type: 2}
+  - {fileID: 11400000, guid: 9a447a6e63aa8d1448ec8c9a5f3156a5, type: 2}
+  - {fileID: 11400000, guid: 128efdd95f77f6941ad5176f61096651, type: 2}

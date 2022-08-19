@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerFoodLevel
   m_EditorClassIdentifier: 
   InitialFoodLevel: 100
-  FoodLevelTick: 3
-  FoodLevelPerTick: 10
+  FoodLevelTick: 30
+  FoodLevelPerTick: 1
   SatisfiedMilestone: 1
   HpRestoredPerTick: 1
   NormalMilestone: 0.75

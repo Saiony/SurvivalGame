@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using Game.Scripts.ScriptableObjects;
 using BrackeysGJ.Assets.Game.Scripts.Controller.Player;
 using BrackeysGJ.Assets.Game.Scripts.Domain.PlayerItems;
-using BrackeysGJ.Assets.Game.Scripts.Domain.Items;
 using BrackeysGJ.Assets.Game.Scripts.Domain.Interface.Player;
 using BrackeysGJ.Assets.Game.Scripts.Manager;
 using BrackeysGJ.Assets.Game.Scripts.Manager.Interface;
@@ -20,7 +19,6 @@ using BrackeysGJ.Assets.Game.Scripts.ScriptableObjects.Player;
 using Game.Scripts.Controller.Player.Commands;
 using Game.Scripts.Domain.Crafting;
 using Game.Scripts.Domain.Interface.Items;
-using Game.Scripts.Domain.Items;
 using Game.Scripts.Helper;
 
 namespace Game.Scripts.Controller.Player
@@ -390,13 +388,13 @@ namespace Game.Scripts.Controller.Player
 
         private IEnumerator DecreaseFoodLevelPerSec()
         {
-            var waitTime = new WaitForSeconds(3);
+            var waitTime = new WaitForSeconds(Stats.FoodLevel.Config.FoodLevelTick);
             do
             {
                 yield return waitTime;
 
                 var previousState = Stats.FoodLevel.Status;
-                Stats.FoodLevel.Decrease(5);
+                Stats.FoodLevel.Decrease();
                 ApplyFoodLevelStatus(previousState);
 
                 MessageManager.Broadcast<IFoodLevelMessage>(new FoodLevelMessage(Stats.FoodLevel));

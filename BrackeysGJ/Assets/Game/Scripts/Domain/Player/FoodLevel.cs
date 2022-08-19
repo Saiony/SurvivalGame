@@ -47,9 +47,9 @@ namespace BrackeysGJ.Assets.Game.Scripts.Domain.Player
             Config = config;
         }
 
-        public void Decrease(int value)
+        public void Decrease()
         {
-            Current -= value;
+            Current -= Config.FoodLevelPerTick;
             
             if(Current < 0)
                 Current = 0;
