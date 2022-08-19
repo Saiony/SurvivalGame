@@ -121,11 +121,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5628bfac24e487d44a6fa70661491f78, type: 2}
   - {fileID: 11400000, guid: 64dffb433f5d9c3439e0ad1cc1fb0f7a, type: 2}
   _handController: {fileID: 3765306577255847850}
-  _rgdBody: {fileID: 584455122}
-  CharacterController: {fileID: 603930354471396351}
-  CameraTransform: {fileID: 0}
-  RespawnPoint: {fileID: 0}
-  PlayerConfig: {fileID: 11400000, guid: 2a3cb79122f9da74eb333f0455b3fc31, type: 2}
+  _characterController: {fileID: 603930354471396351}
+  _cameraTransform: {fileID: 0}
+  _camChild: {fileID: 0}
+  _respawnPoint: {fileID: 0}
+  _playerConfig: {fileID: 11400000, guid: 2a3cb79122f9da74eb333f0455b3fc31, type: 2}
+  _constructionControllerPrefab: {fileID: 2079511439765927696, guid: eb6d56e4dbd5ddb4b93e1821732dec84,
+    type: 3}
 --- !u!143 &603930354471396351
 CharacterController:
   m_ObjectHideFlags: 0

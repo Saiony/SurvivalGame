@@ -1,12 +1,11 @@
-using Game.Scripts.Controller.Construction;
 using UnityEngine;
 
-namespace Game.Scripts.Controller.Crafting.Construction
+namespace Game.Scripts.Controller.UI
 {
     public class ConstructionWindowController : MonoBehaviour
     {
         [SerializeField]
-        private ConstructionController _constructionController;
+        private ConstructionUIController _constructionController;
 
         public void Init()
         {

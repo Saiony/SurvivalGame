@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7859808089547243730}
   - component: {fileID: 5143271232347870020}
-  - component: {fileID: 426711967945582482}
+  - component: {fileID: 8419022413741187231}
   m_Layer: 5
-  m_Name: ConstructionMode
+  m_Name: ConstructionWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3618770419821908571}
   m_CullTransparentMesh: 1
---- !u!114 &426711967945582482
+--- !u!114 &8419022413741187231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,10 +55,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3618770419821908571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87b5b82958d0b42eca14bb396eea11b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 838f9a96d41eed24ab4da5ba140dd1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constructionController: {fileID: 1308695332704007965}
+  _constructionController: {fileID: 165277155517515840}
 --- !u!1 &3759508650742567506
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5848430899988137198}
   - component: {fileID: 4519744060456936514}
-  - component: {fileID: 1308695332704007965}
+  - component: {fileID: 165277155517515840}
   m_Layer: 5
   m_Name: ConstructionOptions
   m_TagString: Untagged
@@ -219,7 +219,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4170436309870708626}
   m_CullTransparentMesh: 1
---- !u!114 &1308695332704007965
+--- !u!114 &165277155517515840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,16 +228,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4170436309870708626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e8d5e85fdf8648128ca8802113c4a71, type: 3}
+  m_Script: {fileID: 11500000, guid: dbf96c6013dd90d408718bdd717984fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Content: {fileID: 8377954322295675571}
   CellPrefab: {fileID: 6630047703270363641, guid: 86dda597a23bd4d93ba7d2f303f71618,
     type: 3}
   CraftingInfo: {fileID: 8159368154149960190}
-  CamChild: {fileID: 0}
-  StructPlaceholderPrefab: {fileID: 2791733161669667867, guid: 664cdf7d240860745bb7d6c03399c1a7,
-    type: 3}
 --- !u!1001 &8064859095920321463
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -606,7 +606,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60013903}
-  m_LocalRotation: {x: 0.024476202, y: 0.087829895, z: -0.002158739, w: 0.99583244}
+  m_LocalRotation: {x: 0.02447621, y: 0.087829895, z: -0.0021587394, w: 0.99583244}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10213,6 +10213,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8065780671936854817, guid: 6bcd91261d7694947bc41a51da7f616d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8524105823181522481, guid: 6bcd91261d7694947bc41a51da7f616d,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -12771,11 +12776,19 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 584455121, guid: a49196ac818893446b88108d7760d048, type: 3}
+      propertyPath: _camChild
+      value: 
+      objectReference: {fileID: 1888062850}
+    - target: {fileID: 584455121, guid: a49196ac818893446b88108d7760d048, type: 3}
       propertyPath: RespawnPoint
       value: 
       objectReference: {fileID: 1435094316}
     - target: {fileID: 584455121, guid: a49196ac818893446b88108d7760d048, type: 3}
       propertyPath: CameraTransform
+      value: 
+      objectReference: {fileID: 1846847129}
+    - target: {fileID: 584455121, guid: a49196ac818893446b88108d7760d048, type: 3}
+      propertyPath: _cameraTransform
       value: 
       objectReference: {fileID: 1846847129}
     - target: {fileID: 3067520272608499501, guid: a49196ac818893446b88108d7760d048,

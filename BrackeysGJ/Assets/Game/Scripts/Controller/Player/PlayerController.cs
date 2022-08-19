@@ -20,6 +20,9 @@ using Game.Scripts.Controller.Player.Commands;
 using Game.Scripts.Domain.Crafting;
 using Game.Scripts.Domain.Interface.Items;
 using Game.Scripts.Helper;
+using Game.Scripts.Controller.Crafting.Construction;
+using Game.Scripts.Domain.Items;
+using BrackeysGJ.Assets.Game.Scripts.Controller.Crafting.Construction;
 
 namespace Game.Scripts.Controller.Player
 {
@@ -55,20 +58,24 @@ namespace Game.Scripts.Controller.Player
         public HandController HandController => _handController;
 
         [SerializeField]
-        private Rigidbody _rgdBody = null;
-        private Rigidbody RgdBody => _rgdBody;
+        private CharacterController _characterController;
 
         [SerializeField]
-        private CharacterController CharacterController;
+        private Transform _cameraTransform;
 
         [SerializeField]
-        private Transform CameraTransform;
+        private Transform _camChild;
 
         [SerializeField]
-        private Transform RespawnPoint;
+        private Transform _respawnPoint;
 
         [SerializeField]
-        private PlayerConfigSO PlayerConfig;
+        private PlayerConfigSO _playerConfig;
+
+        [Header("Construction")]
+        [SerializeField]
+        private ConstructionController _constructionControllerPrefab;
+        
 
         public IPlayerState State { get; private set; }
         public static PlayerController 
@@ -80,12 +87,13 @@ namespace Game.Scripts.Controller.Player
         private float TurnSmoothTime = 0.1f;
         private IMessageManager MessageManager { get; set; }
         private Coroutine RunCoroutine;
+        private ConstructionController _constructionController;
 
         void Awake()
         {
             Instance ??= this;
 
-            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), new FoodLevel(50, 50, PlayerConfig.FoodLevel), new Speed(4));
+            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), new FoodLevel(50, 50, _playerConfig.FoodLevel), new Speed(4));
             MessageManager = ManagerProvider.Instance.Get<IMessageManager>();
         }
 
@@ -142,12 +150,12 @@ namespace Game.Scripts.Controller.Player
 
             var direction = new Vector3(horizontal, 0, vertical).normalized;
 
-            var targetAngle  = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + CameraTransform.eulerAngles.y;
+            var targetAngle  = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _cameraTransform.eulerAngles.y;
             var smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref TurnSmoothTime, 0.1f);
             transform.rotation = Quaternion.Euler(0, smoothedAngle, 0);
             var moveDir = (Quaternion.Euler(0, targetAngle, 0) * Vector3.forward).normalized;
 
-            CharacterController.Move(moveDir * Stats.Speed.Value * UnityEngine.Time.deltaTime);
+            _characterController.Move(moveDir * Stats.Speed.Value * UnityEngine.Time.deltaTime);
 
             Animator.SetFloat("Speed", direction.magnitude);
         }
@@ -246,6 +254,23 @@ namespace Game.Scripts.Controller.Player
             inventory.AddItem(recipe.Item);
         }
 
+        public void StartConstructionMode()
+        {
+            _constructionController = Instantiate(_constructionControllerPrefab);
+            _constructionController.Init(_camChild);
+        } 
+
+        public void EndConstructionMode()
+        {
+            Destroy(_constructionController.gameObject);
+            _constructionController = null;
+        }
+
+        public void SelectBuildingRecipe(CraftingRecipe recipe)
+        {
+            _constructionController.SetRecipe(recipe);
+        }
+
 #endregion Crafting
         public void DoTheActualPlantThing()
         {
@@ -320,12 +345,12 @@ namespace Game.Scripts.Controller.Player
 
         public void Respawn()
         {
-            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), new FoodLevel(50, 50, PlayerConfig.FoodLevel), new Speed(4));
+            Stats = new PlayerStats(new Hp(12, 12), new Stamina(30, 30), new FoodLevel(50, 50, _playerConfig.FoodLevel), new Speed(4));
             MessageManager.Broadcast<IHpMessage>(new HpMessage(Stats.Hp));
             MessageManager.Broadcast<IStaminaMessage>(new StaminaMessage(Stats.Stamina));
 
-            transform.position = RespawnPoint.position;
-            transform.rotation = RespawnPoint.rotation;
+            transform.position = _respawnPoint.position;
+            transform.rotation = _respawnPoint.rotation;
         }   
 
         #region Run
@@ -400,7 +425,7 @@ namespace Game.Scripts.Controller.Player
                 MessageManager.Broadcast<IFoodLevelMessage>(new FoodLevelMessage(Stats.FoodLevel));
             } while (true);
         }
-int i = 0;
+
         private void ApplyFoodLevelStatus(HungerStatus previousState)
         {
             //Debug.Log("Hunger Status: " +Stats.FoodLevel.Status.ToString() +" - " +Stats.FoodLevel.Current);
